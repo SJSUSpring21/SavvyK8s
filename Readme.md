@@ -6,7 +6,7 @@
 **Recommendation System Chatbot for Master’s Application process**
 
 Every master’s student goes through the tiring  phase of shortlisting universities for his applications . We depend on factors like previous admits/rejects profiles , rankings of the universities ,  accept/reject ratio of the department and university we are applying . Doing this manually for every university is time consuming and can be somewhat tricky. 
-So , our idea is to build a recommendation platform that uses Machine learning and recommends universities, predicts accept/reject chances of a student based on his/her profile . We will build an IBM Watson chatbot that interacts and resolves the queries for the applicants making their application process a lot smoother.
+So , our idea is to build a recommendation platform that uses Machine learning and recommends universities, predicts accept/reject chances of a student based on his/her profile . We will build a chatbot that interacts and resolves the queries for the applicants making their application process a lot smoother.
 
 # Idea-2:
 **K8s Monitoring and Handling tool**
