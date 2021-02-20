@@ -1,4 +1,4 @@
-# Project Idea - *K8s Monitoring and Handling tool*
+# Project Idea - **K8s Monitoring and Handling tool**
 
 ### Introduction
 Kubernetes or K8s is an open-source container-orchestration system for automating computer application deployment, scaling, and management. The default way to handle and monitor different K8s is through command line interface. CLI makes it difficult to monitor multiple aspects of the cluster at once, in a continuous way. Monitoring is required to anticipate problems and have a visibility over potential bottlenecks. Our objective is to create a UI based monitoring tool where users will be able to monitor different resources (cluster, pod, application etc.) through a UI.
