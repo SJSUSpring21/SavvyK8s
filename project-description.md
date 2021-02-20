@@ -13,13 +13,16 @@ K8s cluster metrics, node resources metrics, container metrics, application metr
 
 **Process:**
 
+
 We will be converting continuous data and metrics to graphs, checking threshold limits along the way.
 
 **Output:**
 
+
 Graphical representation of metrics, aggregated data and email or browser notifications for threshold limits.
 
 **Persona:**
+
 
 The target audience will be software engineers, devops engineers, project managers etc.
 
