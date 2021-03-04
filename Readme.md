@@ -9,6 +9,7 @@ We will build an application to visualize and monitor the K8s cluster resources 
 ## Approach
 **Input: What information are we going to get from the K8s**
 
+
 K8s cluster metrics, node resources metrics, container metrics, application metrics, health checks etc. 
 
 **Process:**
