@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	"k8api/getdata"
+	"k8api/getNodes"
+	"k8api/getPods"
 )
 
 func main(){
 
-	fmt.Println("savvy kubernetes get data api running")
-	url:="www.google.com"
-	getdata.Getdata(url)
-
+	fmt.Println("savvy K8s running")
+	
+	getPods.GetPods()
+	getNodes.GetNodes()
 
 }

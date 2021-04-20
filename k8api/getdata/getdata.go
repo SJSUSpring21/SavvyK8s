@@ -8,9 +8,7 @@ import (
 	"os"
 )
 
-func Getdata(url string){
-
-	fmt.Println("In Get data module")
+func Getdata(url string) []byte{
 
 	response , err :=http.Get(url)
 	if err!=nil{
@@ -19,17 +17,9 @@ func Getdata(url string){
 	}
 
 	responseData , err := ioutil.ReadAll(response.Body)
-
 	if err!=nil{
 		log.Fatal(err)
 	}
 
-	fmt.Println(responseData)
-
-	//var ResponseObject Obj
-	//json.Unmarshal(responseData, &ResponseObject)
-	//
-	//
-	//
-	//for loop to decode and put
+	return responseData
 }
