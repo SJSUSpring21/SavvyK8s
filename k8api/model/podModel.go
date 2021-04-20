@@ -5,7 +5,7 @@ type PodMetrics struct{
 
 	Kind string `json:":"kind"`
 	ApiVersion string `json:":"apiVersion"`
-	Metadata string `json:":""`
+	Metadata string `json:":"metadata"`
 	SelfLink string `json:":"selfLink"`
 	Pods []Pod `json:":"items"`
 }
@@ -18,6 +18,10 @@ type Pod struct {
 	Containers []Container `json:"containers"`
 }
 
+type Container struct{
+	Name string `json:"name"`
+	ContainerUsages []ContainerUsage `json:"usage"`
+}
 
 
 type MetadataPod struct {
@@ -27,13 +31,12 @@ type MetadataPod struct {
 	CreationTimestamp string `json:":"creationTimestamp"`
 }
 
-type Container struct{
-	Name string `json:"name"`
-	PodUsages []PodUsage `json:"usage"`
-}
 
 
-type PodUsage struct{
+
+type ContainerUsage struct{
 	Cpu string `json:"cpu"`
 	Memory string `json:"memory"`
+	CpuInt int64
+	MemoryInt int64
 }

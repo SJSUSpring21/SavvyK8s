@@ -18,6 +18,8 @@ type Node struct {
 type NodeUsage struct{
 	Cpu string `json:"cpu"`
 	Memory string `json:"memory"`
+	CpuInt int64
+	MemoryInt int64
 }
 type  MetadataNode struct {
 	Name string `json:"name"`

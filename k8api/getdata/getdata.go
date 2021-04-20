@@ -20,6 +20,5 @@ func Getdata(url string) []byte{
 	if err!=nil{
 		log.Fatal(err)
 	}
-
 	return responseData
 }

@@ -1,0 +1,7 @@
+package mongostore
+
+
+func MongoStore(){
+
+
+}

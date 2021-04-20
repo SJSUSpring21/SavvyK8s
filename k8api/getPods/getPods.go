@@ -7,7 +7,7 @@ import (
 	"k8api/model"
 )
 
-func GetPods(){
+func GetPods() model.PodMetrics{
 
 	url := "localhost:8080/apis/metrics.k8s.io/v1beta1/pods"
 	responseData := getdata.Getdata(url)
@@ -15,5 +15,8 @@ func GetPods(){
 
 	var PodResponseObject model.PodMetrics
 	json.Unmarshal(responseData, &PodResponseObject)
+
 	fmt.Println(PodResponseObject)
+
+	return PodResponseObject
 }
