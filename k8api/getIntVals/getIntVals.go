@@ -36,7 +36,7 @@ func convertInt(cpuMetrics string, memoryMetrics string) (int64,int64){
 		}
 	}
 
-	cpuMetricsInt, _ := strconv.ParseInt(cpuMetrics,10,64)
+		cpuMetricsInt, _ := strconv.ParseInt(cpuMetrics,10,64)
 	memoryMetricsInt,_ := strconv.ParseInt(memoryMetrics,10,64)
 
 	return cpuMetricsInt,memoryMetricsInt
