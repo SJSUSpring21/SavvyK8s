@@ -1,0 +1,10 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# CodeStream ignored files
+/../../SavvyK8s\.idea/codestream.xml
+# Datasource local storage ignored files
+/../../../../../../../:\Users\checkout\go\src\SavvyK8s\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

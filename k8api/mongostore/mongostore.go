@@ -3,7 +3,7 @@ package mongostore
 import (
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
-	"k8api/model"
+	"SavvyK8s/k8api/model"
 	"log"
 )
 

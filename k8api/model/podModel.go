@@ -18,10 +18,13 @@ type Pod struct {
 	Containers []Container `json:"containers"`
 }
 
+
+
 type Container struct{
 	Name string `json:"name"`
 	ContainerUsages []ContainerUsage `json:"usage"`
 }
+
 
 
 type MetadataPod struct {
@@ -33,6 +36,11 @@ type MetadataPod struct {
 
 
 
+
+type Usage struct{
+	Cpu string `json:"cpu"`
+	Memory string `json:"memory"`
+}
 
 type ContainerUsage struct{
 	Cpu string `json:"cpu"`
