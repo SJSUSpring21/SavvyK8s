@@ -16,8 +16,6 @@ class Main extends Component {
         <Route path="/Signup" component={Signup} exact />
         <Route path="/login" component={Login} exact />
         <Route path="/home" component={HomePage} exact />
-        
-        
 
       </div>
     );

@@ -1,4 +1,4 @@
-import { LOGIN, SIGNUP, RESET,CUSTDETAILSUPDATE,CUSTGRPDETAILSUPDATE,PROFDTLS } from "../constants/action-types";
+import { LOGIN, SIGNUP, RESET, CUSTDETAILSUPDATE, CUSTGRPDETAILSUPDATE, PROFDTLS } from "../constants/action-types";
 export function login(payload) {
   console.log("dispatching the login action", payload);
   return { type: LOGIN, payload };
