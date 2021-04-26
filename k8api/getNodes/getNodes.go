@@ -3,7 +3,7 @@ package getNodes
 import (
 	"encoding/json"
 	"k8api/getdata"
-	"k8api/model"
+	"SavvyK8s/k8api/model"
 )
 
 func GetNodes() model.NodeMetrics{

@@ -14,7 +14,7 @@ class LoginHeader extends Component {
       <div className="header">
         <div className="login-header">
              <Link to="/">
-          {/* <img src={splitwisewhite} alt="Splitwisetext" style={{cursor:'pointer'}} /> */}
+          
           </Link>
           <div className="loginLinks">
            <Link to="/login">

@@ -6,7 +6,7 @@ import HomePage from "./HomePage";
 
 class LandingPageRoutes extends Component {
   render() {
-    console.log("asdf");
+    console.log("Landing Page Routes");
     return <div></div>;
     // <BrowserRouter>
     //   <div>

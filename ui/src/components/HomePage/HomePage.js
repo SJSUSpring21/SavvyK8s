@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Header from "./Header/Header";
 import "./HomePage.css";
-import { Link,Route } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import Dashboard from "../Dashboard/Dashboard";
 import LeftSideBar from "./LeftSideBar/LeftSideBar";
 
@@ -9,7 +9,6 @@ import { Switch } from "@material-ui/core";
 import { Redirect } from "react-router";
 import cookie from "react-cookies";
 import { connect } from "react-redux";
-
 
 import { BrowserRouter, HashRouter } from "react-router-dom/cjs/react-router-dom";
 import axios from "axios";
@@ -25,13 +24,7 @@ class HomePage extends Component {
       loggedIn: true,
       custDetails: this.props.location.custDetails,
       appPodDtls:[]
-      //  custDetails: {},
-    
-      // custDetails: {
-      //   loggedInUserId: this.props.location.loginUserId,
-      //   custId: this.props.custId,
-      //   custName: this.props.custName
-      // }
+     
     };
   }
   logOut = loggedin => {
@@ -40,14 +33,15 @@ class HomePage extends Component {
     this.setState({
       loggedIn: loggedin
     });
-  
+
   };
   componentWillMount() {
     console.log('will mount')
-   const custDetails = JSON.parse(sessionStorage.getItem("custDetails"));
+    const custDetails = JSON.parse(sessionStorage.getItem("custDetails"));
     this.setState({
-      custDetails:custDetails
+      custDetails: custDetails
     });
+
     
    
   }
@@ -57,38 +51,41 @@ class HomePage extends Component {
     const custDetails=JSON.parse(sessionStorage.getItem("custDetails"));
     if(custDetails!=null)
     this.setState({
-      custDetails:custDetails
+      custDetails: custDetails
+    })
+    await this.getAppPodDtls(custDetails.custId);
+
+  }
+
+  
+  componentDidUpdate(prevProps, prevState) {
+  }
+
+  changedCustDetails = (newDetails) => {
+    console.log('changed cust details', newDetails)
+    const custDetails = this.state.custDetails;
+    console.log(newDetails.updatedCustdetails.currencyId)
+    custDetails.currencyId = newDetails.updatedCustdetails.currencyId;
+    custDetails.timezoneId = newDetails.updatedCustdetails.timezoneId
+    custDetails.phnNumber = newDetails.updatedCustdetails.custPhnNmbr;
+    custDetails.languageId = newDetails.updatedCustdetails.languageId;
+    custDetails.imageId = newDetails.updatedCustdetails.imageId;
+    this.setState({
+      custDetails: custDetails
     })
 
-    await this.getAppPodDtls(custDetails.custId);
-  
-    
-  }
-  componentDidUpdate(prevProps,prevState){
- }
-changedCustDetails=(newDetails)=>{
-  console.log('changed cust details',newDetails)
-  const custDetails=this.state.custDetails;
-  console.log(newDetails.updatedCustdetails.currencyId)
-  custDetails.currencyId=newDetails.updatedCustdetails.currencyId;
-  custDetails.timezoneId=newDetails.updatedCustdetails.timezoneId
-  custDetails.phnNumber=newDetails.updatedCustdetails.custPhnNmbr;
-  custDetails.languageId=newDetails.updatedCustdetails.languageId;
-  custDetails.imageId=newDetails.updatedCustdetails.imageId;
-  this.setState({
-custDetails:custDetails
-  })
-  console.log('final custdetails:',custDetails)
-  sessionStorage.setItem("custDetails",JSON.stringify(custDetails));
-}
 
-fetchedProfDtls=(updatedProfDtls)=>{
-  console.log('updatedProfDtls',updatedProfDtls);
-const profDtls=updatedProfDtls.profDtls;
-this.props.saveProfDtls({profDtls})
-this.setState({
-  profDtls:profDtls
-})
+    console.log('final custdetails:', custDetails)
+    sessionStorage.setItem("custDetails", JSON.stringify(custDetails));
+  }
+
+  fetchedProfDtls = (updatedProfDtls) => {
+    console.log('updatedProfDtls', updatedProfDtls);
+    const profDtls = updatedProfDtls.profDtls;
+    this.props.saveProfDtls({ profDtls })
+    this.setState({
+      profDtls: profDtls
+    })
 
 }
 getAppPodDtls=()=>{
@@ -116,6 +113,9 @@ axios
      
       });
 }
+
+  
+
   render() {
     let header = null;
     if (!this.state.loggedIn) {
@@ -131,7 +131,7 @@ axios
             <div className="grid-container">
               <div className="left-side">
                 <LeftSideBar
-                  custDetails={this.state.custDetails}          
+                  custDetails={this.state.custDetails}
                 />
               </div>
 
@@ -139,43 +139,41 @@ axios
                 <Route path="/"
                   render={props => (
                     <Dashboard {...props} custDetails={this.state.custDetails}
-                   
-                     />)} 
-                
-                exact />
-                 <Route
+
+                    />)}
+
+                  exact />
+                <Route
                   path="/metrics"
                   render={props => (
                     <Metrics
-                     />
+                    />
                   )}
                   exact
                 />
-                 <Route
+                <Route
                   path="/myprofile"
                   render={props => (
                     <MyProfile
                       {...props}
-                      custDetails={this.state.custDetails}  
+                      custDetails={this.state.custDetails}
                       custDetailsUpdated={this.changedCustDetails}
-                                   
+
                     />
                   )}
                   exact
                 />
 
               </div>
-         
+
             </div>
           </div>
-          </HashRouter>
+        </HashRouter>
       );
   }
 }
 
 
 
+
 export default HomePage;
-// export default resetstate;
-
-

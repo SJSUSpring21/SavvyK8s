@@ -3,8 +3,8 @@ const express = require("express");
 const app = express();
 const port = 3010;
 const multer = require('multer');
-const cors=require('cors');
-const mongodb=require("./database/database")
+const cors = require('cors');
+const mongodb = require("./database/database")
 // const {kafka} = require('./kafka');
 
 // (async()=>{
@@ -23,7 +23,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
- // res.setHeader("Access-Control-Allow-Origin", "http://3.128.27.218:3000");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -73,12 +72,12 @@ app.use('/users', userRoutes);
 // })
 
 
-app.post("/configDtls",upload.single("file"),(req,res)=>{
-console.log(req.file.originalname);
+app.post("/configDtls", upload.single("file"), (req, res) => {
+  console.log(req.file.originalname);
   console.log(req.file)
   console.log(String(req.file.buffer));
-  
-   })
+
+})
 app.get("/error", (req, res, next) => {
   // some error in this request
   let err = true;
@@ -90,7 +89,7 @@ app.get("/error", (req, res, next) => {
     });
   }
 });
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 });

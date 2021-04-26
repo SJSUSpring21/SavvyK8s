@@ -17,10 +17,10 @@ class Login extends Component {
       loginSuccessful: false,
       custId: "",
       custName: "",
-      custPhoneNumber:"",
-      countryCode:"",
-      imageId:0,
-      token:""
+      custPhoneNumber: "",
+      countryCode: "",
+      imageId: 0,
+      token: ""
     };
   }
   loginIdChanged = e => {
@@ -45,13 +45,13 @@ class Login extends Component {
     axios.defaults.withCredentials = true;
     console.log(loginDetails);
     console.log(config.backEndURL)
-     axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
     axios
-      .post(config.backEndURL+"/users/login", loginDetails)
+      .post(config.backEndURL + "/users/login", loginDetails)
       .then(response => {
         console.log("Status Code : ", response.status);
         console.log(response);
-       // sessionStorage.setItem("custId", response.data.custId);
+        // sessionStorage.setItem("custId", response.data.custId);
         //sessionStorage.setItem("custName", response.data.custName);
         if (response.status === 200) {
           console.log(response.data);
@@ -66,7 +66,7 @@ class Login extends Component {
            token:response.data.token
           });
 
-        
+
         } else {
           this.setState({
             loginSuccessful: false
@@ -83,11 +83,11 @@ class Login extends Component {
   };
 
   render() {
-    
-    if (this.state.token.length>0) {
-      sessionStorage.setItem("token",this.state.token);
+
+    if (this.state.token.length > 0) {
+      sessionStorage.setItem("token", this.state.token);
       console.log("success");
-      const phoneNumber=this.state.custPhoneNumber?this.state.custPhoneNumber:"";
+      const phoneNumber = this.state.custPhoneNumber ? this.state.custPhoneNumber : "";
       const custDetails = {
         loginUserId: this.state.loginUserId,
         custId: this.state.custId,
@@ -95,7 +95,7 @@ class Login extends Component {
         custPhoneNumber:phoneNumber,
         countryCode:this.state.countryCode
       };
-     
+   
       sessionStorage.setItem("custDetails", JSON.stringify(custDetails));
       this.props.history.push({
         pathname: "/home",

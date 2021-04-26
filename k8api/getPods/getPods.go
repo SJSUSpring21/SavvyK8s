@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"k8api/getdata"
-	"k8api/model"
+	"SavvyK8s/k8api/model"
 )
 
 func GetPods() model.PodMetrics{
