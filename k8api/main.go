@@ -1,14 +1,12 @@
 package main
 
 import (
-	"SavvyK8s/k8api/checkThreshold"
-	"fmt"
 	"SavvyK8s/k8api/getIntVals"
 	"SavvyK8s/k8api/getNodes"
 	"SavvyK8s/k8api/getPods"
 	"SavvyK8s/k8api/k8Proxy"
 	"SavvyK8s/k8api/model"
-	"SavvyK8s/k8api/mongostore"
+	"fmt"
 )
 
 func main(){
@@ -26,9 +24,16 @@ func main(){
 	NodeResponseObject = getNodes.GetNodes()
 	PodResponseObject, NodeResponseObject = getIntVals.GetIntVals(PodResponseObject,NodeResponseObject)
 
-	checkThreshold.CheckThresholdPod(PodResponseObject)
-	checkThreshold.CheckThresholdNode(NodeResponseObject)
+	fmt.Println("-------------------------------------------------")
+	fmt.Println(PodResponseObject)
+	fmt.Println("")
+	fmt.Println("")
+	fmt.Println(NodeResponseObject)
+	fmt.Println("-------------------------------------------------")
+
+	//checkThreshold.CheckThresholdPod(PodResponseObject)
+	//checkThreshold.CheckThresholdNode(NodeResponseObject)
 
 
-	mongostore.MongoStore(PodResponseObject, NodeResponseObject)
+	//mongostore.MongoStore(PodResponseObject, NodeResponseObject)
 }

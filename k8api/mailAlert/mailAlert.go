@@ -12,7 +12,7 @@ func (s *smtpServer) Address() string {
 
 func MailAlert(item string,item_name string, metric_type string, metric_val int64){
 
-	from := "email_id"
+	from := "abc@gmail.com"
 	password := "password"
 
 
@@ -20,8 +20,7 @@ func MailAlert(item string,item_name string, metric_type string, metric_val int6
 	// Receiver email address to be set
 
 	to := []string{
-		"email_id@.com",
-		"email_id@.com",
+		"hashercool@gmail.com",
 	}
 
 	smtpServer := smtpServer{host: "smtp.gmail.com", port: "587"}
