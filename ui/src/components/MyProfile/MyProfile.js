@@ -5,8 +5,7 @@ import axios from 'axios';
 import { Redirect } from "react-router";
 import config from '../../config.json';
 import cookie from "react-cookies";
-import { connect } from "react-redux";
-import {saveProfDtls}  from "../../redux/actions/index";
+
 import HomePageR from "../HomePage/HomePage"
 
 class MyProfile extends Component{
@@ -21,13 +20,7 @@ constructor(props)
         enableEmailText:false,
         enablePhnNmber:false,
         enablePasswd:false,
-        currencyDtlsList:this.props.profDtls.currencyDtlsList,
-        langDetailsList:this.props.profDtls.langDetailsList,
-        timezoneDetailsList:this.props.profDtls.timezoneDetailsList,
         detailsUpdated:false,
-        imageUri:"",
-        imageData:null,
-        selectedFile:[],
         updatedCustdetails:{
             custId:this.props.custDetails.custId,
             custName:this.props.custDetails.custName,
@@ -35,10 +28,9 @@ constructor(props)
             custPhnNmbr:this.props.custDetails.phnNumber,
             currPasswd:"",
             newPasswd:"",
-            currencyId:this.props.custDetails.currencyId,
-            timezoneId:this.props.custDetails.timezoneId,
-            languageId:this.props.custDetails.languageId
-}
+            countryCode:this.props.custDetails.countryCode     
+                },
+      
 
         }      
         }
@@ -107,64 +99,17 @@ let updatedCustDetails=this.state.updatedCustdetails;
     updatedCustDetails:updatedCustDetails
     })
 }
-currencyChanged=(e)=>{
-let updatedCustDetails=this.state.updatedCustdetails;
-    updatedCustDetails.currencyId=Number(e.target.value);
-
-    this.setState({
-    updatedCustDetails:updatedCustDetails
-    })
-}
-languageChanged=(e)=>{
-let updatedCustDetails=this.state.updatedCustdetails;
-    updatedCustDetails.languageId=e.target.value;
-    this.setState({
-    updatedCustDetails:updatedCustDetails
-    })
-}
-timezoneChanged=(e)=>{
-let updatedCustDetails=this.state.updatedCustdetails;
-    updatedCustDetails.timezoneId=Number(e.target.value);
+countryCodeChanged=(e)=>{
+  let updatedCustDetails=this.state.updatedCustdetails;
+    updatedCustDetails.countryCode=Number(e.target.value);
     this.setState({
     updatedCustDetails:updatedCustDetails
     })
 }
 
 componentDidMount(){
- // this.getImage();
-     const custId=this.state.custDetails.custId;
-    //const groupId=this.state.groupDetails.group_id;
-    console.log('curr dtls from store',this.state.currencyDtlsList)
-    if(this.state.currencyDtlsList.length>0) return;
-    axios
-      .get(
-        config.backEndURL+"/users/configDtls"
-      )
 
-      .then(response => {
-        console.log("Status Code : ", response.status);
-        if (response.status === 200) {
-          console.log(response.data);
-          this.setState({
-            currencyDtlsList:response.data.currencyDtlsList,
-            langDetailsList:response.data.langDetailsList,
-            timezoneDetailsList:response.data.timezoneDetailsList
-          });
-          const profDtls=response.data;
-          this.props.fetchedProfDtls({profDtls:profDtls});
-          console.log(this.state);
-        }
-        else{
-
-        }
-      })
-      .catch(error => {
-        console.log(error.response);
-        // this.setState({
-        //   signUpDone: false,
-        //   errorMsg: error.response.data.errorDesc
-      });
-
+   
 }
 uploadImageinDB=()=>{
   return new Promise((resolve,reject)=>{
@@ -214,49 +159,6 @@ uploadImageinDB=()=>{
       });
 })
 }
-getImage=()=>{
-  const imageId=this.state.custDetails.imageId;
-  if(imageId!==null){
-    axios
-      .get(
-        config.backEndURL+"/profile/image/"+imageId
-      )
-
-      .then(response => {
-        console.log("Status Code : ", response.status);
-        if (response.status === 200) {
-          console.log(response.data);
-          const base64String = "data:image/png;base64,"+response.data.imageData;
-          console.log(base64String)
-          const img = new Buffer.from(response.data.imageData).toString("ascii");
-         const converted="data:image/png;base64,"+img;
-//          console.log(img)
-          this.setState({
-            imageData:converted
-          })
-          var reader = new FileReader();
- reader.readAsDataURL(img); 
- reader.onloadend = function() {
-     var base64data = reader.result; 
-      
-     console.log(base64data)              
-    this.setState({
-            imageData:base64data
-          });
- }
-        
-          //console.log(this.state);
-        }
-        else{
-
-        }
-      })
-      .catch(error => {
-        console.log(error.response);
-      });
-    }
-}
-
 updateCustdetails=async ()=>{
  
  const imageId=await this.uploadImageinDB();
@@ -354,6 +256,7 @@ uploadedImage=(event)=>{
 
 render(){
 let redirect=null;
+let appsSelected=null;
   if(this.state.detailsUpdated)
   {
 //redirect = <Redirect to="/home" />;
@@ -386,36 +289,13 @@ custPasswdEdit=(<div>Your password<br/><span className="editDetails" onClick={th
 else
 custPasswdEdit=(<div className="changePasswd"> <span>Your current password</span><input type="text" onChange={this.currentPasswordChanged} name="currPasswd"/><br/><span>Your new password</span> <input type="text" onChange={this.newPasswordChanged} name="newPasswd"/></div>);
 
-//if(this.state.currencyDtlsList.length>0){
- currencyDtls=this.state.currencyDtlsList.map(currency=>{
-  return(
-      <option value={currency._id}>{currency.currencyName}</option>
-  );  
-})
-timezoneDtls=this.state.timezoneDetailsList.map(timezone=>{
-    return(
-         <option value={timezone._id}>{timezone.timezoneName}</option>
-    );
-})
-langDtls=this.state.langDetailsList.map(lang=>{
-    return(
-         <option value={lang._id}>{lang.languageName}</option>
-    );
-})
-// countryCodes=this.state.countryCodesList.map(countryCode=>{
-//   return(
-//       <option value={currency.currencyId}>{currency.currencyName}</option>
-//   );  
-// })
-//}
 return(
     <div >
 {/* <form> */}
    <div className="profileGridContainer">
         <div className="imageSection">
             <h1>Your account</h1>
-             <img width="200" height="200" src={this.state.imageData} alt="Profile"/>
-            <input type="file"  title="Profile" onChange={event => this.uploadedImage(event)} />
+            <h5>Available Applications for Metrics</h5>
         </div>
         <div className="personalDetailsSection">
                <div className="editName">
@@ -429,14 +309,18 @@ return(
             </div>
            {custEmailEdit}            
         
+           <div className="editCountryCode">
+            <span>Your Country Code</span><br/>
+             <select value={this.state.updatedCustdetails.countryCode} onChange={this.countryCodeChanged}>
+             <option value="0">Select Country Code </option>
+            <option value="1">United States(+1)</option>
+            <option value="2">India(+91)</option>
+             </select>
+            </div>
         <div className="editPhn">
             <span>Your Phone number</span>
              
             </div>
-                    {/* <select className="drpdwn" value={this.state.updatedCustdetails.countryCode}
-             onChange={this.countryCodeChanged}>
-                {countryCodeList} 
-             </select> */}
 
              {custPhnEdit}
         {/* <div className="changePasswd">
@@ -446,31 +330,6 @@ return(
             {custPasswdEdit} */}
             
         </div>
-        <div className="configSection">
-             <span>Your default currency</span>
-             <br/> 
-             <span className="newExp">(for new expenses)</span>
-             <br/>
-             <select className="drpdwn" value={this.state.updatedCustdetails.currencyId}
-             onChange={this.currencyChanged}>
-                {currencyDtls} 
-             </select>
-             <div className="selectTimezone" value={this.state.updatedCustdetails.timezoneId}
-              onChange={this.timezoneChanged}>
-            <span>Your timezone</span>
-            <select className="drpdwn">
-                {timezoneDtls} 
-             </select>
-            </div>
-             <div className="language">
-            <span>Language</span><br/>
-            <select className="drpdwn" value={this.state.updatedCustdetails.languageId}
-             onChange={this.languageChanged}>
-                {langDtls} 
-             </select>
-            </div> 
-            <button className="saveBtn" onClick={this.updateCustdetails}>Save</button>                          
-        </div>
         </div>
         {/* </form> */}
     </div>);
@@ -478,14 +337,5 @@ return(
 }
 
 
-function mapDispatchToProps(dispatch) {
-  console.log('in dispatch')
-  return ({
-  
-    saveProfDtls:profDtls=>dispatch(saveProfDtls(profDtls)),
-    
-  });
-}
-export default connect(null,mapDispatchToProps)(MyProfile);
 
-//export default MyProfile;
+export default MyProfile;

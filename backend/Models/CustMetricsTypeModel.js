@@ -1,13 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var userAppsSchema = new Schema({
+var custMetricsTypeSchema = new Schema({
     _id: {type: Number, required: true},
     custId: {type: Number,  ref: 'customers',required: true},
-    appId:{type:Number,ref:'applications',required:true},
-    applicationAccess:{type:Boolean,required:true},
-    metricId:{type:Number,ref:'metricTypes',required:true},
-    metricAccess:{type:Boolean,required:true},
+    metricName: {type: String, required: true},
+    metricEnabled:{type: Boolean, required: true},
     createdBy: {type: String, required: true},
     createdDate: {type: Date, required: true},
     modifiedBy: {type: String, required: false},
@@ -18,5 +16,5 @@ var userAppsSchema = new Schema({
   
 });
 
-const userAppsModel = mongoose.model('userApplications', userAppsSchema);
-module.exports = userAppsModel;
+const custMetricsTypeModel = mongoose.model('custMetricsType', custMetricsTypeSchema);
+module.exports = custMetricsTypeModel;

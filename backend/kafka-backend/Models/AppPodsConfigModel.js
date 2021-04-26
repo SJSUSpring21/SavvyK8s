@@ -1,21 +1,20 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var alertsConfigSchema = new Schema({
+var appPodsConfigSchema = new Schema({
     _id: {type: Number, required: true},
-    custId: {type: Number,  ref: 'customers',required: true},
+    podId: {type: Number, ref: 'podsConfig', required: true},
     appId:{type: Number,  ref: 'applications',required: true},
-    emailAlert:{type:Boolean,required:true},
-    msgAlert:{type:Boolean,required:true},
     createdBy: {type: String, required: true},
     createdDate: {type: Date, required: true},
     modifiedBy: {type: String, required: false},
     modifiedDate:{type: Date, required: false},
 },
 {
-    versionKey: false
+    versionKey: false,
+    collection:'appPodsConfig'
   
 });
 
-const alertsConfigModel = mongoose.model('alertsConfig', alertsConfigSchema);
-module.exports = alertsConfigModel;
+const appPodsConfigModel = mongoose.model('appPodsConfig', appPodsConfigSchema,'appPodsConfig');
+module.exports = appPodsConfigModel;

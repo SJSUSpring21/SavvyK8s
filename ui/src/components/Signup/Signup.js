@@ -3,8 +3,7 @@ import React, { Component } from "react";
 import splitwisewithoutname from "../../assets/images/kubernetes.svg";
 import "./Signup.css";
 import axios from "axios";
-import { connect } from "react-redux";
-import { signup } from "../../redux/actions/index";
+
 import config from '../../config.json';
 
 class Signup extends Component {
@@ -79,7 +78,6 @@ countryCodeChanged  =e=>{
            
            token:response.data.token
           }
-          this.props.signup({custDetails});
           sessionStorage.setItem("custDetails", JSON.stringify(custDetails));
           this.setState({
             signUpDone: true,
@@ -104,10 +102,16 @@ countryCodeChanged  =e=>{
   render() {
    if (this.state.token.length>0) {
       sessionStorage.setItem("token",this.state.token);
-      this.props.history.push("/home", {
-        loginUserId: this.state.custEmail,
+      const custDetails = {
         custId: this.state.custId,
-        custName: this.state.custName
+        custName: this.state.custName,
+        custEmail:this.state.custEmail,
+        loginUserId:this.state.custEmail,
+        custPhoneNumber:this.state.custPhoneNumber,
+        countryCode:this.state.countryCode
+      };
+      this.props.history.push("/appRegistration", {
+        custDetails:  custDetails
       });
     }
     let emailAndPasswd = null;
@@ -182,14 +186,4 @@ countryCodeChanged  =e=>{
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    signup: signupDetails => dispatch(signup(signupDetails))
-  };
-}
-const signupd = connect(
-  null,
-  mapDispatchToProps
-)(Signup);
-export default signupd;
-//export default Signup;
+export default Signup;

@@ -31,10 +31,7 @@ return new Promise((resolve,reject)=>{
   Customer.findOne({ custEmail: createCust.custEmail }, (error, oldCustomer) => {
         if (error) {
     console.log(error);
-            // res.writeHead(500, {
-            //     'Content-Type': 'text/plain'
-            // })
-            // res.end();
+          
         }
         if (oldCustomer) {
            const errorRes={
@@ -42,6 +39,7 @@ return new Promise((resolve,reject)=>{
                "desc":"Email already exists"
            }
           return resolve(errorRes);
+          //return errorRes;
         }
         else {
         //    console.log('non exist cust',customer)
@@ -58,9 +56,9 @@ return new Promise((resolve,reject)=>{
                 expiresIn: 1008000
             });
             data.token="JWT "+token;
-            data.code="S01";
-            console.log("data:",data);
-                   return resolve(data);
+           // console.log("newUser:",newUser);
+           // return data;     
+              return resolve(data);
                 }
             });
         });
@@ -93,7 +91,7 @@ checkLogin:async(loginDetails)=>{
             });
            // console.log("token:"+token)
             existingCust.token="JWT "+token;
-            existingCust.code="S01";
+          
             console.log('existing cust',existingCust)
              return resolve(existingCust);
         }).catch(error=>{

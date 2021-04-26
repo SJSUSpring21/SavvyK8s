@@ -10,7 +10,7 @@ import { Redirect } from "react-router";
 import cookie from "react-cookies";
 import { connect } from "react-redux";
 
-import { reset,updateCustDetails,updateUserGrpList,saveProfDtls } from "../../redux/actions/index";
+
 import { BrowserRouter, HashRouter } from "react-router-dom/cjs/react-router-dom";
 import axios from "axios";
 
@@ -23,8 +23,9 @@ class HomePage extends Component {
     console.log(this.props);
     this.state = {
       loggedIn: true,
-      //custDetails: this.props.location.custDetails,
-        custDetails: {},
+      custDetails: this.props.location.custDetails,
+      appPodDtls:[]
+      //  custDetails: {},
     
       // custDetails: {
       //   loggedInUserId: this.props.location.loginUserId,
@@ -47,23 +48,21 @@ class HomePage extends Component {
     this.setState({
       custDetails:custDetails
     });
-    if(sessionStorage.getItem("userGroupDetailsList")!==null){
-    const userGroupDetailsList=JSON.parse(sessionStorage.getItem("userGroupDetailsList"));
-    this.setState({
-      userGroupDetailsList:userGroupDetailsList
-    })
-  }
+    
    
   }
 
-  componentDidMount() {
+  async componentDidMount() {
   
     const custDetails=JSON.parse(sessionStorage.getItem("custDetails"));
     if(custDetails!=null)
     this.setState({
       custDetails:custDetails
     })
+
+    await this.getAppPodDtls(custDetails.custId);
   
+    
   }
   componentDidUpdate(prevProps,prevState){
  }
@@ -91,6 +90,31 @@ this.setState({
   profDtls:profDtls
 })
 
+}
+getAppPodDtls=()=>{
+  axios.defaults.headers.common['authorization'] = sessionStorage.getItem('token');
+     
+axios
+      .get(
+        config.backEndURL+"/users/custAppDtls/" +
+          this.state.custDetails.custId
+      )
+      .then(response => {
+        console.log("Status Code : ", response.status);
+        if (response.status === 200) {
+          console.log(response);
+          //if(response.data.length>0){
+          this.setState({
+            appPodDtls: response.data
+          });
+          sessionStorage.setItem("appPodDtls",JSON.stringify(response.data));
+       
+      }
+      })
+      .catch(error => {
+        console.log(error.response);
+     
+      });
 }
   render() {
     let header = null;
@@ -149,28 +173,9 @@ this.setState({
   }
 }
 
-const mapStateToProps = state => {
-console.log('state',state)
-  return {
-     custDetails: state.custDetails,
-     userGroupDetailsList:state.userGroupDetailsList,
-     profDtls:state.profileDtls
-   };
-};
 
-function mapDispatchToProps(dispatch) {
-  console.log('in dispatch')
-  return ({
-    reset: () => dispatch(reset()),
-  
-    updateCustDetails:(custDetails)  =>dispatch(updateCustDetails(custDetails)),
-    updateUserGroupDetailsList:userGroupDetailsList=>dispatch(updateUserGrpList(userGroupDetailsList)),
-     saveProfDtls:profDtls=>dispatch(saveProfDtls(profDtls))
-    
-  });
-}
-const HomePageR = connect(mapStateToProps,mapDispatchToProps)(HomePage);
-export default HomePageR;
+
+export default HomePage;
 // export default resetstate;
 
 

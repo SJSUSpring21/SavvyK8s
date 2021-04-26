@@ -11,8 +11,8 @@ var metricsTypeSchema = new Schema({
     modifiedDate:{type: Date, required: false},
 },
 {
-    versionKey: false
-  
+    versionKey: false,
+    collection:'metricsType'
 });
 
 const metricsTypeModel = mongoose.model('metricsType', metricsTypeSchema);

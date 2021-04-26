@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var userAppsSchema = new Schema({
+var custAppsSchema = new Schema({
     _id: {type: Number, required: true},
     custId: {type: Number,  ref: 'customers',required: true},
-    applicationName:{type: String, required: true},
+    appId:{type:Number,ref:'applications',required:true},
     applicationAccess:{type:Boolean,required:true},
     createdBy: {type: String, required: true},
     createdDate: {type: Date, required: true},
@@ -16,5 +16,5 @@ var userAppsSchema = new Schema({
   
 });
 
-const userAppsModel = mongoose.model('userApplications', userAppsSchema);
-module.exports = userAppsModel;
+const custAppsModel = mongoose.model('custApplications', custAppsSchema);
+module.exports = custAppsModel;

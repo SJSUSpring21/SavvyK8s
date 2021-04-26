@@ -6,8 +6,7 @@ import splitwisewithoutname from "../../assets/images/kubernetes.svg";
 import "./Login.css";
 import splitwisewhite from "../../assets/images/splitwisewhite.svg";
 import LoginHeader from "./Header/LoginHeader";
-import { connect } from "react-redux";
-import { login } from "../../redux/actions/index";
+
 import config from '../../config.json';
 class Login extends Component {
   constructor(props) {
@@ -62,7 +61,7 @@ class Login extends Component {
             custName: response.data.custName,          
             custPhoneNumber:response.data.custPhoneNumber,
            
-           countryCode:"",
+           countryCode:response.data.countryCodeId,
         
            token:response.data.token
           });
@@ -94,15 +93,18 @@ class Login extends Component {
         custId: this.state.custId,
         custName: this.state.custName,
         custPhoneNumber:phoneNumber,
+        countryCode:this.state.countryCode
       };
-      this.props.login({custDetails});
+     
       sessionStorage.setItem("custDetails", JSON.stringify(custDetails));
       this.props.history.push({
         pathname: "/home",
         custDetails: {
           loginUserId: this.state.loginUserId,
           custId: this.state.custId,
-          custName: this.state.custName
+          custName: this.state.custName,
+          countryCode:this.state.countryCode
+
         }
       });
     }
@@ -147,15 +149,5 @@ class Login extends Component {
     );
   }
 }
-function mapDispatchToProps(dispatch) {
-  return {
-    login: loginDetails => dispatch(login(loginDetails))
-  };
-}
-const logind = connect(
-  null,
-  mapDispatchToProps
-)(Login);
-export default logind;
-//export default Login;
+export default Login;
 
