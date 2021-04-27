@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var appMetricsSchema = new Schema({
+var custAppMetricsSchema = new Schema({
     _id: {type: Number, required: true},
     custId: {type: Number,  ref: 'customers',required: true},
     appId:{type: Number,  ref: 'userApplications',required: true},
@@ -18,5 +18,5 @@ var appMetricsSchema = new Schema({
   
 });
 
-const appMetricsModel = mongoose.model('appMetrics', appMetricsSchema);
-module.exports = appMetricsModel;
+const custAppMetricsModel = mongoose.model('custAppMetrics', custAppMetricsSchema,'custAppMetrics');
+module.exports = custAppMetricsModel;
