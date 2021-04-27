@@ -150,7 +150,7 @@ module.exports = {
             CustApps.find({ custId: custId,applicationAccess:true }, { appId: 1, applicationAccess: 1, _id: 0 }, (err, custApps) => {
                 if (err) { }
                 else {
-                    console.log('custApps:',custApps)
+                  
                     return resolve(custApps);
                 }
             })
@@ -244,11 +244,15 @@ console.log(appPodsRes);
             })
         })
     },
-    updateCustAppDtls:(custAppReq)=>{
-
+    updateCustAppDtls:async (custAppReq)=>{
+     
+        console.log("==================")
+        console.log('custAppReq::',custAppReq)
         const appIds=custAppReq.appIds;
         const custId=Number(custAppReq.custId);
-        const custRegApps=module.exports.fetchCustRegAppId(custId);
+        const custName=custAppReq.custName;
+        const custRegApps=await module.exports.fetchCustRegApps(custId);
+        console.log('custRegapps:',custRegApps)
         const  custRegAppIds = custRegApps.map(custApp => custApp.appId);
         if(custRegAppIds.length>0)
         {
@@ -261,14 +265,77 @@ console.log(appPodsRes);
                 }
                 else if(appId===custRegApp.appId&&!custRegApp.applicationAccess)
                 {
-                  //need to update appaccess
+                    console.log('appid:',appId)
+               await  module.exports.updateCustApp(appId,custId,custName,true);
+                    //need to update appaccess
+                }
+                else if(appId!==custRegApp.appId&&!custRegApp.applicationAccess){
+                    await  module.exports.updateCustApp(appId,custId,custName,false);
+                }
+                else if(appId!==custRegApp.appId)
+                {
+                const custAppId = await autoSeq.getSequenceValue('custApplication');
+                 await module.exports.saveCustApp(appId,custId,custName,custAppId);
+                }
+               
+            }
+        }
+   
+
+   
+    },
+    updateCustApp:(appId,custId,custName,appAccess)=>{
+        console.log('custid',custId)
+        return new Promise((resolve,reject)=>{
+
+          CustApps.updateOne({"appId":appId,"custId":custId},{applicationAccess:appAccess,modifiedBy:custName,modifiedDate:new Date()},(err,response)=>
+          {
+              if(err)
+              {
+                  console.log(err);
+              }
+              else
+              {
+                  return resolve(response);
+              }
+          }) 
+        })
+
+    },
+    saveCustApp:(appId,custId,custName,custAppId)=>{
+        return new Promise((resolve,reject)=>{
+           
+            const custApp = new CustApps({
+                _id: custAppId,
+                custId: custId,
+                appId: appId,
+                applicationAccess: true,
+                createdDate: new Date(),
+                createdBy: custName
+            })
+            custApp.save((err,res)=>{
+                if(err)
+                {
+
                 }
                 else
                 {
-                    //need to make entry
+                    return resolve(res);
                 }
-            }
-        }
+            })
+        
+        })
 
-    }
+    },
+    fetchCustRegApps: (custId) => {
+        return new Promise((resolve, reject) => {
+            CustApps.find({ custId: custId }, { appId: 1, applicationAccess: 1, _id: 0 }, (err, custApps) => {
+                if (err) { }
+                else {
+                  
+                    return resolve(custApps);
+                }
+            })
+        })
+    },
 }

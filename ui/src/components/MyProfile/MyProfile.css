@@ -1,14 +1,17 @@
-.profileGridContainer {
+/* .profileGridContainer {
   display: grid;
   grid-template-columns: 300px 300px 300px;
   grid-template-rows: auto;
   grid-template-areas: "imageSection personalDetailsSection configSection ";
+} */
+.profileGridContainer{
+  /* margin-left: 200px; */
 }
 h1 {
   font-size: 30px;
 }
 .personalDetailsSection {
-  margin-top: 40px;
+  
 }
 .editDetails {
   color: blue;

@@ -119,8 +119,7 @@ saveCustAppDtls=()=>{
         {
             regApps= apps.map(app=>{
              return (
-               //  <div></div>
-              //  <option value={app._id}>{app.applicationName}</option>
+           
                <span>  <input type="checkbox" value={app._id} onChange={(e)=>this.appSelected(e,app)} />{app.applicationName} <br/></span>
              );
             })

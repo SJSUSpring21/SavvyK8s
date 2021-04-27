@@ -16,6 +16,7 @@ import axios from "axios";
 import MyProfile from "../MyProfile/MyProfile";
 import Metrics from "../Metrics/Metrics";
 import config from '../../config.json';
+import MyApplications from "../MyApplications/MyApplications";
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -65,11 +66,8 @@ class HomePage extends Component {
     console.log('changed cust details', newDetails)
     const custDetails = this.state.custDetails;
     console.log(newDetails.updatedCustdetails.currencyId)
-    custDetails.currencyId = newDetails.updatedCustdetails.currencyId;
-    custDetails.timezoneId = newDetails.updatedCustdetails.timezoneId
-    custDetails.phnNumber = newDetails.updatedCustdetails.custPhnNmbr;
-    custDetails.languageId = newDetails.updatedCustdetails.languageId;
-    custDetails.imageId = newDetails.updatedCustdetails.imageId;
+    custDetails.custPhoneNumber = newDetails.updatedCustdetails.custPhoneNumber;
+    custDetails.countryCode=newDetails.updatedCustdetails.countryCode
     this.setState({
       custDetails: custDetails
     })
@@ -151,6 +149,19 @@ axios
                   )}
                   exact
                 />
+                 <Route
+                  path="/myapplications"
+                  render={props => (
+                    <MyApplications
+                      {...props}
+                      custDetails={this.state.custDetails}
+                      appPodDtls={this.state.appPodDtls}
+
+                    />
+                  )}
+                  exact
+                />
+
                 <Route
                   path="/myprofile"
                   render={props => (
