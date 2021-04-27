@@ -24,7 +24,8 @@ class HomePage extends Component {
     this.state = {
       loggedIn: true,
       custDetails: this.props.location.custDetails,
-      appPodDtls:[]
+      appPodDtls:[],
+      appPodDtlsLoaded:false
      
     };
   }
@@ -54,12 +55,18 @@ class HomePage extends Component {
     this.setState({
       custDetails: custDetails
     })
-    await this.getAppPodDtls(custDetails.custId);
+    const appPodDtls=await this.getAppPodDtls(custDetails.custId);
+    console.log('appPodDtls',appPodDtls)
+    this.setState({
+      appPodDtls: appPodDtls,
+      appPodDtlsLoaded:true
+    });
 
   }
 
   
   componentDidUpdate(prevProps, prevState) {
+    console.log('component updated')
   }
 
   changedCustDetails = (newDetails) => {
@@ -87,6 +94,7 @@ class HomePage extends Component {
 
 }
 getAppPodDtls=()=>{
+  return new Promise((resolve,reject)=>{
   axios.defaults.headers.common['authorization'] = sessionStorage.getItem('token');
      
 axios
@@ -99,10 +107,10 @@ axios
         if (response.status === 200) {
           console.log(response);
           //if(response.data.length>0){
-          this.setState({
-            appPodDtls: response.data
-          });
+        
+          
           sessionStorage.setItem("appPodDtls",JSON.stringify(response.data));
+          return resolve(response.data);
        
       }
       })
@@ -110,6 +118,7 @@ axios
         console.log(error.response);
      
       });
+    })
 }
 
   
@@ -135,9 +144,10 @@ axios
 
               <div className="center-area">
                 <Route path="/"
-                  render={props => (
-                    <Dashboard {...props} custDetails={this.state.custDetails}
-
+                  render={props => (this.state.appPodDtlsLoaded &&
+                    <Dashboard {...props} 
+                    custDetails={this.state.custDetails}
+                    appPodDtls={this.state.appPodDtls}
                     />)}
 
                   exact />
