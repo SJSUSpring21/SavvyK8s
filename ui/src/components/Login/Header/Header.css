@@ -2,7 +2,7 @@
   cursor: pointer;
   color: #ffffff;
   text-shadow: 0 -1px 0 #318970;
-  background-color: #5bc5a7;
+  background-color: #111111;
   padding: 4px 10px;
   margin: 0px 4px 0px 5px;
 }
@@ -21,7 +21,7 @@
   vertical-align: middle;
   justify-content: center;
   text-decoration: none;
-  background-color: #5bc5a7;
+  background-color: #555555;
   box-shadow: 0 2px 0 0 rgb(55 59 63 / 50%);
 }
 .toolbar {
