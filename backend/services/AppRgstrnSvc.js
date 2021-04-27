@@ -252,33 +252,70 @@ console.log(appPodsRes);
         const custId=Number(custAppReq.custId);
         const custName=custAppReq.custName;
         const custRegApps=await module.exports.fetchCustRegApps(custId);
+        
         console.log('custRegapps:',custRegApps)
         const  custRegAppIds = custRegApps.map(custApp => custApp.appId);
         if(custRegAppIds.length>0)
         {
-            for (const appId of appIds)
-            {
-                for(const custRegApp of custRegApps)
-                if(appId===custRegApp.appId&&custRegApp.applicationAccess)
-                {
-                    continue;
-                }
-                else if(appId===custRegApp.appId&&!custRegApp.applicationAccess)
-                {
-                    console.log('appid:',appId)
-               await  module.exports.updateCustApp(appId,custId,custName,true);
-                    //need to update appaccess
-                }
-                else if(appId!==custRegApp.appId&&!custRegApp.applicationAccess){
-                    await  module.exports.updateCustApp(appId,custId,custName,false);
-                }
-                else if(appId!==custRegApp.appId)
-                {
-                const custAppId = await autoSeq.getSequenceValue('custApplication');
-                 await module.exports.saveCustApp(appId,custId,custName,custAppId);
-                }
-               
+            let changedAppIds = custRegAppIds.filter(x => !appIds.includes(x));
+            console.log('changedAppIds:',changedAppIds)
+            for(const changedAppId of changedAppIds){
+                await  module.exports.updateCustApp(changedAppId,custId,custName,false);
             }
+            for (const appId of appIds){
+                const custRegAppIndex=custRegApps.findIndex(regApp=>regApp.appId===appId);
+                // const custNonRegAppIndex=custRegApps.findIndex(regApp=>regApp.appId!==appId);
+                
+                // if(custNonRegAppIndex>-1)
+                // {
+                //     console.log('non reg app')
+                //     const appId=custRegApps[custNonRegAppIndex].appId;
+                //     await  module.exports.updateCustApp(appId,custId,custName,false);
+                // }
+                if(custRegAppIndex>-1)
+                {
+                    const appAccess=custRegApps[custRegAppIndex].applicationAccess;
+                    if(appAccess){
+                    console.log('already registered')
+                        continue;
+                    }
+                    else
+                    await  module.exports.updateCustApp(appId,custId,custName,true);
+                }
+                else
+                {
+                    console.log('New App registration')
+                    const custAppId = await autoSeq.getSequenceValue('custApplication');
+                    await module.exports.saveCustApp(appId,custId,custName,custAppId);
+                }
+            }
+            // for (const appId of appIds)
+            // {
+            //     for(const custRegApp of custRegApps)
+            //     if(appId===custRegApp.appId&&custRegApp.applicationAccess)
+            //     {
+            //         console.log('skip')
+            //         continue;
+            //     }
+            //     else if(appId===custRegApp.appId&&!custRegApp.applicationAccess)
+            //     {
+            //         console.log('update access true')
+            //         console.log('appid:',appId)
+            //    await  module.exports.updateCustApp(appId,custId,custName,true);
+            //         //need to update appaccess
+            //     }
+            //     else if(appId!==custRegApp.appId&&!custRegApp.applicationAccess){
+            //         console.log('update access false')
+            //         await  module.exports.updateCustApp(appId,custId,custName,false);
+            //     }
+            //     else if(appId!==custRegApp.appId)
+            //     {
+            //         console.log('insert access true')
+            //     const custAppId = await autoSeq.getSequenceValue('custApplication');
+            //      await module.exports.saveCustApp(appId,custId,custName,custAppId);
+            //     }
+               
+            //}
         }
    
 
