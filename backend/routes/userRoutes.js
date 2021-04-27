@@ -9,6 +9,7 @@ const { kafka } = require('../kafka');
 const loginSignup = require('../services/LoginSignupSvc');
 const appReg = require('../services/AppRgstrnSvc');
 const custDtls = require("../services/CustDtlsSvc");
+const metrics=require("../services/MetricsSvc");
 
 (async () => {
   if (process.env.MOCK_KAFKA === 'FALSE') {
@@ -29,7 +30,7 @@ const custDtls = require("../services/CustDtlsSvc");
     getAllAppPodDtls=async (fn, ...params) => appReg[fn](...params); 
     updateCustDetails = async (fn, ...params) => custDtls[fn](...params);
     updateCustAppDtls=async (fn, ...params) => appReg[fn](...params);
-
+    fetchMetricsData=async (fn, ...params) => metrics[fn](...params);
 
   }
 
@@ -81,6 +82,10 @@ router.put("/custApp", async (req, res) => {
 
   res.status(200).send(response);
 });
+router.post("/metrics", async (req, res) => {
+  const response = await fetchMetricsData('fetchMetricsData', req.body);
 
+  res.status(200).send(response);
+});
 
 module.exports = router;

@@ -36,7 +36,7 @@ console.log(this.props);
           <div className="flex-item">
             <NavLink to="/metrics" activeClassName="active">
               <span></span>
-              <label style={{ color: "#FF652F" }}> Metrics</label>
+              <label style={{ color: "#FF652F" }}> Node Metrics</label>
             </NavLink>
           </div>
           <div className="flex-item">

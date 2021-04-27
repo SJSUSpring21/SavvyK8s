@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import DashboardHeader from "./DashboardHeader/DashboardHeader";
-
+import axios from "axios";
+import config from '../../config.json';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +11,9 @@ class Dashboard extends Component {
       custDetails:this.props.custDetails,
       appPodDtls:this.props.appPodDtls,
       selectedAppId:0,
-      selectedPodId:0
+      selectedPodId:0,
+      metricData:[],
+      metricDataFlag:false
      
     };
   }
@@ -45,12 +49,76 @@ class Dashboard extends Component {
     this.setState({
       selectedPodId:podId
     })
+    console.log('asdf')
+    this.fetchMetrics(podId);
    //fetch app pod real time data
+  }
+  fetchMetrics=(podId)=>{
+    console.log('metrics:')
+    console.log('app id:',this.state.selectedAppId);
+    axios.defaults.headers.common['authorization'] = sessionStorage.getItem('token');
+    let metricsReq={
+        appId:this.state.selectedAppId,
+        custId:this.state.custDetails.custId,
+        nodeMetrics:false,
+        podId:podId
+    };
+
+    
+     axios
+         .post(
+           config.backEndURL+"/users/metrics",metricsReq
+         )
+         .then(response => {
+           console.log("Status Code : ", response.status);
+           if (response.status === 200) {
+             console.log(response);
+          this.setState({
+              metricData:response.data,
+              metricDataFlag:true
+          })
+           
+         }
+         })
+         .catch(error => {
+           console.log(error.response);
+        
+         });
+   //  }
+    //  else{
+    //      alert("Please select atleast one application");
+    //  }
   }
   render() {
    let appList=null;
    let podList=null;
+   let graph=null;
    console.log('pod id:',this.state.selectedPodId)
+   if(this.state.metricDataFlag&&this.state.metricData.length>0)
+   {
+    graph=( <LineChart
+      width={500}
+      height={300}
+      data={this.state.metricData}
+      margin={{
+        top: 5,
+        right: 30,
+        left: 20,
+        bottom: 5,
+      }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Line type="monotone" dataKey="cpu" stroke="#8884d8" activeDot={{ r: 8 }} />
+      <Line type="monotone" dataKey="memory" stroke="#82ca9d" />
+    </LineChart>)
+   }
+   else{
+     graph=(<h4>No Metrics to Show</h4>)
+   }
     if(this.state.appPodDtls.length>0)
     {
       console.log('appod')
@@ -105,6 +173,10 @@ class Dashboard extends Component {
               {podList}
             </select>
             </div>
+            </section>
+            <section>
+              <br/>
+              {graph}
             </section>
       </div>
     );

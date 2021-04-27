@@ -1,66 +1,96 @@
 import React, { Component } from "react";
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-  
+import axios from "axios";
+import config from '../../config.json';
 class Metrics extends Component{
     constructor(props) {
         super(props);
     this.state = {
-       
+      metricData:[],
+      metricDataFlag:false,
         data : [
             {
               name: '01:30',
               memory: 4000,
               cpu: 2400,
-              amt: 2400,
+            
             },
             {
               name: '01:45',
               memory: 3000,
               cpu: 1398,
-              amt: 2210,
+            
             },
             {
               name: '02:00',
               memory: 2000,
               cpu: 9800,
-              amt: 2290,
+          
             },
             {
               name: '02:15',
               memory: 2780,
               cpu: 3908,
-              amt: 2000,
+           
             },
             {
               name: '02:30',
               memory: 1890,
               cpu: 4800,
-              amt: 2181,
+           
             },
             {
               name: '02:45',
               memory: 2390,
               cpu: 3800,
-              amt: 2500,
+            
             },
             {
               name: '03:00',
               memory: 3490,
               cpu: 4300,
-              amt: 2100,
+           
             },
           ]
     }
 }
+fetchMetrics=(podId)=>{
+  console.log('metrics:')
+  console.log('app id:',this.state.selectedAppId);
+  axios.defaults.headers.common['authorization'] = sessionStorage.getItem('token');
+  let metricsReq={
+      custId:this.state.custDetails.custId,
+      nodeMetrics:true
+  };
+
+  
+   axios
+       .post(
+         config.backEndURL+"/users/metrics",metricsReq
+       )
+       .then(response => {
+         console.log("Status Code : ", response.status);
+         if (response.status === 200) {
+           console.log(response);
+        this.setState({
+            metricData:response.data,
+            metricDataFlag:true
+        })
+         
+       }
+       })
+       .catch(error => {
+         console.log(error.response);
+      
+       });
+      }
 
     render(){
-        
-        return(
-            <div>
-       
-             
-        <LineChart
+       let nodeMetrics=null;
+      if(this.state.metricDataFlag&&this.state.metricData.length>0)
+      {
+        nodeMetrics=( <LineChart
           width={500}
           height={300}
           data={this.state.data}
@@ -79,7 +109,16 @@ class Metrics extends Component{
           <Line type="monotone" dataKey="cpu" stroke="#8884d8" activeDot={{ r: 8 }} />
           <Line type="monotone" dataKey="memory" stroke="#82ca9d" />
         </LineChart>
-     
+     )
+      }
+      else
+      nodeMetrics=(<h4>No Metrics to Show</h4>)
+        return(
+            <div>
+       <h3>Node Metrics</h3>
+
+          {nodeMetrics}   
+       
             </div>
         );
     }
