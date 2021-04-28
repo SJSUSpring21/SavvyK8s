@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { Link, NavLink, Route } from "react-router-dom";
 import "./LeftSideBar.css";
 
+
+import { Header, Icon, Image, Menu, Segment, Sidebar } from 'semantic-ui-react'
+
+
 class LeftSideBar extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +28,9 @@ class LeftSideBar extends Component {
 
   render() {
     return (
+
       <div className="left-side-bar">
+
         <div className="flex-container">
           <div className="flex-item">
             <NavLink to="/" activeClassName="active">
@@ -55,7 +61,6 @@ class LeftSideBar extends Component {
 
 
         </div>
-
       </div>
     );
   }
