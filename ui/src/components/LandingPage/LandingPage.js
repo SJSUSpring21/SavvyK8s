@@ -15,7 +15,7 @@ class LandingPage extends Component {
         <div className="landingContent">
           <h1>K8s Monitoring</h1>
           <h1> and </h1>
-          <h1>Handling tool</h1>
+          <h1>Handling Tool</h1>
 
           <h2> Less stress when knowing metrics about your applications</h2>
         </div>

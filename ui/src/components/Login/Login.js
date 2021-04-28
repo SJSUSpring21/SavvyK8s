@@ -58,12 +58,12 @@ class Login extends Component {
           this.setState({
             loginSuccessful: true,
             custId: response.data._id,
-            custName: response.data.custName,          
-            custPhoneNumber:response.data.custPhoneNumber,
-           
-           countryCode:response.data.countryCodeId,
-        
-           token:response.data.token
+            custName: response.data.custName,
+            custPhoneNumber: response.data.custPhoneNumber,
+
+            countryCode: response.data.countryCodeId,
+
+            token: response.data.token
           });
 
 
@@ -92,10 +92,10 @@ class Login extends Component {
         loginUserId: this.state.loginUserId,
         custId: this.state.custId,
         custName: this.state.custName,
-        custPhoneNumber:phoneNumber,
-        countryCode:this.state.countryCode
+        custPhoneNumber: phoneNumber,
+        countryCode: this.state.countryCode
       };
-   
+
       sessionStorage.setItem("custDetails", JSON.stringify(custDetails));
       this.props.history.push({
         pathname: "/home",
@@ -103,7 +103,7 @@ class Login extends Component {
           loginUserId: this.state.loginUserId,
           custId: this.state.custId,
           custName: this.state.custName,
-          countryCode:this.state.countryCode
+          countryCode: this.state.countryCode
 
         }
       });
@@ -122,7 +122,7 @@ class Login extends Component {
               src={splitwisewithoutname}
             />
             <div className="login-content">
-              <h2>WELCOME TO KUBERNETES DASHBAORD LOGIN</h2>
+              <h2>WELCOME TO KUBERNETES DASHBOARD</h2>
               <div className="login-email-label">Email address</div>
               <input
                 type="email"

@@ -3,31 +3,30 @@ import "./DashboardHeader.css";
 
 class DashboardHeader extends Component {
   constructor(props) {
-console.log(props);
+    console.log(props);
     super(props);
     this.state = {
-      custDetails:this.props.custDetails,
+      custDetails: this.props.custDetails,
     };
   }
-  componentWillMount(){
-   
+  componentWillMount() {
+
   }
-  
-  
-  
-  
-  componentDidUpdate(prevProps,prevState)
-  {
-    }
-           
-    
+
+
+
+
+  componentDidUpdate(prevProps, prevState) {
+  }
+
+
   render() {
     return (
       <div className="dashboardHeader">
         <div className="dashboardHeaderData">
           <h1>Dashboard</h1>
-       
-     
+
+
         </div>
       </div>
     );
