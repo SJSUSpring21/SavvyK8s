@@ -13,12 +13,12 @@ class LoginHeader extends Component {
     return (
       <div className="header">
         <div className="login-header">
-             <Link to="/">
-          
+          <Link to="/">
+
           </Link>
           <div className="loginLinks">
-           <Link to="/login">
-            <button className="login">Log in</button>
+            <Link to="/login">
+              <button className="login">Log in</button>
             </Link>
             <span style={{ color: "white" }}>or</span>
             <Link to="/Signup">

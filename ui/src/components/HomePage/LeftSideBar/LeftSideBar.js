@@ -1,27 +1,27 @@
 import React, { Component } from "react";
-import { Link, NavLink ,Route} from "react-router-dom";
+import { Link, NavLink, Route } from "react-router-dom";
 import "./LeftSideBar.css";
 
 class LeftSideBar extends Component {
   constructor(props) {
     super(props);
-console.log(this.props);
+    console.log(this.props);
     this.state = {
-     
+
       custDetails: this.props.custDetails,
-     
+
     };
-    
+
   }
 
-  componentDidUpdate(prevProps){
-   
+  componentDidUpdate(prevProps) {
+
   }
   componentDidMount() {
-    
+
   }
-  
- 
+
+
   render() {
     return (
       <div className="left-side-bar">
@@ -52,10 +52,10 @@ console.log(this.props);
               <label style={{ color: "#999" }}> My Profile</label>
             </NavLink>
           </div>
-          
-          
+
+
         </div>
-        
+
       </div>
     );
   }

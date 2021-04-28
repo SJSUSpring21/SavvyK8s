@@ -24,9 +24,9 @@ class HomePage extends Component {
     this.state = {
       loggedIn: true,
       custDetails: this.props.location.custDetails,
-      appPodDtls:[],
-      appPodDtlsLoaded:false
-     
+      appPodDtls: [],
+      appPodDtlsLoaded: false
+
     };
   }
   logOut = loggedin => {
@@ -44,27 +44,27 @@ class HomePage extends Component {
       custDetails: custDetails
     });
 
-    
-   
+
+
   }
 
   async componentDidMount() {
-  
-    const custDetails=JSON.parse(sessionStorage.getItem("custDetails"));
-    if(custDetails!=null)
-    this.setState({
-      custDetails: custDetails
-    })
-    const appPodDtls=await this.getAppPodDtls(custDetails.custId);
-    console.log('appPodDtls',appPodDtls)
+
+    const custDetails = JSON.parse(sessionStorage.getItem("custDetails"));
+    if (custDetails != null)
+      this.setState({
+        custDetails: custDetails
+      })
+    const appPodDtls = await this.getAppPodDtls(custDetails.custId);
+    console.log('appPodDtls', appPodDtls)
     this.setState({
       appPodDtls: appPodDtls,
-      appPodDtlsLoaded:true
+      appPodDtlsLoaded: true
     });
 
   }
 
-  
+
   componentDidUpdate(prevProps, prevState) {
     console.log('component updated')
   }
@@ -74,7 +74,7 @@ class HomePage extends Component {
     const custDetails = this.state.custDetails;
     console.log(newDetails.updatedCustdetails.currencyId)
     custDetails.custPhoneNumber = newDetails.updatedCustdetails.custPhoneNumber;
-    custDetails.countryCode=newDetails.updatedCustdetails.countryCode
+    custDetails.countryCode = newDetails.updatedCustdetails.countryCode
     this.setState({
       custDetails: custDetails
     })
@@ -92,36 +92,36 @@ class HomePage extends Component {
       profDtls: profDtls
     })
 
-}
-getAppPodDtls=()=>{
-  return new Promise((resolve,reject)=>{
-  axios.defaults.headers.common['authorization'] = sessionStorage.getItem('token');
-     
-axios
-      .get(
-        config.backEndURL+"/users/custAppDtls/" +
-          this.state.custDetails.custId
-      )
-      .then(response => {
-        console.log("Status Code : ", response.status);
-        if (response.status === 200) {
-          console.log(response);
-          //if(response.data.length>0){
-        
-          
-          sessionStorage.setItem("appPodDtls",JSON.stringify(response.data));
-          return resolve(response.data);
-       
-      }
-      })
-      .catch(error => {
-        console.log(error.response);
-     
-      });
-    })
-}
+  }
+  getAppPodDtls = () => {
+    return new Promise((resolve, reject) => {
+      axios.defaults.headers.common['authorization'] = sessionStorage.getItem('token');
 
-  
+      axios
+        .get(
+          config.backEndURL + "/users/custAppDtls/" +
+          this.state.custDetails.custId
+        )
+        .then(response => {
+          console.log("Status Code : ", response.status);
+          if (response.status === 200) {
+            console.log(response);
+            //if(response.data.length>0){
+
+
+            sessionStorage.setItem("appPodDtls", JSON.stringify(response.data));
+            return resolve(response.data);
+
+          }
+        })
+        .catch(error => {
+          console.log(error.response);
+
+        });
+    })
+  }
+
+
 
   render() {
     let header = null;
@@ -145,9 +145,9 @@ axios
               <div className="center-area">
                 <Route path="/"
                   render={props => (this.state.appPodDtlsLoaded &&
-                    <Dashboard {...props} 
-                    custDetails={this.state.custDetails}
-                    appPodDtls={this.state.appPodDtls}
+                    <Dashboard {...props}
+                      custDetails={this.state.custDetails}
+                      appPodDtls={this.state.appPodDtls}
                     />)}
 
                   exact />
@@ -159,7 +159,7 @@ axios
                   )}
                   exact
                 />
-                 <Route
+                <Route
                   path="/myapplications"
                   render={props => (
                     <MyApplications

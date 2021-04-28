@@ -2,9 +2,11 @@
   display: block;
    text-align: center; 
 } */
+
 .App {
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

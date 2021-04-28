@@ -10,6 +10,7 @@
   padding-right: 10px;
   padding-left: 10px;
 }
+
 .login-container img.login-img {
   height: 200px;
   width: 200px;
@@ -22,18 +23,20 @@
 .main-container {
   font-family: 18px Lato "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
 .login-container .login-content {
   float: left;
   max-width: 360px;
   padding-left: 15px;
 }
+
 .login-container .login-content h2 {
   text-transform: uppercase;
   font-size: 16px;
   color: #999;
   font-weight: bold;
   line-height: 20px;
-  color: blue;
+  color: #336ee5;
 }
 
 .login-email-label {
@@ -42,14 +45,15 @@
   line-height: 140%;
   margin: 16px 0 5px;
 }
+
 .main-container .login-container .login-content input {
   height: 25px;
   width: 95%;
   border: 1px solid #cccccc;
   padding: 2px;
-
   margin-bottom: 17;
 }
+
 .login-container button {
   margin-top: 20px;
   background-color: #ff652f;
@@ -62,25 +66,29 @@
   box-shadow: 0 2px 0 0 rgb(55 59 63 / 50%);
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
 * {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
 }
-*:before,
-*:after {
+
+*:before, *:after {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
 }
+
 .header-check {
   background-color: #5bc5a7;
   margin: 0px auto;
 }
+
 .header-check img {
   height: 24px;
   padding: 12px 10px;
 }
+
 .loginLink {
   right: 10px;
   top: 10px;
