@@ -1,0 +1,12 @@
+.appregistration-root {
+    flex-grow: 1;
+    
+
+    
+    
+  }
+  .appregistration-paper {
+    display: 'flex';
+    flex-direction: 'column';
+    align-content: 'center';
+}
