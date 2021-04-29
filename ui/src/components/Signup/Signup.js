@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import splitwisewithoutname from "../../assets/images/kubernetes.svg";
 import "./Signup.css";
 import axios from "axios";
-
+import LoginHeader from "../Login/Header/LoginHeader";
 import config from '../../config.json';
 
 class Signup extends Component {
@@ -156,7 +156,9 @@ countryCodeChanged  =e=>{
       );
     }
     return (
+      
       <div className="main-container">
+        <LoginHeader />
         <form onSubmit={this.signUp}>
           <div className="signup-header"></div>
           <div className="signup-container">

@@ -11,8 +11,8 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
- custDetails:this.props.custDetails,
-	    loggedIn: this.props.loggedIn
+      custDetails: this.props.custDetails,
+      loggedIn: this.props.loggedIn
     };
   }
   logout = () => {
@@ -20,12 +20,12 @@ class Header extends Component {
     this.props.logOut(!this.state.loggedIn);
   };
   render() {
-    
+
     return (
       <div className="header">
         <div className="login-header">
           <div className="loginLinks">
-	      <span style={{color:'black'}}> {this.state.custDetails.custName}</span>
+            <span style={{ color: 'black' }}> {this.state.custDetails.custName}</span>
             <button className="login" onClick={this.logout}>
               Log out
             </button>

@@ -2,6 +2,13 @@ import React, { Component } from "react";
 import axios from "axios";
 import config from '../../config.json';
 import { Checkbox } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import "./AppRegistration.css"
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 class AppRegistration extends Component{
 
     constructor(props){        
@@ -120,19 +127,56 @@ saveCustAppDtls=()=>{
             regApps= apps.map(app=>{
              return (
            
-               <span>  <input type="checkbox" value={app._id} onChange={(e)=>this.appSelected(e,app)} />{app.applicationName} <br/></span>
+               <span>  <input type="checkbox"  value={app._id} onChange={(e)=>this.appSelected(e,app)} />{app.applicationName} <br/></span>
              );
             })
         }
         console.log(regApps);
         return (
-            <div>
-               <h1>Application Registration</h1>
-               <h3>Select Applications you want to register for metrics</h3>
+            <div className = "appregistration-root">
+                <AppBar position="static">
+        <Toolbar>
+          
+          
+          <Typography variant="h3" >
+            SavvyK8s
+          </Typography>
+          
+        </Toolbar>
+      </AppBar>
+      <Grid container style = {{marginTop:25 , marginLeft:25}} spacing={3}>
+        <Grid item xs={12}>
+        <Typography variant="h3" style = {{color:"#191f6f" }}  >
+            Application Registration
+            
+          </Typography>
+          
+              {/* <h1 style = {{color:"#191f6f"}} >Application Registration</h1>  */}
+        </Grid>
+        <Grid item xs={12}>
+        <Typography variant="h3" style = {{color:"#191f6f" }}  >
+        <h3>Select Applications you want to register for metrics:</h3>
+            
+          </Typography>
+          {regApps}
+          <br/>
+          <Button variant="contained" color="primary" size = "large" onClick={this.saveCustAppDtls}>
+        Save
+      </Button>
+             {/* <button onClick={this.saveCustAppDtls}>Save</button> */}
+          
+           
+        </Grid>
+
+        </Grid>
+        
+
+               
+
+               
              
   
-               {regApps}
-             <button onClick={this.saveCustAppDtls}>Save</button>
+              
                {/* <select name="appName" value={this} onChange={this.appSelected}>
                <option value="0">Select Application</option>
  {regApps}

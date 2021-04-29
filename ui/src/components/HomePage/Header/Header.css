@@ -1,10 +1,10 @@
 .header {
-  background-color: #5bc5a7;
+  background-color: #336ee5;
   margin: 0px auto;
 
   width: auto;
 
-  border-bottom: 1px solid #48be9d;
+  border-bottom: 1px solid #090b6b;
   box-shadow: 0 0 3px rgb(0 0 0 / 50%);
 }
 .login-header {
@@ -28,7 +28,7 @@
   margin-right: 4px;
   margin-left: 5px;
   text-shadow: 0 -1px 0 #318970;
-  background: #5bc5a7;
+  background: #6a0ee2;
   color: #ffffff;
   border: 1px solid #cccccc;
   font-size: 14px;

@@ -10,51 +10,62 @@ class Dashboard extends Component {
     this.state = {
       custDetails:this.props.custDetails,
       appPodDtls:this.props.appPodDtls,
-      selectedAppId:0,
-      selectedPodId:0,
-      selectedGraphId:0,
-      selectedMetricId:0,
-      metricType:"",
+      selectedAppId:1,
+      selectedPodId:1,
+      selectedGraphId:2,
+      selectedMetricId:1,
+      metricType:"cpu",
       metricData:[],
       metricDataFlag:false
      
     };
   }
 
-  componentDidMount()
-  {
+  componentDidMount() {
+    this.fetchMetrics(this.state.selectedPodId);
+     const podId=console.log('default pod:',this.state.selectedPodId)
+    this.timer =setInterval(()=>{
+      this.fetchMetrics(this.state.selectedPodId)}, 500000);
+  }
+  componentWillUnmount() {
+    this.timer = null; 
   }
 
-  componentDidUpdate(prevProps)
-  {
-    if(prevProps.custDetails!==this.props.custDetails)
-    {
-      const changedCustDetails=this.props.custDetails;
+  componentDidUpdate(prevProps,prevState) {
+    if (prevProps.custDetails !== this.props.custDetails) {
+      const changedCustDetails = this.props.custDetails;
       this.setState({
-        custDetails:changedCustDetails
+        custDetails: changedCustDetails
+      })
+    }
+    if (prevState.metricData !== this.state.metricData) {
+      console.log('updated')
+      const metricData = this.state.metricData;
+      this.setState({
+        metricData: metricData
       })
     }
   }
-  
-  fetchDashboardDtls=()=>{
-  }
-  appSelected=(e)=>{
 
-    const appId=Number(e.target.value);
+  fetchDashboardDtls = () => {
+  }
+  appSelected = (e) => {
+
+    const appId = Number(e.target.value);
     this.setState({
-      selectedAppId:appId,
-      selectedPodId:0
+      selectedAppId: appId,
+      selectedPodId: 0
     })
   }
-  podSelected=(e)=>{
-    const podId=Number(e.target.value);
-    console.log('podId:',podId)
+  podSelected = (e) => {
+    const podId = Number(e.target.value);
+    console.log('podId:', podId)
     this.setState({
-      selectedPodId:podId
+      selectedPodId: podId
     })
     console.log('asdf')
     this.fetchMetrics(podId);
-   //fetch app pod real time data
+    //fetch app pod real time data
   }
   graphSelected=(e)=>{
     const graphId=Number(e.target.value);
@@ -76,45 +87,47 @@ class Dashboard extends Component {
   }
   fetchMetrics=(podId)=>{
     console.log('metrics:')
-    console.log('app id:',this.state.selectedAppId);
+    console.log('app id:', this.state.selectedAppId);
     axios.defaults.headers.common['authorization'] = sessionStorage.getItem('token');
-    let metricsReq={
-        appId:this.state.selectedAppId,
-        custId:this.state.custDetails.custId,
-        nodeMetrics:false,
-        podId:podId
+    let metricsReq = {
+      appId: this.state.selectedAppId,
+      custId: this.state.custDetails.custId,
+      nodeMetrics: false,
+      podId: this.state.selectedPodId
     };
 
-    
-     axios
-         .post(
-           config.backEndURL+"/users/metrics",metricsReq
-         )
-         .then(response => {
-           console.log("Status Code : ", response.status);
-           if (response.status === 200) {
-             console.log(response);
+
+    axios
+      .post(
+        config.backEndURL + "/users/metrics", metricsReq
+      )
+      .then(response => {
+        console.log("Status Code : ", response.status);
+        if (response.status === 200) {
+          console.log(response);
           this.setState({
-              metricData:response.data,
-              metricDataFlag:true
+            metricData: response.data,
+            metricDataFlag: true
           })
-           
-         }
-         })
-         .catch(error => {
-           console.log(error.response);
-        
-         });
-   //  }
+
+        }
+      })
+      .catch(error => {
+        console.log(error.response);
+
+      });
+    //  }
     //  else{
     //      alert("Please select atleast one application");
     //  }
   }
 
   render() {
+     console.log(this.state);
    let appList=null;
    let podList=null;
    let graph=null;
+   let graph1=null;
    let metricList=null;
    console.log('pod id:',this.state.selectedPodId)
    if(this.state.selectedGraphId===2 )
@@ -148,7 +161,7 @@ class Dashboard extends Component {
       <Line type="monotone" dataKey="memory" stroke="#82ca9d" />
     </LineChart>)
    }
-   else if(this.state.metricDataFlag&&this.state.metricData.length>0&&this.state.selectedGraphId===2&&this.state.selectedMetricId>0)
+   else if(this.state.metricDataFlag&&this.state.metricData.length>0&&this.state.selectedGraphId===2/*&&this.state.selectedMetricId>0*/)
    {
   
   
@@ -167,63 +180,77 @@ class Dashboard extends Component {
       <XAxis dataKey="name" />
       <YAxis />
       <Tooltip />
-      <Area type="monotone" dataKey={this.state.metricType} stroke="#8884d8" fill="#8884d8" />
+      <Area type="monotone" dataKey="cpu" stroke="#8884d8" fill="#8884d8" />
+    </AreaChart>
+    
+    )
+    graph1=( <AreaChart
+      width={500}
+      height={400}
+      style={{marginLeft:"500px",marginTop:"-400px"}}
+      data={this.state.metricData}
+      margin={{
+        top: 10,
+        right: 30,
+        left: 0,
+        bottom: 0,
+      }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Area type="monotone" dataKey="memory" stroke="#8884d8" fill="#8884d8" />
     </AreaChart>)
    }
    else{
      graph=(<h4>No Metrics to Show</h4>)
+     graph1=null;
    }
     if(this.state.appPodDtls.length>0)
     {
       console.log('appod')
-      appList= this.state.appPodDtls.map(appPod=>{
-        return(
+      appList = this.state.appPodDtls.map(appPod => {
+        return (
           <option value={appPod.appId}>{appPod.appName}</option>
         );
       })
     }
-    if(this.state.selectedAppId>0)
-    {
-      const appPodList=this.state.appPodDtls;
+    if (this.state.selectedAppId > 0) {
+      const appPodList = this.state.appPodDtls;
       console.log(appPodList)
-      let podDtls=null;
-    const appPodIndex= appPodList.findIndex(appPod=>appPod.appId===this.state.selectedAppId);
-      if(appPodIndex>-1)
-      {
-        podDtls= appPodList[appPodIndex].pods;
-        podList=podDtls.map(pod=>{
+      let podDtls = null;
+      const appPodIndex = appPodList.findIndex(appPod => appPod.appId === this.state.selectedAppId);
+      if (appPodIndex > -1) {
+        podDtls = appPodList[appPodIndex].pods;
+        podList = podDtls.map(pod => {
           return (
             <option value={pod.podId}>{pod.podName}</option>
           );
         })
-      } 
-      else{
+      }
+      else {
 
       }
-  }
+    }
     return (
       <div className="dashboard">
+
         <section>
-          <div className="center-divider">
-            <DashboardHeader  custDetails={this.state.custDetails} 
-            />
-            asdf
-           
-          
-          </div>
-        </section>
-       <section>
-       <div className="appList">
-         <h4>Select Application</h4>
-        <select name="appName"  value={this.state.selectedAppId} onChange={this.appSelected}>
+
+          <div className="appList">
+            <h4>Select Application</h4>
+            <select name="appName" value={this.state.selectedAppId} onChange={this.appSelected}>
               <option value="0">Select Application</option>
               {appList}
             </select>
-            </div>
-            <div className="podList">
+          </div>
+          <br />
+          <div className="podList">
             <h4>Select Pod</h4>
-            <select name="podName"  value={this.state.selectedPodId} onChange={this.podSelected}>
+            <select name="podName" value={this.state.selectedPodId} onChange={this.podSelected}>
               <option value="0">Select Pod</option>
+              <br />
               {podList}
             </select>
             </div>
@@ -237,10 +264,13 @@ class Dashboard extends Component {
             </div>
             {metricList}
             </section>
-            <section>
+            
               <br/>
-              {graph}
-            </section>
+            
+              <span>{graph} {graph1}</span>
+              
+            
+           
       </div>
     );
   }

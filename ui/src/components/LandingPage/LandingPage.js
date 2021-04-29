@@ -13,12 +13,16 @@ class LandingPage extends Component {
       <div>
         <LoginHeader />
         <div className="landingContent">
-          <h1>Less stress when knowing</h1><h1>metrics</h1><h1 style={{ color: '#336ce4' }}>about your applications</h1>
+          <h1>K8s Monitoring</h1>
+          <h1> and </h1>
+          <h1>Handling Tool</h1>
+
+          <h2> Less stress when knowing metrics about your applications</h2>
         </div>
-        <div className="content">
+
+        <div className="landingContent">
 
           <img
-            class="center"
             height="250"
             width="750"
             className="landingImage"
