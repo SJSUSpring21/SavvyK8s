@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import DashboardHeader from "./DashboardHeader/DashboardHeader";
 import axios from "axios";
 import config from '../../config.json';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart,AreaChart, Line, Area,XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +12,9 @@ class Dashboard extends Component {
       appPodDtls:this.props.appPodDtls,
       selectedAppId:0,
       selectedPodId:0,
+      selectedGraphId:0,
+      selectedMetricId:0,
+      metricType:"",
       metricData:[],
       metricDataFlag:false
      
@@ -53,6 +56,24 @@ class Dashboard extends Component {
     this.fetchMetrics(podId);
    //fetch app pod real time data
   }
+  graphSelected=(e)=>{
+    const graphId=Number(e.target.value);
+    this.setState({
+      selectedGraphId:graphId
+    })
+  }
+  metricSelected=(e)=>{
+    const metricId=Number(e.target.value);
+   let metricType;
+    if(metricId===1)
+    metricType="cpu";
+    else
+    metricType="memory";
+    this.setState({
+      selectedMetricId:metricId,
+      metricType:metricType
+    })
+  }
   fetchMetrics=(podId)=>{
     console.log('metrics:')
     console.log('app id:',this.state.selectedAppId);
@@ -89,12 +110,23 @@ class Dashboard extends Component {
     //      alert("Please select atleast one application");
     //  }
   }
+
   render() {
    let appList=null;
    let podList=null;
    let graph=null;
+   let metricList=null;
    console.log('pod id:',this.state.selectedPodId)
-   if(this.state.metricDataFlag&&this.state.metricData.length>0)
+   if(this.state.selectedGraphId===2 )
+   {
+    metricList=( <div className="graph Type">
+    <h4>Select Graph</h4><select name="metricName"  value={this.state.selectedMetricId} onChange={this.metricSelected}>
+    <option value="0">Select Metric Type</option>
+    <option value="1">CPU</option>
+    <option value="2">Memory</option>
+  </select></div>)
+   }
+   if(this.state.metricDataFlag&&this.state.metricData.length>0&&this.state.selectedGraphId===1)
    {
     graph=( <LineChart
       width={500}
@@ -115,6 +147,28 @@ class Dashboard extends Component {
       <Line type="monotone" dataKey="cpu" stroke="#8884d8" activeDot={{ r: 8 }} />
       <Line type="monotone" dataKey="memory" stroke="#82ca9d" />
     </LineChart>)
+   }
+   else if(this.state.metricDataFlag&&this.state.metricData.length>0&&this.state.selectedGraphId===2&&this.state.selectedMetricId>0)
+   {
+  
+  
+    graph=( <AreaChart
+      width={500}
+      height={400}
+      data={this.state.metricData}
+      margin={{
+        top: 10,
+        right: 30,
+        left: 0,
+        bottom: 0,
+      }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Area type="monotone" dataKey={this.state.metricType} stroke="#8884d8" fill="#8884d8" />
+    </AreaChart>)
    }
    else{
      graph=(<h4>No Metrics to Show</h4>)
@@ -173,6 +227,15 @@ class Dashboard extends Component {
               {podList}
             </select>
             </div>
+            <div className="graph Type">
+            <h4>Select Graph</h4>
+            <select name="podName"  value={this.state.selectedGraphId} onChange={this.graphSelected}>
+              <option value="0">Select Graph</option>
+              <option value="1">Line Charts</option>
+              <option value="2">Area Chart</option>
+            </select>
+            </div>
+            {metricList}
             </section>
             <section>
               <br/>
