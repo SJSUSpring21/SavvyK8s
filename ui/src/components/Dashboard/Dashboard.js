@@ -85,7 +85,7 @@ class Dashboard extends Component {
       metricType:metricType
     })
   }
-  fetchMetrics=(podId)=>{
+  fetchMetrics = (podId) => {
     console.log('metrics:')
     console.log('app id:', this.state.selectedAppId);
     axios.defaults.headers.common['authorization'] = sessionStorage.getItem('token');
@@ -130,15 +130,15 @@ class Dashboard extends Component {
    let graph1=null;
    let metricList=null;
    console.log('pod id:',this.state.selectedPodId)
-   if(this.state.selectedGraphId===2 )
-   {
-    metricList=( <div className="graph Type">
-    <h4>Select Graph</h4><select name="metricName"  value={this.state.selectedMetricId} onChange={this.metricSelected}>
-    <option value="0">Select Metric Type</option>
-    <option value="1">CPU</option>
-    <option value="2">Memory</option>
-  </select></div>)
-   }
+  //  if(this.state.selectedGraphId===2 )
+  //  {
+  //   metricList=( <div className="graph Type">
+  //   <h4>Select Graph</h4><select name="metricName"  value={this.state.selectedMetricId} onChange={this.metricSelected}>
+  //   <option value="0">Select Metric Type</option>
+  //   <option value="1">CPU</option>
+  //   <option value="2">Memory</option>
+  // </select></div>)
+  //  }
    if(this.state.metricDataFlag&&this.state.metricData.length>0&&this.state.selectedGraphId===1)
    {
     graph=( <LineChart
