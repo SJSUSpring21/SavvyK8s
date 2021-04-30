@@ -93,7 +93,7 @@ class Dashboard extends Component {
       appId: this.state.selectedAppId,
       custId: this.state.custDetails.custId,
       nodeMetrics: false,
-      podId: this.state.selectedPodId
+      podId: podId
     };
 
 

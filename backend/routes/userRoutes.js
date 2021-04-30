@@ -66,8 +66,13 @@ router.get("/custAppDtls/:custId", async (req, res) => {
 
   res.status(200).send(response);
 });
-router.put("/custDetails", async (req, res) => {
-  const response = await updateCustDetails('updateCustDtls', req.body);
+router.post("/custDetails", upload.single("file"),async (req, res) => {
+  const profileUpdateReq={
+    image:req.file,
+    profDtls:req.body.profDtls
+  }
+  console.log(profileUpdateReq)
+  const response = await updateCustDetails('updateCustDtls', profileUpdateReq);
 
   res.status(200).send(response);
 });

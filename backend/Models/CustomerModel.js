@@ -12,6 +12,7 @@ var customerSchema = new Schema({
     createdDate: {type: Date, required: true},
     modifiedBy: {type: String, required: false},
     modifiedDate:{type: Date, required: false},
+    image:{type:String,required:false},
     token:{type: String, required: false}
 
 },

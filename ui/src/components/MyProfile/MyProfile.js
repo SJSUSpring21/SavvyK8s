@@ -21,6 +21,8 @@ constructor(props)
         enablePhnNmber:false,
         enablePasswd:false,
         detailsUpdated:false,
+        selectedFile:[],
+        imageData:this.props.custDetails.image,
         updatedCustdetails:{
             custId:this.props.custDetails.custId,
             custName:this.props.custDetails.custName,
@@ -28,7 +30,9 @@ constructor(props)
             custPhoneNumber:this.props.custDetails.custPhoneNumber,
             currPasswd:"",
             newPasswd:"",
-            countryCode:this.props.custDetails.countryCode     
+            countryCode:this.props.custDetails.countryCode  ,
+            image:this.props.custDetails.image,
+            imageUploaded:false   
                 },
       
 
@@ -85,7 +89,7 @@ phnNumberChanged=(e)=>{
 let updatedCustDetails=this.state.updatedCustdetails;
     updatedCustDetails.custPhoneNumber=e.target.value;
     let custDetails=this.state.custDetails;
-    custDetails.phnNumber=e.target.value;
+    custDetails.custPhoneNumber=e.target.value;
     
     this.setState({
     updatedCustDetails:updatedCustDetails,
@@ -138,10 +142,19 @@ uploadImageinDB=()=>{
       .then(response => {
         console.log("Status Code : ", response.status);
         if (response.status === 200) {
-          console.log(response.data.imageId);
+      
           const updatedCustdetails=this.state.custDetails;
-          updatedCustdetails.imageId=response.data.imageId;
+          updatedCustdetails.custPhnNmbr=response.data.custPhoneNumber;
+          updatedCustdetails.custName=response.data.custName;
+          updatedCustdetails.countryCode=response.data.countryCodeId;
  
+          if(this.state.imageUploaded){
+            updatedCustdetails.image=response.data.image;
+            this.setState({
+              imageData:response.data.image,
+              updatedCustdetails:updatedCustdetails
+            })
+          }
         //  this.props.custDetailsUpdated({
         //   updatedCustdetails:updatedCustdetails
         // });
@@ -174,9 +187,27 @@ updateCustdetails=async ()=>{
 }
 saveCustDetailsinDB=()=>{
   return new Promise((resolve,reject)=>{
+
+    const formData = new FormData();
+    
+    console.log(this.state.updatedCustdetails);
+      // Update the formData object
+    console.log(this.state.selectedFile)
+      formData.append(
+        "file",
+        this.state.selectedFile
+     
+      ); 
+      console.log('updatedcustDetails before req:',this.state.updatedCustdetails)
+      formData.append("profDtls",JSON.stringify(this.state.updatedCustdetails));
+      const config1 = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
     axios
-      .put(
-        config.backEndURL+"/users/custDetails",this.state.updatedCustdetails
+      .post(
+        config.backEndURL+"/users/custDetails",formData,config1
       )
 
       .then(response => {
@@ -188,7 +219,18 @@ saveCustDetailsinDB=()=>{
         })
           console.log(response.data);
          //need to update custDetails props
-        const updatedCustdetails=this.state.updatedCustdetails;
+         const updatedCustdetails=this.state.custDetails;
+         updatedCustdetails.custPhnNmbr=response.data.custPhoneNumber;
+         updatedCustdetails.custName=response.data.custName;
+         updatedCustdetails.countryCode=response.data.countryCodeId;
+
+         if(this.state.imageUploaded){
+           updatedCustdetails.image=response.data.image;
+           this.setState({
+             imageData:response.data.image,
+             updatedCustdetails:updatedCustdetails
+           })
+         }
         return resolve(updatedCustdetails)
         //console.log('updated details',updatedCustdetails)
 
@@ -230,6 +272,7 @@ uploadedImage=(event)=>{
   console.log(file)
   this.setState({
     selectedFile:file
+    
   })
   console.log(this.state.selectedFile);
  const reader = new FileReader();
@@ -240,6 +283,7 @@ uploadedImage=(event)=>{
 
        this.setState({
         imageData:event.target.result,
+        imageUploaded:true
       })
      };
      reader.readAsDataURL(file);
@@ -274,7 +318,7 @@ custEmailEdit=( <input type="text" onChange={this.custEmailChanged} value={this.
 if(!this.state.enablePhnNmber)    
 custPhnEdit=( <span className="editDetails" onClick={this.enablePhnNmberEdit} ><span style={{color:'black'}}>{phnNumber}</span><CreateIcon/>edit</span>);
 else
-custPhnEdit=(<input type="text" value={this.state.custDetails.phnNumber} onChange={this.phnNumberChanged}  pattern="[0-9]{10}"/>);
+custPhnEdit=(<input type="text" value={this.state.custDetails.custPhoneNumber} onChange={this.phnNumberChanged}  pattern="[0-9]{10}"/>);
 
 if(!this.state.enablePasswd)
 custPasswdEdit=(<div>Your password<br/><span className="editDetails" onClick={this.enablePasswdEdit} ><span style={{color:'black',fontSize:'20px'}}>••••••••••</span><CreateIcon/>edit</span></div>);
@@ -284,12 +328,15 @@ custPasswdEdit=(<div className="changePasswd"> <span>Your current password</span
 return(
     <div >
 {/* <form> */}
+<div className="profileGridContainer">
    <div className="profileGridContainer">
-   <h1>Your Account Profile Details</h1>
-        {/* <div className="imageSection">
+   {/* <h1>Your Account Profile Details</h1> */}
+   <div className="imageSection">
+            <h1>Your account</h1>
            
-          
-        </div> */}
+             <img width="200" height="200" src={this.state.imageData} alt="Profile"/>
+            <input type="file"  title="Profile" onChange={event => this.uploadedImage(event)} />
+        </div>
         <div className="personalDetailsSection">
                <div className="editName">
             <span style={{fontWeight:'bold',fontSize:'18px'}}>Your name</span>
@@ -327,6 +374,7 @@ return(
         </div>
         </div>
         {/* </form> */}
+        </div>
     </div>);
 }
 }

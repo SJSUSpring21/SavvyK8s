@@ -17,7 +17,8 @@ class Signup extends Component {
       custPhoneNumber:"",
       countryCode:0,
       signUpDone: false,
-      token:""
+      token:"",
+      image:""
     };
   }
   custNameChanged = e => {
@@ -74,6 +75,7 @@ countryCodeChanged  =e=>{
             loginUserId:response.data.custEmail,
             custPhoneNumber:response.data.custPhoneNumber,
             countryCode:response.data.countryCodeId,
+            image:"",
           
            
            token:response.data.token
@@ -108,7 +110,8 @@ countryCodeChanged  =e=>{
         custEmail:this.state.custEmail,
         loginUserId:this.state.custEmail,
         custPhoneNumber:this.state.custPhoneNumber,
-        countryCode:this.state.countryCode
+        countryCode:this.state.countryCode,
+        image:this.state.image
       };
       this.props.history.push("/appRegistration", {
         custDetails:  custDetails

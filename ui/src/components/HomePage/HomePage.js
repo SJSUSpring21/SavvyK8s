@@ -74,7 +74,9 @@ class HomePage extends Component {
     const custDetails = this.state.custDetails;
     console.log(newDetails.updatedCustdetails.currencyId)
     custDetails.custPhoneNumber = newDetails.updatedCustdetails.custPhoneNumber;
-    custDetails.countryCode = newDetails.updatedCustdetails.countryCode
+    custDetails.countryCode = newDetails.updatedCustdetails.countryCode;
+    custDetails.custName=newDetails.updatedCustdetails.custName;
+    custDetails.image=newDetails.updatedCustdetails.image;
     this.setState({
       custDetails: custDetails
     })

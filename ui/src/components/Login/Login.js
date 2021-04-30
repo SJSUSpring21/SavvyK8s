@@ -20,7 +20,8 @@ class Login extends Component {
       custPhoneNumber: "",
       countryCode: "",
       imageId: 0,
-      token: ""
+      token: "",
+      image:""
     };
   }
   loginIdChanged = e => {
@@ -62,6 +63,7 @@ class Login extends Component {
             custPhoneNumber: response.data.custPhoneNumber,
 
             countryCode: response.data.countryCodeId,
+            image:response.data.image,
 
             token: response.data.token
           });
@@ -93,7 +95,8 @@ class Login extends Component {
         custId: this.state.custId,
         custName: this.state.custName,
         custPhoneNumber: phoneNumber,
-        countryCode: this.state.countryCode
+        countryCode: this.state.countryCode,
+        image:this.state.image
       };
 
       sessionStorage.setItem("custDetails", JSON.stringify(custDetails));
@@ -103,7 +106,8 @@ class Login extends Component {
           loginUserId: this.state.loginUserId,
           custId: this.state.custId,
           custName: this.state.custName,
-          countryCode: this.state.countryCode
+          countryCode: this.state.countryCode,
+          image:this.state.image
 
         }
       });
