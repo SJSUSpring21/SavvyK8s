@@ -31,6 +31,7 @@ const metrics=require("../services/MetricsSvc");
     updateCustDetails = async (fn, ...params) => custDtls[fn](...params);
     updateCustAppDtls=async (fn, ...params) => appReg[fn](...params);
     fetchMetricsData=async (fn, ...params) => metrics[fn](...params);
+    fetchNodeList=async (fn, ...params) => metrics[fn](...params);
 
   }
 
@@ -89,6 +90,12 @@ router.put("/custApp", async (req, res) => {
 });
 router.post("/metrics", async (req, res) => {
   const response = await fetchMetricsData('fetchMetricsData', req.body);
+
+  res.status(200).send(response);
+});
+
+router.get("/nodes", async (req, res) => {
+  const response = await fetchNodeList('fetchNodeList', null);
 
   res.status(200).send(response);
 });

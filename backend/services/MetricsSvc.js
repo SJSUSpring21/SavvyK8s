@@ -1,4 +1,5 @@
 const metrics = require("../Models/CustAppMetricsModel")
+const NodeDetails = require("../Models/NodeDetailsModel")
 const moment=require("moment");
 
 module.exports = {
@@ -10,7 +11,8 @@ module.exports = {
         const appId = metricsDataReq.appId;
         const podId=metricsDataReq.podId;
         const nodeMetrics = metricsDataReq.nodeMetrics;
-       const metricsData= await  module.exports.fetchMetricsFromDB(custId, appId, podId,nodeMetrics)
+        const nodeId=metricsDataReq.nodeId;
+       const metricsData= await  module.exports.fetchMetricsFromDB( appId, podId,nodeMetrics,nodeId)
        if(metricsData.length>0)
        {
            for(const metric of metricsData)
@@ -30,11 +32,11 @@ module.exports = {
            return metricsDataList;
        }
     },
-    fetchMetricsFromDB: (custId, appId,podId, nodeMetrics) => {
+    fetchMetricsFromDB: ( appId,podId, nodeMetrics,nodeId) => {
 
         return new Promise((resolve, reject) => {
             if (!nodeMetrics) {
-                metrics.find({ custId: custId, appId: appId,podId:podId, nodeMetrics: false }).exec((err, res) => {
+                metrics.find({  appId: appId,podId:podId, nodeMetrics: false }).exec((err, res) => {
                     if (err) {
 
                     }
@@ -44,7 +46,7 @@ module.exports = {
                 })
             }
             else {
-                metrics.find({ custId: custId, nodeMetrics: true }, (err, res) => {
+                metrics.find({  nodeMetrics: true,nodeId:nodeId }, (err, res) => {
                     if (err) {
 
                     }
@@ -53,6 +55,27 @@ module.exports = {
                     }
                 })
             }
+        })
+    },
+    fetchNodeList:async ()=>{
+
+       const nodeDtls= await module.exports.getNodeDtls();
+       return nodeDtls;
+      
+    },
+    getNodeDtls:()=>{
+        return new Promise((resolve,reject)=>{
+            NodeDetails.find({},(err,nodeData)=>{
+                if(err)
+                {
+    
+                }
+                else{
+                    console.log(nodeData);
+                    return resolve(nodeData);
+                }
+            })
+
         })
     }
 }
