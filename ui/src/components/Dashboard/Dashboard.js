@@ -29,7 +29,7 @@ class Dashboard extends Component {
     this.fetchMetrics(this.state.selectedPodId);
      const podId=console.log('default pod:',this.state.selectedPodId)
     this.timer =setInterval(()=>{
-      this.fetchMetrics(this.state.selectedPodId)}, 500000);
+      this.fetchMetrics(this.state.selectedPodId)}, 5000);
   }
   componentWillUnmount() {
     this.timer = null; 

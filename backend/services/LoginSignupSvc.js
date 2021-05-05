@@ -81,6 +81,7 @@ module.exports = {
           return resolve(errorRes);
         }
         else {
+          console.log('existingcust',existingCust);
           bcrypt.compare(loginDetails.loginPassword, existingCust.custPasswd)
             .then(response => {
 
