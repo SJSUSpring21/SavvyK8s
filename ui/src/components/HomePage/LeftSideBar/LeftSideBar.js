@@ -30,38 +30,42 @@ class LeftSideBar extends Component {
     return (
 
       <div className="left-side-bar">
-
         <div className="flex-container">
-          <div className="flex-item">
-            <NavLink to="/" activeClassName="active">
-              <span className="dashboardSelected">
-              </span>
-              Dashboard
-            </NavLink>
-          </div>
-          <div className="flex-item">
-            <NavLink to="/metrics" activeClassName="active">
-              <span></span>
-              <label style={{ color: "#FF652F" }}> Node Metrics</label>
-            </NavLink>
-          </div>
-          <div className="flex-item">
-            <NavLink to="/myapplications" activeClassName="active">
-              <span></span>
-              <label style={{ color: "#999" }}> My Applications</label>
-            </NavLink>
-          </div>
+          <nav id="sidebar">
+                 <div class="sidebar-header">
+                  <h3>KUBERNETES</h3>
+                </div>
 
-          <div className="flex-item">
-            <NavLink to="/myprofile" activeClassName="active">
-              <span></span>
-              <label style={{ color: "#999" }}> My Profile</label>
-            </NavLink>
+                <ul class="list-unstyled components">
+                    <li>
+                      <NavLink to="/" activeClassName="active">
+                        <span className="dashboardSelected">
+                        </span>
+                        Dashboard
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/metrics" activeClassName="active">
+                        <span></span>
+                        <label style={{ color: "#FF652F" }}> Node Metrics</label>
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/myapplications" activeClassName="active">
+                        <span></span>
+                        <label style={{ color: "#999" }}> My Applications</label>
+                      </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/myprofile" activeClassName="active">
+                          <span></span>
+                          <label style={{ color: "#999" }}> My Profile</label>
+                        </NavLink>
+                    </li>
+                </ul>
+            </nav>
           </div>
-
-
         </div>
-      </div>
     );
   }
 }

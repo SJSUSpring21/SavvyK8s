@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Redirect } from "react-router";
 import config from '../../config.json';
 import cookie from "react-cookies";
+import User from './user.jpg'
 
 import HomePageR from "../HomePage/HomePage"
 
@@ -326,7 +327,7 @@ else
 custPasswdEdit=(<div className="changePasswd"> <span>Your current password</span><input type="text" onChange={this.currentPasswordChanged} name="currPasswd"/><br/><span>Your new password</span> <input type="text" onChange={this.newPasswordChanged} name="newPasswd"/></div>);
 
 return(
-    <div >
+    <div className="padded-section">
 {/* <form> */}
 <div className="profileGridContainer">
    <div className="profileGridContainer">
@@ -334,8 +335,8 @@ return(
    <div className="imageSection">
             <h1>Your account</h1>
            
-             <img width="200" height="200" src={this.state.imageData} alt="Profile"/>
-            <input type="file"  title="Profile" onChange={event => this.uploadedImage(event)} />
+             <img width="200" height="200" src={User} alt="Profile"/>
+            <input className="mt-3" type="file"  title="Profile" onChange={event => this.uploadedImage(event)} />
         </div>
         <div className="personalDetailsSection">
                <div className="editName">
