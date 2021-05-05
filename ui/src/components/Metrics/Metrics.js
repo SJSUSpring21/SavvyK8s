@@ -223,16 +223,18 @@ fetchMetrics=(nodeId)=>{
      
           <div>
 
-<div className="nodeList">
-           
-<h3>Node Metrics</h3>
+{/* <div className="nodeList"> */}
+<div className="padded-section">
+       <div className="card-header mb-3 text-white bg-primary pt-2 pb-2 "><h3>Node Metrics</h3>
+       </div>
+
      
   <h4>Select Node</h4>
   <select name="appName" value={this.state.selectedNodeId} onChange={this.nodeSelected}>
     <option value="0">Select Node</option>
     {nodeList}
   </select>
-  </div>
+ <br/>
   <div className="graphType">
             <h4>Select Graph</h4>
             <select name="graphName"  value={this.state.selectedGraphId} onChange={this.graphSelected}>
@@ -241,13 +243,14 @@ fetchMetrics=(nodeId)=>{
               <option value="2">Area Chart</option>
             </select>
             </div>
+            </div>
   <br/>
   <div className="metricData">
   {graph}
   {graph1}
 </div>
-        
-</div>   
+     </div>   
+ 
           
         );
     }

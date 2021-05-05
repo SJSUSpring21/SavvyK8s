@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import DashboardHeader from "./DashboardHeader/DashboardHeader";
 import axios from "axios";
+import "./Dashboard.css"
 import config from '../../config.json';
 import { LineChart,AreaChart, Line, Area,XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import NestedGrid from './Grid.js';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +18,9 @@ class Dashboard extends Component {
       selectedMetricId:1,
       metricType:"cpu",
       metricData:[],
-      metricDataFlag:false
+      metricDataFlag:false,
+      memory:0,
+      cpu:0
      
     };
   }
@@ -106,9 +110,16 @@ class Dashboard extends Component {
         console.log("Status Code : ", response.status);
         if (response.status === 200) {
           console.log(response);
+          let memory,cpu;
+          if(response.data.length>0){
+           memory=response.data[response.data.length-1].memory;
+           cpu=response.data[response.data.length-1].cpu;
+          }
           this.setState({
             metricData: response.data,
-            metricDataFlag: true
+            metricDataFlag: true,
+            memory:memory,
+            cpu:cpu
           })
 
         }
@@ -235,44 +246,63 @@ class Dashboard extends Component {
       }
     }
     return (
-      <div className="dashboard">
-
-        <section>
-
-          <div className="appList">
-            <h4>Select Application</h4>
-            <select name="appName" value={this.state.selectedAppId} onChange={this.appSelected}>
-              <option value="0">Select Application</option>
-              {appList}
-            </select>
-          </div>
-          <br />
-          <div className="podList">
-            <h4>Select Pod</h4>
-            <select name="podName" value={this.state.selectedPodId} onChange={this.podSelected}>
-              <option value="0">Select Pod</option>
-              <br />
-              {podList}
-            </select>
+    <div className="dashboard">
+        <section className="padded-section">
+          <div className="row">
+            <div className="col-lg-4">
+              <div className="appList">
+                <h4>Select Application</h4>
+                <select className="select_" name="appName" value={this.state.selectedAppId} onChange={this.appSelected}>
+                  <option value="0">Select Application</option>
+                  {appList}
+                </select>
+              </div>
             </div>
-            <div className="graph Type">
-            <h4>Select Graph</h4>
-            <select name="graphName"  value={this.state.selectedGraphId} onChange={this.graphSelected}>
-              <option value="0">Select Graph</option>
-              <option value="1">Line Charts</option>
-              <option value="2">Area Chart</option>
-            </select>
+            <br />
+            <div className="col-lg-4">
+              <div className="podList">
+                <h4>Select Pod</h4>
+                <select className="select_"  name="podName" value={this.state.selectedPodId} onChange={this.podSelected}>
+                  <option value="0">Select Pod</option>
+                  <br />
+                  {podList}
+                </select>
+              </div>
             </div>
-            {metricList}
-            </section>
-            
-              <br/>
-            
-              <span>{graph} {graph1}</span>
-              
-            
-           
+            <div className="col-lg-4">
+              <div className="graph Type">
+                <h4>Select Graph</h4>
+                <select className="select_" name="podName"  value={this.state.selectedGraphId} onChange={this.graphSelected}>
+                  <option value="0">Select Graph</option>
+                  <option value="1">Line Charts</option>
+                  <option value="2">Area Chart</option>
+                </select>
+                </div>
+                {metricList}
+              </div>
+            </div>
+          </section>
+        <br/>
+        <section className="padded-section">
+          <span>{graph} {graph1}</span>
+        </section>
+        <section className="padded-section">
+<div className="grid-container-metric">
+          <div className="memory">
+<center><b>Memory</b></center>
+<span className="memoryData">{this.state.memory}</span>
+
+</div>
+<div className="cpu">
+<center><b>CPU</b></center>
+<span className="cpuData">{this.state.cpu}</span>
+</div>
+</div>
+         
+          {/* <NestedGrid/> */}
+        </section>
       </div>
+      
     );
   }
 }

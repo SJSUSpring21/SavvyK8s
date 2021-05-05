@@ -128,13 +128,15 @@ class MyApplications extends Component {
             })
         }
         return (
-            <div className="myApplications">
-                <h1>Applications Registered</h1>
+            <div className="padded-section">
+                <div className="card-header text-white bg-primary pt-2 pb-2 "><h2>Applications Registered</h2></div>
                 <br />
-                {appsSelected}
-                {checkedApps}
+                <div className="row">
+                    <div className="col-lg-6" style={{'font-size': '2rem'}}>{appsSelected}</div>
+                    <div className="col-lg-6" style={{'font-size': '2rem'}}>{checkedApps}</div>
+                </div>
                 <br />
-                <button className="saveBtn" onClick={this.updateApplications}>Save</button>
+                <button className="btn btn-lg saveBtn" onClick={this.updateApplications}>Save</button>
             </div>
         );
     }
