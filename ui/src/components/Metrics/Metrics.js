@@ -114,8 +114,9 @@ fetchMetrics=(podId)=>{
       else
       nodeMetrics=(<h4>No Metrics to Show</h4>)
         return(
-            <div>
-       <h3>Node Metrics</h3>
+            <div className="padded-section">
+       <div className="card-header mb-3 text-white bg-primary pt-2 pb-2 "><h3>Node Metrics</h3></div>
+       
 
           {nodeMetrics}   
        

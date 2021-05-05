@@ -159,34 +159,33 @@ countryCodeChanged  =e=>{
       );
     }
     return (
-      
-      <div className="main-container">
-        <LoginHeader />
-        <form onSubmit={this.signUp}>
-          <div className="signup-header"></div>
-          <div className="signup-container">
-            <img
-              height="200"
-              width="200"
-              className="signup-img"
-              alt="splitwise"
-              src={splitwisewithoutname}
-            />
-            <div className="signup-content">
-              <h2>Introduce Yourself</h2>
-              <div className="signup-name-label">Hi there! My name is</div>
+        
+          <div className="main-container">
+            <LoginHeader />
+            <form onSubmit={this.signUp}>
+              <div className="signup-container">
+                <img
+                  height="200"
+                  width="200"
+                  className="signup-img"
+                  alt="splitwise"
+                  src={splitwisewithoutname}
+                />
+                <div className="signup-content">
+                  <h2>Introduce Yourself</h2>
+                  <div className="signup-name-label">Hi there! My name is</div>
 
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                onChange={this.custNameChanged}
-              />
-              {emailAndPasswd}
-            </div>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    onChange={this.custNameChanged}
+                  />
+                  {emailAndPasswd}
+                </div>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
     );
   }
 }
