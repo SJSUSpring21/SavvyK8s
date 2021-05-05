@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import config from '../../config.json';
-import { Checkbox } from '@material-ui/core';
+//import { Checkbox } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,6 +9,18 @@ import "./AppRegistration.css"
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+
+// import { Checkbox } from '@material-ui/core';
+
+
+import "./AppRegistration.css";
+
+import { red } from "@material-ui/core/colors";
+import Checkbox from "@material-ui/core/Checkbox";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 class AppRegistration extends Component{
 
     constructor(props){        
@@ -126,8 +138,25 @@ saveCustAppDtls=()=>{
         {
             regApps= apps.map(app=>{
              return (
-           
-               <span>  <input type="checkbox"  value={app._id} onChange={(e)=>this.appSelected(e,app)} />{app.applicationName} <br/></span>
+              <span>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    // checked={app._id}
+                    onChange={(e) => this.appSelected(e, app)}
+                    name="checkedB"
+                    color="primary"
+                    style={{ height: 30, width: 30, color: "royalblue" }}
+                  />
+                }
+                // label={app.applicationName}
+                label={
+                  <span style={{ fontSize: "2rem" }}>{app.applicationName}</span>
+                }
+              />
+              {/* <input type="checkbox" style = {{height : 30 , width:30 , color : "royalblue"}} value={app._id} onChange={(e)=>this.appSelected(e,app)} />{app.applicationName}  */}
+              <br />
+            </span>
              );
             })
         }

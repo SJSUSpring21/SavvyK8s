@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import config from '../../config.json';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 class MyApplications extends Component {
 
@@ -115,8 +117,24 @@ class MyApplications extends Component {
                     return (
 
                         <span>
-                            <input type="checkbox" checked={checked} value={app.appId} onChange={(e) => this.appSelected(e, app)} /> &nbsp;{app.appName} <br />
-                        </span>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                               checked={checked}
+                              onChange={(e) => this.appSelected(e, app)}
+                              name="checkedB"
+                              color="primary"
+                              style={{ height: 30, width: 30, color: "royalblue" }}
+                            />
+                          }
+                          // label={app.applicationName}
+                          label={
+                            <span style={{ fontSize: "2rem" }}>{app.appName}</span>
+                          }
+                        />
+                        {/* <input type="checkbox" style = {{height : 30 , width:30 , color : "royalblue"}} value={app._id} onChange={(e)=>this.appSelected(e,app)} />{app.applicationName}  */}
+                        <br />
+                      </span>
                     );
                 else
                     return (
