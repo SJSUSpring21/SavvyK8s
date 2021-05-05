@@ -93,7 +93,8 @@ class Dashboard extends Component {
       appId: this.state.selectedAppId,
       custId: this.state.custDetails.custId,
       nodeMetrics: false,
-      podId: podId
+      podId: podId,
+      nodeId:0
     };
 
 
@@ -256,7 +257,7 @@ class Dashboard extends Component {
             </div>
             <div className="graph Type">
             <h4>Select Graph</h4>
-            <select name="podName"  value={this.state.selectedGraphId} onChange={this.graphSelected}>
+            <select name="graphName"  value={this.state.selectedGraphId} onChange={this.graphSelected}>
               <option value="0">Select Graph</option>
               <option value="1">Line Charts</option>
               <option value="2">Area Chart</option>

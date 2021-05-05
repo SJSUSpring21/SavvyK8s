@@ -136,7 +136,7 @@ class HomePage extends Component {
       return (
         <HashRouter>
           <div>
-            <Header custDetails={this.state.custDetails} loggedIn={this.state.loggedIn} logOut={this.logOut} />;
+            <Header custDetails={this.state.custDetails} loggedIn={this.state.loggedIn} logOut={this.logOut} />
             <div className="grid-container">
               <div className="left-side">
                 <LeftSideBar
@@ -156,8 +156,7 @@ class HomePage extends Component {
                 <Route
                   path="/metrics"
                   render={props => (
-                    <Metrics
-                    />
+                    <Metrics/>
                   )}
                   exact
                 />
