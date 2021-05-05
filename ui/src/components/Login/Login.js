@@ -114,40 +114,41 @@ class Login extends Component {
     }
     //console.log(this.state.loginSuccessful);
     return (
+    
       <div className="main-container">
         <LoginHeader />
         <form onSubmit={this.checkAuthentication}>
-          <div className="login-container">
-            <img
-              height="200"
-              width="200"
-              className="login-img"
-              alt="splitwise"
-              src={splitwisewithoutname}
-            />
-            <div className="login-content">
-              <h2>WELCOME TO KUBERNETES DASHBOARD</h2>
-              <div className="login-email-label">Email address</div>
-              <input
-                type="email"
-                name="email"
-                data-testid="email-test"
-                placeholder="Email"
-                onChange={this.loginIdChanged}
-                required
+            <div className="login-container">
+              <img
+                height="200"
+                width="200"
+                className="login-img"
+                alt="splitwise"
+                src={splitwisewithoutname}
               />
-              <div className="login-email-label">Password</div>
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                onChange={this.passwordChanged}
-                required
-              />
+              <div className="login-content">
+                <h2>WELCOME TO KUBERNETES DASHBOARD</h2>
+                <div className="login-email-label">Email address</div>
+                <input
+                  type="email"
+                  name="email"
+                  data-testid="email-test"
+                  placeholder="Email"
+                  onChange={this.loginIdChanged}
+                  required
+                />
+                <div className="login-email-label">Password</div>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={this.passwordChanged}
+                  required
+                />
 
-              <button type="submit">Log in</button>
+                <button type="submit">Log in</button>
+              </div>
             </div>
-          </div>
         </form>
       </div>
     );

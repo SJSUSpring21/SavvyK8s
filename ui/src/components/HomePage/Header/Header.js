@@ -23,10 +23,13 @@ class Header extends Component {
 
     return (
       <div className="header">
+        <h2 className="mt-2" style={{float:'left', color: '#1092EC'}}>KUBERNETES</h2>
         <div className="login-header">
+
           <div className="loginLinks">
-            <span style={{ color: 'black' }}> {this.state.custDetails.custName}</span>
-            <button className="login" onClick={this.logout}>
+            
+            <b className="mr-3" style={{ color: 'black' }}><i style={{'font-size': '3rem'}} className="mr-3 fa fa-user fa-fw"></i> {this.state.custDetails.custName}</b>
+            <button className=" btn btn-info btn-md mr-3 mb-2 login" onClick={this.logout}>
               Log out
             </button>
           </div>
@@ -37,4 +40,3 @@ class Header extends Component {
 }
 
 export default Header;
-
