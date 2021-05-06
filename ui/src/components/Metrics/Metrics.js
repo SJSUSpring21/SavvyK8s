@@ -12,6 +12,8 @@ class Metrics extends Component{
       selectedNodeId:1,
       selectedGraphId:2,
       metricDataFlag:false,
+      memory:0,
+      cpu:0,
         data : [
             {
               name: '01:30',
@@ -123,9 +125,16 @@ fetchMetrics=(nodeId)=>{
          console.log("Status Code : ", response.status);
          if (response.status === 200) {
            console.log(response);
+           let memory,cpu;
+           if(response.data.length>0){
+            memory=response.data[response.data.length-1].memory;
+            cpu=response.data[response.data.length-1].cpu;
+           }
         this.setState({
             metricData:response.data,
-            metricDataFlag:true
+            metricDataFlag:true,
+            memory:memory,
+            cpu:cpu
         })
          
        }
@@ -140,6 +149,8 @@ fetchMetrics=(nodeId)=>{
        let graph=null;
        let graph1=null;
        let nodeList=null;  
+       let graphDesc=null;
+   let graph1Desc=null;
        console.log('render')  
        if(this.state.nodeList.length>0)
        {
@@ -157,6 +168,10 @@ fetchMetrics=(nodeId)=>{
           width={500}
           height={300}
           data={this.state.metricData}
+          style={{borderRadius: "150px",
+          outline: "1px solid grey",
+          width: "500px",
+          height: "300px"}}
           margin={{
             top: 5,
             right: 30,
@@ -176,11 +191,17 @@ fetchMetrics=(nodeId)=>{
       }
       else if(this.state.metricDataFlag&&this.state.metricData.length>0&&this.state.selectedGraphId===2)
        {
+        graph1Desc= (<span style={{fontSize:"30px",marginLeft:"425px"}}>Memory</span>)
+        graphDesc=(   <span style={{fontSize:"30px",marginLeft:"175px"}}>CPU</span>)
          console.log('inside')
         graph=( <AreaChart
-          width={500}
+          width={400}
           height={400}
           data={this.state.metricData}
+          style={{borderRadius: "150px",
+          outline: "1px solid grey",
+          width: "400px",
+          height: "400px"}}
           margin={{
             top: 10,
             right: 30,
@@ -197,9 +218,12 @@ fetchMetrics=(nodeId)=>{
         
         )
         graph1=( <AreaChart
-          width={500}
+          width={400}
           height={400}
-          style={{marginLeft:"500px",marginTop:"-400px"}}
+          style={{marginLeft:"500px",marginTop:"-400px",borderRadius: "150px",
+          outline: "1px solid grey",
+          width: "400px",
+          height: "400px"}}
           data={this.state.metricData}
           margin={{
             top: 10,
@@ -245,10 +269,27 @@ fetchMetrics=(nodeId)=>{
             </div>
             </div>
   <br/>
-  <div className="metricData">
-  {graph}
-  {graph1}
+  <section className="graphs">
+          <span >{graph}{graph1}</span>
+       {graphDesc}{graph1Desc}
+          {/* <div className="graph1">{graph1}</div> */}
+        </section>
+        <section className="padded-section">
+<div className="grid-container-metric">
+          <div className="memory">
+<center><b>Memory</b></center>
+<span className="memoryData">{this.state.memory}</span>
+
 </div>
+<div className="cpu">
+<center><b>CPU</b></center>
+<span className="cpuData">{this.state.cpu}</span>
+</div>
+</div>
+         
+          {/* <NestedGrid/> */}
+        </section>
+
      </div>   
  
           

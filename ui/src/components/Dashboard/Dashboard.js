@@ -29,7 +29,7 @@ class Dashboard extends Component {
     this.fetchMetrics(this.state.selectedPodId);
      const podId=console.log('default pod:',this.state.selectedPodId)
     this.timer =setInterval(()=>{
-      this.fetchMetrics(this.state.selectedPodId)}, 5000);
+      this.fetchMetrics(this.state.selectedPodId)}, 50000000);
   }
   componentWillUnmount() {
     this.timer = null; 
@@ -141,6 +141,8 @@ class Dashboard extends Component {
    let graph=null;
    let graph1=null;
    let metricList=null;
+   let graphDesc=null;
+   let graph1Desc=null;
    console.log('pod id:',this.state.selectedPodId)
   //  if(this.state.selectedGraphId===2 )
   //  {
@@ -157,6 +159,10 @@ class Dashboard extends Component {
       width={500}
       height={300}
       data={this.state.metricData}
+      style={{borderRadius: "150px",
+      outline: "1px solid grey",
+      width: "500px",
+      height: "300px",marginRight:"400px"}}
       margin={{
         top: 5,
         right: 30,
@@ -175,12 +181,16 @@ class Dashboard extends Component {
    }
    else if(this.state.metricDataFlag&&this.state.metricData.length>0&&this.state.selectedGraphId===2/*&&this.state.selectedMetricId>0*/)
    {
-  
-  
+    graph1Desc= (<span style={{fontSize:"30px",marginLeft:"425px"}}>Memory</span>)
+    graphDesc=(   <span style={{fontSize:"30px",marginLeft:"175px"}}>CPU</span>)
     graph=( <AreaChart
-      width={500}
+      width={400}
       height={400}
       data={this.state.metricData}
+      style={{borderRadius: "150px",
+      outline: "1px solid grey",
+      width: "400px",
+      height: "400px",marginRight:"400px"}}
       margin={{
         top: 10,
         right: 30,
@@ -197,9 +207,12 @@ class Dashboard extends Component {
     
     )
     graph1=( <AreaChart
-      width={500}
+      width={400}
       height={400}
-      style={{marginLeft:"500px",marginTop:"-400px"}}
+      style={{marginLeft:"500px",marginTop:"-400px",borderRadius: "150px",
+      outline: "1px solid grey",
+      width: "400px",
+      height: "400px"}}
       data={this.state.metricData}
       margin={{
         top: 10,
@@ -270,7 +283,7 @@ class Dashboard extends Component {
               </div>
             </div>
             <div className="col-lg-4">
-              <div className="graph Type">
+              <div className="graphType">
                 <h4>Select Graph</h4>
                 <select className="select_" name="podName"  value={this.state.selectedGraphId} onChange={this.graphSelected}>
                   <option value="0">Select Graph</option>
@@ -283,8 +296,12 @@ class Dashboard extends Component {
             </div>
           </section>
         <br/>
-        <section className="padded-section">
-          <span>{graph} {graph1}</span>
+        <section className="graphs">
+          <span >{graph}{graph1}</span>
+       {graphDesc}{graph1Desc}
+         
+         
+          {/* <div className="graph1">{graph1}</div> */}
         </section>
         <section className="padded-section">
 <div className="grid-container-metric">

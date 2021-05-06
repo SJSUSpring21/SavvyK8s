@@ -48,3 +48,14 @@
     "memory cpu" ;
 }
 
+.graph{
+  /* border-radius: 150px;
+  outline: 1px solid grey;
+  width: 400px;
+  height: 400px;
+  margin-right: 100px; */
+}
+
+.graphs{
+  margin-left: 100px;
+}
