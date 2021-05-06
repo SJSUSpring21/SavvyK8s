@@ -3,7 +3,7 @@ import DashboardHeader from "./DashboardHeader/DashboardHeader";
 import axios from "axios";
 import config from '../../config.json';
 import { LineChart,AreaChart, Line, Area,XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import NestedGrid from './Grid.js';
+import BasicGrid from './Grid.js';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -235,32 +235,27 @@ class Dashboard extends Component {
       }
     }
     return (
-    <div className="dashboard">
-        <section className="padded-section">
-          <div className="row">
-            <div className="col-lg-4">
+    <>
+        <section style={{ paddingLeft:'180px', marginTop:'3rem', marginBottom:'5rem'}}>
+          <div style={{display: 'flex', textAlign: 'center'}}>
               <div className="appList">
-                <h4>Select Application</h4>
+                <h4 style={{ marginLeft: '6em'}}>Select Application</h4>
                 <select className="select_" name="appName" value={this.state.selectedAppId} onChange={this.appSelected}>
                   <option value="0">Select Application</option>
                   {appList}
                 </select>
               </div>
-            </div>
             <br />
-            <div className="col-lg-4">
               <div className="podList">
-                <h4>Select Pod</h4>
+                <h4 style={{ marginLeft: '5em'}}>Select Pod</h4>
                 <select className="select_"  name="podName" value={this.state.selectedPodId} onChange={this.podSelected}>
                   <option value="0">Select Pod</option>
                   <br />
                   {podList}
                 </select>
               </div>
-            </div>
-            <div className="col-lg-4">
               <div className="graph Type">
-                <h4>Select Graph</h4>
+                <h4 style={{ marginLeft: '5em'}}>Select Graph</h4>
                 <select className="select_" name="podName"  value={this.state.selectedGraphId} onChange={this.graphSelected}>
                   <option value="0">Select Graph</option>
                   <option value="1">Line Charts</option>
@@ -269,17 +264,15 @@ class Dashboard extends Component {
                 </div>
                 {metricList}
               </div>
-            </div>
           </section>
         <br/>
-        <section className="padded-section">
+        <section style={{ paddingLeft:'350px',marginTop:'3rem', marginBottom:'8rem'}}>
           <span>{graph} {graph1}</span>
         </section>
-        <section className="padded-section">
-          <NestedGrid/>
+        <section style={{ width:'auto', paddingLeft:'350px', marginTop:'3rem'}}>
+          <BasicGrid/>
         </section>
-      </div>
-      
+      </>
     );
   }
 }

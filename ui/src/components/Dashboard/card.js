@@ -1,25 +1,19 @@
 import React from 'react';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-
-export default function MediaCard(props) {
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles({
+  root: {
+    minWidth: 150,
+  },
+});
+export default function Card(props) {
+  const classes = useStyles();
   return (
-    <Card className={props.className} style={{width: 'auto'}}>
-      <CardActionArea>
-        <CardContent>
-          <Typography className="text-white" style={{ fontSize: '2rem'}} gutterBottom>
-            {props.title}
-          </Typography>
-          <Typography variant="h5" className="text-white" component="h2">
-            {props.subheader}
-          </Typography>
-          <Typography variant="body2" className="text-white" component="p">
-            {props.content}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <div className={`${classes.root} card`} style={{color: 'white'}}>
+      <div class="card-body" className={props.className}>
+        <h5 class="card-title text-white" style={{ fontSize: '3rem', fontWeight:'bold', padding:'1rem'}}>{props.title}</h5>
+        <p class="card-text" style={{ fontSize: '1.5rem' , padding:'1em'}}>{props.content}</p>
+      </div>
+    </div>
+
   );
 }

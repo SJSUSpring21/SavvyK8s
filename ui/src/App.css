@@ -76,35 +76,28 @@
     background: #fff;
     cursor:pointer;
 }
-.card{
-    border-radius: 10px;
-    box-shadow: 0 0 18px -2px black;
-}
-@media(max-width:765px){
-    .card{
-        display:inline-block;
-        margin-bottom: 5px;
-        margin-top:5px;
-        width:18rem;
-    }
-}
 .select_{
-    display: block;
-    padding: 15px 12px;
     font-size: 1em;
-    margin: 10px auto;
+    margin-right: 150px;
+    margin-left: 150px;
     height:70%;
-    width: 80%;
+    width: 30%;
     border-radius: 10px;
     border: 3px solid #ccc;
     
 }
-.dashboard h4{
-  text-align:center;
+.select_:hover{
+  box-shadow:0 0 18px -2px black;
+  cursor:pointer;
+}
+.card:hover{
+  box-shadow:0 0 18px -2px black;
+  cursor:pointer;
 }
 /*.row:before, .row:after{
   display: none !important;
 }*/
-.row{
+/*.row{
    display: -webkit-inline-box; 
 }
+*/

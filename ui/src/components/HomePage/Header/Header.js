@@ -23,7 +23,7 @@ class Header extends Component {
 
     return (
       <div className="header">
-        <h2 className="mt-2" style={{float:'left', color: '#1092EC'}}>&nbsp; &nbsp; Savvy K8s</h2>
+        <h2 className="mt-2" style={{float:'left', color: '#1092EC'}}>&nbsp;&nbsp;Savvy K8s</h2>
         <div className="login-header">
 
           <div className="loginLinks">
