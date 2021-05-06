@@ -31,7 +31,7 @@ class Header extends Component {
           alt="splitwise"
           src={splitwisewithoutname}
         />
-        <span style={{color: '#1092EC', fontSize: '2em', marginTop:'10px'}}><b>K8s</b></span>
+        <span style={{color: '#1092EC', fontSize: '2em', marginTop:'10px'}}><b>Savvy K8s</b></span>
         <section style={{float:'right'}}>
             <b className="mr-3" style={{ color: 'black' }}><i style={{'font-size': '3rem'}} className="mt-3 fa fa-user fa-fw"></i> {this.state.custDetails.custName}</b>
             <button className=" btn btn-info btn-md mr-3 mb-2 login" onClick={this.logout}>
