@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import config from '../../../config.json';
 import cookie from "react-cookies";
+import splitwisewithoutname from "../../../assets/images/kubernetes.svg";
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -23,17 +24,20 @@ class Header extends Component {
 
     return (
       <div className="header">
-        <h2 className="mt-2" style={{float:'left', color: '#1092EC'}}>&nbsp;&nbsp;Savvy K8s</h2>
-        <div className="login-header">
-
-          <div className="loginLinks">
-            
-            <b className="mr-3" style={{ color: 'black' }}><i style={{'font-size': '3rem'}} className="mr-3 fa fa-user fa-fw"></i> {this.state.custDetails.custName}</b>
+        <img
+          height="60px"
+          width="60px"
+          className="login-img"
+          alt="splitwise"
+          src={splitwisewithoutname}
+        />
+        <span style={{color: '#1092EC', fontSize: '2em', marginTop:'10px'}}><b>K8s</b></span>
+        <section style={{float:'right'}}>
+            <b className="mr-3" style={{ color: 'black' }}><i style={{'font-size': '3rem'}} className="mt-3 fa fa-user fa-fw"></i> {this.state.custDetails.custName}</b>
             <button className=" btn btn-info btn-md mr-3 mb-2 login" onClick={this.logout}>
               Log out
             </button>
-          </div>
-        </div>
+        </section>
       </div>
     );
   }

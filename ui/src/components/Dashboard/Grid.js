@@ -20,25 +20,15 @@ export default function BasicGrid() {
     'title':'Card2',
     'content':"What is Lorem Ipsum?Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     'className':"bg-warning",
-  },
-  {
-    'title':'Card3',
-    'content':"What is Lorem Ipsum?Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    'className':"bg-danger",
-  },
-  {
-    'title':'Card4',
-    'content':"What is Lorem Ipsum?Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    'className':"bg-info",
   }
 
   ]
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Grid container spacing={10}>
+      <Grid container spacing={5}>
         {cards.map(card=>(
-          <Grid item xs={3}>
+          <Grid item xs={6}>
             <Card title={card.title} content={card.content} className={card.className}/>
           </Grid>
           ))}

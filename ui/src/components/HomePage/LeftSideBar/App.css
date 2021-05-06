@@ -102,6 +102,6 @@
 /*.row:before, .row:after{
   display: none !important;
 }*/
-/*.row{
+.row{
    display: -webkit-inline-box; 
-}*/
+}

@@ -205,7 +205,7 @@ class Dashboard extends Component {
     </AreaChart>)
    }
    else{
-     graph=(<h4>No Metrics to Show</h4>)
+     graph=(<h4 style={{ marginLeft: '25em'}}>No Metrics to Show</h4>)
      graph1=null;
    }
     if(this.state.appPodDtls.length>0)
@@ -236,7 +236,7 @@ class Dashboard extends Component {
     }
     return (
     <>
-        <section style={{ paddingLeft:'180px', marginTop:'3rem', marginBottom:'5rem'}}>
+        <section style={{ paddingLeft:'50px', marginTop:'3rem', marginBottom:'5rem'}}>
           <div style={{display: 'flex', textAlign: 'center'}}>
               <div className="appList">
                 <h4 style={{ marginLeft: '6em'}}>Select Application</h4>
@@ -266,10 +266,10 @@ class Dashboard extends Component {
               </div>
           </section>
         <br/>
-        <section style={{ paddingLeft:'350px',marginTop:'3rem', marginBottom:'8rem'}}>
+        <section style={{ paddingLeft:'145px',marginTop:'3rem', marginBottom:'8rem'}}>
           <span>{graph} {graph1}</span>
         </section>
-        <section style={{ width:'auto', paddingLeft:'350px', marginTop:'3rem'}}>
+        <section style={{ width:'auto', paddingLeft:'145px', marginTop:'3rem'}}>
           <BasicGrid/>
         </section>
       </>
