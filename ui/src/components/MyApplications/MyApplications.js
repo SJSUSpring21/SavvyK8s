@@ -129,18 +129,35 @@ class MyApplications extends Component {
                           }
                           // label={app.applicationName}
                           label={
-                            <span style={{ fontSize: "2rem" }}>{app.appName}</span>
+                            <span style={{ fontSize: "3rem" }}>{app.appName}</span>
                           }
                         />
                         {/* <input type="checkbox" style = {{height : 30 , width:30 , color : "royalblue"}} value={app._id} onChange={(e)=>this.appSelected(e,app)} />{app.applicationName}  */}
-                        <br />
+                        {/* <br /> */}
                       </span>
                     );
                 else
                     return (
 
                         <span>
-                            <input type="checkbox" value={app.appId} onChange={(e) => this.appSelected(e, app)} /> &nbsp;{app.appName} <br />
+
+<FormControlLabel
+                          control={
+                            <Checkbox
+                              //  checked={checked}
+                              onChange={(e) => this.appSelected(e, app)}
+                              name="uncheckedB"
+                              color="primary"
+                              style={{ height: 30, width: 30, color: "royalblue" }}
+                            />
+                          }
+                          // label={app.applicationName}
+                          label={
+                            <span style={{ fontSize: "3rem" }}>{app.appName}</span>
+                          }
+                        />
+                            {/* <input type="checkbox" value={app.appId} onChange={(e) => this.appSelected(e, app)} /> &nbsp;{app.appName}  */}
+                            {/* <br /> */}
                         </span>
                     );
             })
