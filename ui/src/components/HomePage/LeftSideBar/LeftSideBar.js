@@ -31,35 +31,35 @@ class LeftSideBar extends Component {
 
       <div className="left-side-bar">
         <div className="flex-container">
-          <nav id="sidebar">
+          <nav id="sidebar" style={{height:'1500px'}}>
                  <div class="sidebar-header">
                   <h3>KUBERNETES</h3>
                 </div>
 
                 <ul class="list-unstyled components">
                     <li>
-                      <NavLink to="/" activeClassName="active">
-                        <span className="dashboardSelected">
-                        </span>
-                        Dashboard
+                      <NavLink to="/dashboard" activeClassName="active">
+                      
+                        <label > Dashboard</label>
                       </NavLink>
                     </li>
                     <li>
                       <NavLink to="/metrics" activeClassName="active">
                         <span></span>
-                        <label style={{ color: "#FF652F" }}> Node Metrics</label>
+                        <label > Node Metrics</label>
+                      
                       </NavLink>
                     </li>
                     <li>
                       <NavLink to="/myapplications" activeClassName="active">
                         <span></span>
-                        <label style={{ color: "#999" }}> My Applications</label>
+                        <label > My Applications</label>
                       </NavLink>
                     </li>
                     <li>
                         <NavLink to="/myprofile" activeClassName="active">
                           <span></span>
-                          <label style={{ color: "#999" }}> My Profile</label>
+                          <label > My Profile</label>
                         </NavLink>
                     </li>
                 </ul>
