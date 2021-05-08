@@ -33,7 +33,7 @@ class LeftSideBar extends Component {
         <div className="flex-container">
           <nav id="sidebar" style={{height:'1500px'}}>
                  <div class="sidebar-header">
-                  <h3>KUBERNETES</h3>
+                  <h3>DASHBOARD</h3>
                 </div>
 
                 <ul class="list-unstyled components">

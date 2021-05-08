@@ -259,10 +259,9 @@ class Dashboard extends Component {
       }
     }
     return (
-    <div className="dashboard">
-        <section className="padded-section">
-          <div className="row">
-            <div className="col-lg-4">
+    <>
+        <section style={{ marginTop:'3rem', marginBottom:'5rem'}}>
+          <div style={{display: 'flex', textAlign: 'center'}}>
               <div className="appList">
                 <h4>Select Application</h4>
                 <select className="select_" name="appName" value={this.state.selectedAppId} onChange={this.appSelected}>
@@ -270,9 +269,7 @@ class Dashboard extends Component {
                   {appList}
                 </select>
               </div>
-            </div>
             <br />
-            <div className="col-lg-4">
               <div className="podList">
                 <h4>Select Pod</h4>
                 <select className="select_"  name="podName" value={this.state.selectedPodId} onChange={this.podSelected}>
@@ -281,8 +278,6 @@ class Dashboard extends Component {
                   {podList}
                 </select>
               </div>
-            </div>
-            <div className="col-lg-4">
               <div className="graphType">
                 <h4>Select Graph</h4>
                 <select className="select_" name="podName"  value={this.state.selectedGraphId} onChange={this.graphSelected}>
@@ -293,7 +288,6 @@ class Dashboard extends Component {
                 </div>
                 {metricList}
               </div>
-            </div>
           </section>
         <br/>
         <section className="graphs">
@@ -318,7 +312,7 @@ class Dashboard extends Component {
          
           {/* <NestedGrid/> */}
         </section>
-      </div>
+      </>
       
     );
   }
