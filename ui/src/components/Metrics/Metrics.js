@@ -225,91 +225,73 @@ class Metrics extends Component {
           marginLeft: "500px", marginTop: "-400px", borderRadius: "150px",
           outline: "1px solid grey",
           width: "400px",
-          height: "400px"
-        }}
-        data={this.state.metricData}
-        margin={{
-          top: 10,
-          right: 30,
-          left: 0,
-          bottom: 0,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Area type="monotone" dataKey="memory" stroke="#8884d8" fill="#8884d8" />
-      </AreaChart>)
-    }
-
-    else
-      graph = (<h4>No Node Metrics to Show</h4>)
-    return (
-
-
-      <div>
-
-        {/* <div className="nodeList"> */}
-        <div className="padded-section">
-          <div className="card-header mb-3 text-white bg-primary pt-2 pb-2 "><h3>Node Metrics</h3>
-          </div>
-
-
-          <h4>Select Node</h4>
-          <select name="appName" value={this.state.selectedNodeId} onChange={this.nodeSelected}>
-            <option value="0">Select Node</option>
-            {nodeList}
-          </select>
-          <br />
-          <div className="graphType">
-            <h4>Select Graph</h4>
-            <select name="graphName" value={this.state.selectedGraphId} onChange={this.graphSelected}>
-              <option value="0">Select Graph</option>
-              <option value="1">Line Charts</option>
-              <option value="2">Area Chart</option>
-            </select>
-          </div>
-        </div>
-        <br />
-        <section className="graphs">
-          <span >{graph}{graph1}</span>
-          {graphDesc}{graph1Desc}
-          {/* <div className="graph1">{graph1}</div> */}
-        </section>
-        <section className="padded-section">
-
-          <div className="grid-container-metric">
-            <div className="memory">
-              <center><b>Memory</b></center>
-              <span className="memoryData">{this.state.memory}</span>
-
-            </div>
-            <div className="cpu">
-              <center><b>CPU</b></center>
-              <span className="cpuData">{this.state.cpu}</span>
-            </div>
-            <div className="thresholdMemory">
-              <center><b>Memory</b></center>
-              <span className="thresholdMemoryData">{this.state.memory}</span>
-
-            </div>
-
-            <div className="thresholdCPU">
-              <center><b>CPU</b></center>
-              <span className="thresholdCPUData">{this.state.cpu}</span>
-            </div>
-
-          </div>
-
-          {/* <NestedGrid/> */}
-        </section>
+          height: "400px"}}
+          data={this.state.metricData}
+          margin={{
+            top: 10,
+            right: 30,
+            left: 0,
+            bottom: 0,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Area type="monotone" dataKey="memory" stroke="#8884d8" fill="#8884d8" />
+        </AreaChart>)
+       }
+ 
+      else
+      graph=(<h4>No Node Metrics to Show</h4>)
+        return(
+<div>
+       <div className="card-header mt-3 mb-3 text-white bg-primary pt-2 pb-2 "><h3>Node Metrics</h3>
+       </div>
+  <section style={{ marginTop:'3rem', marginBottom:'5rem'}}>
+    <div style={{display:'flex', textAlign: 'center'}}>
+      <div> 
+        <h4>Select Node</h4>
+        <select className="select_" name="appName" value={this.state.selectedNodeId} onChange={this.nodeSelected}>
+          <option value="0">Select Node</option>
+          {nodeList}
+        </select>
+      </div>
+     <br/>
+      <div className="graphType">
+        <h4>Select Graph</h4>
+        <select className="select_" name="graphName"  value={this.state.selectedGraphId} onChange={this.graphSelected}>
+          <option value="0">Select Graph</option>
+          <option value="1">Line Charts</option>
+          <option value="2">Area Chart</option>
+        </select>
+      </div>
+    </div>
+  </section>
+  <br/>
+  <section className="graphs">
+    <span >{graph}{graph1}</span>
+      {graphDesc}{graph1Desc}
+  </section>
+  <section className="padded-section">
+    <div className="grid-container-metric">
+      <div className="memory">
+        <center><b>Memory</b></center>
+        <span className="memoryData">{this.state.memory}</span>
 
       </div>
+      <div className="cpu">
+        <center><b>CPU</b></center>
+        <span className="cpuData">{this.state.cpu}</span>
+      </div>
+    </div>
+  </section>
 
-
-    );
-  }
+</div>   
+ 
+          
+        );
+    }
 
 
 }

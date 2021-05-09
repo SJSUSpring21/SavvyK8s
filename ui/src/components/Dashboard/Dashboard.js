@@ -3,6 +3,8 @@ import DashboardHeader from "./DashboardHeader/DashboardHeader";
 import axios from "axios";
 import "./Dashboard.css"
 import config from '../../config.json';
+import memory from "../../assets/images/memory.webp"
+import cpu from "../../assets/images/cpu.webp"
 import { LineChart,AreaChart, Line, Area,XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import NestedGrid from './Grid.js';
 class Dashboard extends Component {
@@ -259,10 +261,9 @@ class Dashboard extends Component {
       }
     }
     return (
-    <div className="dashboard">
-        <section className="padded-section">
-          <div className="row">
-            <div className="col-lg-4">
+    <>
+        <section style={{ marginTop:'3rem', marginBottom:'5rem'}}>
+          <div style={{display: 'flex', textAlign: 'center'}}>
               <div className="appList">
                 <h4>Select Application</h4>
                 <select className="select_" name="appName" value={this.state.selectedAppId} onChange={this.appSelected}>
@@ -270,9 +271,7 @@ class Dashboard extends Component {
                   {appList}
                 </select>
               </div>
-            </div>
             <br />
-            <div className="col-lg-4">
               <div className="podList">
                 <h4>Select Pod</h4>
                 <select className="select_"  name="podName" value={this.state.selectedPodId} onChange={this.podSelected}>
@@ -281,8 +280,6 @@ class Dashboard extends Component {
                   {podList}
                 </select>
               </div>
-            </div>
-            <div className="col-lg-4">
               <div className="graphType">
                 <h4>Select Graph</h4>
                 <select className="select_" name="podName"  value={this.state.selectedGraphId} onChange={this.graphSelected}>
@@ -293,7 +290,6 @@ class Dashboard extends Component {
                 </div>
                 {metricList}
               </div>
-            </div>
           </section>
         <br/>
         <section className="graphs">
@@ -307,12 +303,16 @@ class Dashboard extends Component {
         <span style={{marginLeft:'550px'}}> <h1>Threshold Limit</h1></span>
 <div className="grid-container-metric">
           <div className="memory">
+         
 <center><b>Memory</b></center>
+<img height="50px" width="40px" src={memory}/>
 <span className="memoryData">{this.state.memory}</span>
 
 </div>
 <div className="cpu">
+  
 <center><b>CPU</b></center>
+<img height="60px" width="40px" src={cpu} style={{marginBottom:'20px'}}/>
 <span className="cpuData">{this.state.cpu}</span>
 </div>
 <div className="thresholdMemory">
@@ -333,7 +333,7 @@ class Dashboard extends Component {
          
           {/* <NestedGrid/> */}
         </section>
-      </div>
+      </>
       
     );
   }

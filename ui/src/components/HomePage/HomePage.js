@@ -145,7 +145,7 @@ class HomePage extends Component {
               </div>
 
               <div className="center-area">
-                <Route path="/dashboard"
+                <Route path="/"
                   render={props => (this.state.appPodDtlsLoaded &&
                     <Dashboard {...props}
                       custDetails={this.state.custDetails}

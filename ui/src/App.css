@@ -69,6 +69,7 @@
     padding: 3rem;
     font-size: 1.4em;
     display: block;
+   
 }
 
 #sidebar ul li a:hover {
@@ -92,8 +93,9 @@
     display: block;
     padding: 15px 12px;
     font-size: 1em;
-    margin: 10px auto;
-    height:70%;
+    margin-right: 100px;
+    margin-left:100px;
+    height:30%;
     width: 80%;
     border-radius: 10px;
     border: 3px solid #ccc;
