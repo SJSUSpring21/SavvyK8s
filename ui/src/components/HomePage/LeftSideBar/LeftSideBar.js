@@ -3,7 +3,7 @@ import { Link, NavLink, Route } from "react-router-dom";
 import "./LeftSideBar.css";
 
 
-import { Header, Icon, Image, Menu, Segment, Sidebar } from 'semantic-ui-react'
+//import { Header, Icon, Image, Menu, Segment, Sidebar } from 'semantic-ui-react'
 
 
 class LeftSideBar extends Component {

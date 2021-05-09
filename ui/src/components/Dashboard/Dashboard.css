@@ -40,14 +40,47 @@
 
 .grid-container-metric {
   display: grid;
+  grid-template-columns: 175px 175px 300px 175px;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "memory cpu thresholdMemory thresholdCPU"
+    "memory cpu thresholdMemory thresholdCPU"
+    "memory cpu thresholdMemory thresholdCPU" ;
+}
+/* .grid-container-metric2 {
+  display: grid;
   grid-template-columns: 175px 175px;
   grid-template-rows: auto;
   grid-template-areas:
-    "memory cpu"
-    "memory cpu"
-    "memory cpu" ;
+    "thresholdMemory thresholdCPU"
+    "thresholdMemory thresholdCPU"
+    "thresholdMemory thresholdCPU";
+} */
+.thresholdMemory{
+  height: 130px;
+  width: 150px;
+  background-color: lightblue;
+  font-size: 30px;
+  margin-left: 140px;
 }
+.thresholdCPU{
+  height: 130px;
+  width: 150px;
+  background-color: lightgreen;
+  font-size: 30px;
+  margin-left: 15px;
+}
+.thresholdMemoryData{
+  font-size:40px;
+  margin-top:130px;
+  margin-left:30px
+}
+.thresholdCPUData{
+  font-size:40px;
+  margin-top:130px;
+  margin-left:30px
 
+}
 .graph{
   /* border-radius: 150px;
   outline: 1px solid grey;

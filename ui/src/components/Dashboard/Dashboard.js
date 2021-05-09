@@ -173,9 +173,9 @@ class Dashboard extends Component {
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis />
-      <Tooltip />
+      <Tooltip  wrapperStyle={{ width: 100, backgroundColor: 'red' }}/>
       <Legend />
-      <Line type="monotone" dataKey="cpu" stroke="#8884d8" activeDot={{ r: 8 }} />
+      <Line type="monotone" dataKey="cpu" stroke="#8884d8" activeDot={{ r: 8 }}  />
       <Line type="monotone" dataKey="memory" stroke="#82ca9d" />
     </LineChart>)
    }
@@ -202,7 +202,7 @@ class Dashboard extends Component {
       <XAxis dataKey="name" />
       <YAxis />
       <Tooltip />
-      <Area type="monotone" dataKey="cpu" stroke="#8884d8" fill="#8884d8" />
+      <Area type="monotone" dataKey="cpu" stroke="#8884d8" fill="#999" />
     </AreaChart>
     
     )
@@ -304,6 +304,7 @@ class Dashboard extends Component {
           {/* <div className="graph1">{graph1}</div> */}
         </section>
         <section className="padded-section">
+        <span style={{marginLeft:'550px'}}> <h1>Threshold Limit</h1></span>
 <div className="grid-container-metric">
           <div className="memory">
 <center><b>Memory</b></center>
@@ -314,7 +315,21 @@ class Dashboard extends Component {
 <center><b>CPU</b></center>
 <span className="cpuData">{this.state.cpu}</span>
 </div>
+<div className="thresholdMemory">
+<center><b>Memory</b></center>
+<span className="thresholdMemoryData">{this.state.memory}</span>
+
 </div>
+<div className="thresholdCPU">
+<center><b>CPU</b></center>
+<span className="thresholdCPUData">{this.state.cpu}</span>
+</div>
+</div>
+
+
+          
+
+
          
           {/* <NestedGrid/> */}
         </section>
