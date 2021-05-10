@@ -3,6 +3,12 @@ import React, { Component } from "react";
 import { LineChart, AreaChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import axios from "axios";
 import config from '../../config.json';
+
+import GetAppIcon from '@material-ui/icons/GetApp';
+
+import domtoimage from 'dom-to-image';
+import fileDownload from "js-file-download";
+
 class Metrics extends Component {
   constructor(props) {
     super(props);
@@ -60,11 +66,41 @@ class Metrics extends Component {
       ]
     }
   }
+ 
+ 
   async componentDidMount() {
 
     await this.fetchNodeList();
-    this.fetchMetrics(this.state.selectedNodeId);
+   // this.fetchMetrics(this.state.selectedNodeId);
+    this.fetchMetrics(1);
+   // const podId=console.log('default pod:',this.state.selectedPodId)
+   this.timer =setInterval(()=>{
+     this.fetchMetrics(1)}, 1500000);
+
   }
+  handleDownload=(graph)=>{
+    console.log('graph',graph)
+    if(graph==='graph1'){
+    domtoimage.toBlob(document.getElementById('cpugraph'))
+    .then(function (blob) {
+       fileDownload(blob, 'cpugraph.png');
+    });
+  }
+  if(graph==='graph2'){
+    domtoimage.toBlob(document.getElementById('memorygraph'))
+    .then(function (blob) {
+       fileDownload(blob, 'memorygraph.png');
+    });
+  }
+  if(graph==='graph3'){
+    domtoimage.toBlob(document.getElementById('cpumemorygraph'))
+    .then(function (blob) {
+       fileDownload(blob, 'cpumemorygraph.png');
+    });
+  }
+    
+  }
+  
   nodeSelected = (e) => {
     const nodeId = Number(e.target.value);
     this.setState({
@@ -162,15 +198,17 @@ class Metrics extends Component {
 
 
     if (this.state.metricDataFlag && this.state.metricData.length > 0 && this.state.selectedGraphId === 1) {
-      graph = (<LineChart
+      graph1Desc = (<span style={{ fontSize: "20px", marginLeft: "200px" }}>CPU-Memory<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph3')}/></span>)
+      graph = (<div id="cpumemorygraph"><LineChart
         width={500}
         height={300}
         data={this.state.metricData}
         style={{
-          borderRadius: "150px",
-          outline: "1px solid grey",
+          /*borderRadius: "150px",
+          outline: "1px solid grey"*/
           width: "500px",
-          height: "300px"
+          height: "300px",
+          backgroundColor:'white'
         }}
         margin={{
           top: 5,
@@ -187,21 +225,23 @@ class Metrics extends Component {
         <Line type="monotone" dataKey="cpu" stroke="#8884d8" activeDot={{ r: 8 }} />
         <Line type="monotone" dataKey="memory" stroke="#82ca9d" />
       </LineChart>
+      </div>
       )
     }
     else if (this.state.metricDataFlag && this.state.metricData.length > 0 && this.state.selectedGraphId === 2) {
-      graph1Desc = (<span style={{ fontSize: "30px", marginLeft: "425px" }}>Memory</span>)
-      graphDesc = (<span style={{ fontSize: "30px", marginLeft: "175px" }}>CPU</span>)
+      graph1Desc = (<span style={{ fontSize: "20px", marginLeft: "450px" }}>Memory<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph1')}/></span>)
+      graphDesc = (<span style={{ fontSize: "20px", marginLeft: "175px" }}>CPU<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph2')}/></span>)
       console.log('inside')
-      graph = (<AreaChart
+      graph = (<div id="cpugraph"><AreaChart
         width={400}
         height={400}
         data={this.state.metricData}
         style={{
-          borderRadius: "150px",
-          outline: "1px solid grey",
+         /* borderRadius: "150px",
+          outline: "1px solid grey",*/
           width: "400px",
-          height: "400px"
+          height: "400px",
+          backgroundColor:'white'
         }}
         margin={{
           top: 10,
@@ -214,18 +254,18 @@ class Metrics extends Component {
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Area type="monotone" dataKey="cpu" stroke="#8884d8" fill="#8884d8" />
-      </AreaChart>
+        <Area type="monotone" dataKey="cpu" stroke="#8884d8" fill="red" />
+      </AreaChart></div>
 
       )
-      graph1 = (<AreaChart
+      graph1 = (<div id="memorygraph"><AreaChart
         width={400}
         height={400}
         style={{
-          marginLeft: "500px", marginTop: "-400px", borderRadius: "150px",
-          outline: "1px solid grey",
+          marginLeft: "500px", marginTop: "-400px" /*borderRadius: "150px",
+          outline: "1px solid grey"*/,
           width: "400px",
-          height: "400px"}}
+          height: "400px",  backgroundColor:'white'}}
           data={this.state.metricData}
           margin={{
             top: 10,
@@ -239,16 +279,16 @@ class Metrics extends Component {
           <YAxis />
           <Tooltip />
           <Area type="monotone" dataKey="memory" stroke="#8884d8" fill="#8884d8" />
-        </AreaChart>)
+        </AreaChart></div>)
        }
  
       else
       graph=(<h4>No Node Metrics to Show</h4>)
         return(
 <div>
-       <div className="card-header mt-3 mb-3 text-white bg-primary pt-2 pb-2 "><h3>Node Metrics</h3>
-       </div>
-  <section style={{ marginTop:'3rem', marginBottom:'5rem'}}>
+       {/* <div className="card-header mt-3 mb-3 text-white bg-primary pt-2 pb-2 "><h3>Node Metrics</h3>
+       </div> */}
+  <section style={{ marginTop:'3rem', marginBottom:'1rem'}}>
     <div style={{display:'flex', textAlign: 'center'}}>
       <div> 
         <h4>Select Node</h4>
@@ -272,8 +312,11 @@ class Metrics extends Component {
   <section className="graphs">
     <span >{graph}{graph1}</span>
       {graphDesc}{graph1Desc}
+      <span style={{ float: 'left' }}>
+        {/* <button onClick={this.handleDownload}>Download</button> */}
+      </span>
   </section>
-  <section className="padded-section">
+  <section className="padded-section" style={{backgroundColor:'rgb(187, 183, 183)'}}>
     <div className="grid-container-metric">
       <div className="memory">
         <center><b>Memory</b></center>
@@ -285,6 +328,7 @@ class Metrics extends Component {
         <span className="cpuData">{this.state.cpu}</span>
       </div>
     </div>
+   
   </section>
 
 </div>   

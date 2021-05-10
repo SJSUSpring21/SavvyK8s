@@ -38,7 +38,7 @@ class Header extends Component {
        </div>
       <div className="center-area-header">
         <section style={{float:'right'}}>
-            <b className="mr-3" style={{ color: 'black' }}><i style={{'font-size': '3rem'}} className="mt-3 fa fa-user fa-fw"></i> {this.state.custDetails.custName}</b>
+            <b className="mr-3" style={{ color: 'white' }}><i style={{'font-size': '3rem'}} className="mt-3 fa fa-user fa-fw"></i> {this.state.custDetails.custName}</b>
             <button className=" btn btn-info btn-md mr-3 mb-2 login" onClick={this.logout}>
               Log out
             </button>

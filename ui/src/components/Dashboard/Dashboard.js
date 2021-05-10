@@ -1,16 +1,22 @@
 import React, { Component } from "react";
 import DashboardHeader from "./DashboardHeader/DashboardHeader";
 import axios from "axios";
+import { FileSaver } from 'file-saver';
 import "./Dashboard.css"
 import config from '../../config.json';
 import memory from "../../assets/images/memory.webp"
-import cpu from "../../assets/images/cpu.webp"
+import cpu from "../../assets/images/cpu.webp";
+import domtoimage from 'dom-to-image';
+import fileDownload from "js-file-download";
+import GetAppIcon from '@material-ui/icons/GetApp';
+
 import { LineChart,AreaChart, Line, Area,XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import NestedGrid from './Grid.js';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     console.log(props);
+    // const [png, ref] = useRechartToPng();
     this.state = {
       custDetails:this.props.custDetails,
       appPodDtls:this.props.appPodDtls,
@@ -22,16 +28,46 @@ class Dashboard extends Component {
       metricData:[],
       metricDataFlag:false,
       memory:0,
-      cpu:0
+      cpu:0,
+      chart:null,
      
     };
   }
+setChart=(e)=>{
+
+  this.setState({
+    chart:e.target.value
+  })
+ 
+}
+handleDownload=(graph)=>{
+  console.log('graph',graph)
+  if(graph==='graph1'){
+  domtoimage.toBlob(document.getElementById('cpugraph'))
+  .then(function (blob) {
+     fileDownload(blob, 'cpugraph.png');
+  });
+}
+if(graph==='graph2'){
+  domtoimage.toBlob(document.getElementById('memorygraph'))
+  .then(function (blob) {
+     fileDownload(blob, 'memorygraph.png');
+  });
+}
+if(graph==='graph3'){
+  domtoimage.toBlob(document.getElementById('cpumemorygraph'))
+  .then(function (blob) {
+     fileDownload(blob, 'cpumemorygraph.png');
+  });
+}
+  
+}
 
   componentDidMount() {
     this.fetchMetrics(this.state.selectedPodId);
      const podId=console.log('default pod:',this.state.selectedPodId)
     this.timer =setInterval(()=>{
-      this.fetchMetrics(this.state.selectedPodId)}, 50000000);
+      this.fetchMetrics(this.state.selectedPodId)}, 1500000);
   }
   componentWillUnmount() {
     this.timer = null; 
@@ -157,12 +193,13 @@ class Dashboard extends Component {
   //  }
    if(this.state.metricDataFlag&&this.state.metricData.length>0&&this.state.selectedGraphId===1)
    {
+    graph1Desc = (<span style={{ fontSize: "20px", marginLeft: "200px" }}>CPU-Memory<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph3')}/></span>)
     graph=( <LineChart
       width={500}
       height={300}
       data={this.state.metricData}
       style={{borderRadius: "150px",
-      outline: "1px solid grey",
+      outline: "1px solid white",
       width: "500px",
       height: "300px",marginRight:"400px"}}
       margin={{
@@ -183,16 +220,17 @@ class Dashboard extends Component {
    }
    else if(this.state.metricDataFlag&&this.state.metricData.length>0&&this.state.selectedGraphId===2/*&&this.state.selectedMetricId>0*/)
    {
-    graph1Desc= (<span style={{fontSize:"30px",marginLeft:"425px"}}>Memory</span>)
-    graphDesc=(   <span style={{fontSize:"30px",marginLeft:"175px"}}>CPU</span>)
+    graph1Desc = (<span style={{ fontSize: "20px", marginLeft: "450px" }}>Memory<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph1')}/></span>)
+    graphDesc = (<span style={{ fontSize: "20px", marginLeft: "175px" }}>CPU<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph2')}/></span>)
+ 
     graph=( <AreaChart
       width={400}
       height={400}
       data={this.state.metricData}
-      style={{borderRadius: "150px",
-      outline: "1px solid grey",
+      style={{/*borderRadius: "150px",*/
+      /*outline: "1px solid white",*/
       width: "400px",
-      height: "400px",marginRight:"400px"}}
+      height: "400px",marginRight:"400px",backgroundColor:'white'}}
       margin={{
         top: 10,
         right: 30,
@@ -204,17 +242,18 @@ class Dashboard extends Component {
       <XAxis dataKey="name" />
       <YAxis />
       <Tooltip />
-      <Area type="monotone" dataKey="cpu" stroke="#8884d8" fill="#999" />
+      <Area type="monotone" dataKey="cpu" stroke="#8884d8" fill="red" />
     </AreaChart>
     
     )
     graph1=( <AreaChart
       width={400}
       height={400}
-      style={{marginLeft:"500px",marginTop:"-400px",borderRadius: "150px",
-      outline: "1px solid grey",
+      ref={(ref) => this.setChart(ref)}
+      style={{marginLeft:"500px",marginTop:"-400px",/*,borderRadius: "150px",
+      outline: "1px solid white",*/
       width: "400px",
-      height: "400px"}}
+      height: "400px",backgroundColor:'white'}}
       data={this.state.metricData}
       margin={{
         top: 10,
@@ -227,8 +266,9 @@ class Dashboard extends Component {
       <XAxis dataKey="name" />
       <YAxis />
       <Tooltip />
-      <Area type="monotone" dataKey="memory" stroke="#8884d8" fill="#8884d8" />
-    </AreaChart>)
+      <Area type="monotone" dataKey="memory" stroke="#8884d8" fill="red" />
+    </AreaChart>
+    )
    }
    else{
      graph=(<h4>No Metrics to Show</h4>)
@@ -295,12 +335,13 @@ class Dashboard extends Component {
         <section className="graphs">
           <span >{graph}{graph1}</span>
        {graphDesc}{graph1Desc}
-         
+   
          
           {/* <div className="graph1">{graph1}</div> */}
         </section>
-        <section className="padded-section">
-        <span style={{marginLeft:'550px'}}> <h1>Threshold Limit</h1></span>
+        <section className="padded-section" >
+        <span style={{marginLeft:'850px'}}> <h1>Current Metrics</h1></span>
+       
 <div className="grid-container-metric">
           <div className="memory">
          
@@ -310,7 +351,7 @@ class Dashboard extends Component {
 
 </div>
 <div className="cpu">
-  
+
 <center><b>CPU</b></center>
 <img height="60px" width="40px" src={cpu} style={{marginBottom:'20px'}}/>
 <span className="cpuData">{this.state.cpu}</span>

@@ -335,7 +335,7 @@ return(
    <div className="imageSection">
             <h1>Your account</h1>
            
-             <img width="200" height="200" src={User} alt="Profile"/>
+             <img width="200" height="200" src={this.state.updatedCustdetails.image ? this.state.updatedCustdetails.image : User} alt="Profile"/>
             <input className="mt-3" type="file"  title="Profile" onChange={event => this.uploadedImage(event)} />
         </div>
         <div className="personalDetailsSection">

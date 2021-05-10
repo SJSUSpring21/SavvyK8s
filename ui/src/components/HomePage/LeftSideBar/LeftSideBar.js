@@ -32,14 +32,14 @@ class LeftSideBar extends Component {
 
       <div className="left-side-bar">
         <div className="flex-container">
-          <nav id="sidebar" style={{height:'1500px'}}>
+          <nav id="sidebar" style={{height:'800px'}}>
                  {/* <div class="sidebar-header">
                   <h3>DASHBOARD</h3>
                 </div> */}
 
                 <ul class="list-unstyled components">
                     <li>
-                      <NavLink to="/dashboard" activeClassName="active">
+                      <NavLink to="/" activeClassName="active">
                       <DashboardIcon fontSize="large"/>
                         <label > Dashboard</label>
                       </NavLink>

@@ -1,14 +1,16 @@
 .grid-container {
   display: grid;
-  grid-template-columns: 250px 900px 150px;
+  grid-template-columns: 250px 1300px;
   grid-template-rows: auto;
   grid-template-areas:
-    "left-side center-area right-side "
-    "left-side center-area right-side"
-    "left-side center-area right-side";
+    "left-side center-area "
+    "left-side center-area"
+    "left-side center-area";
 }
 .center-area{
   color:black;
+  background-color: rgb(187, 183, 183);
+ 
   
 }
 .right-side{

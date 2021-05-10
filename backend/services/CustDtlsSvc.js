@@ -1,4 +1,5 @@
 const Customer = require('../Models/CustomerModel');
+require('dotenv').config();
 const AWS = require('aws-sdk');
 module.exports = {
 
@@ -12,8 +13,8 @@ if( updatedCustDtls.image!==undefined){
     var base64data1 = new Buffer(updatedCustDtls.image.buffer, 'binary');
      const base64data = updatedCustDtls.image.buffer.toString('base64');
      const s3 = new AWS.S3({
-         accessKeyId: 'AKIAT3AUC24POWXUFANN',
-         secretAccessKey: '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'
+         accessKeyId: process.env.accessKey,
+         secretAccessKey: process.env.secret
      });
      //const fileContent = fs.readFileSync(fileName);
      const params = {

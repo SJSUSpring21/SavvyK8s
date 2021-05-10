@@ -7,17 +7,19 @@ var custAppMetricsSchema = new Schema({
     appId:{type: Number,  ref: 'userApplications',required: false},
     podId:{type:Number,ref:'podsConfig',required:false},
     // metricsTypeId:{type: Number, ref: 'metricsType',required: true},
-    metrics:{type:Object,required:false},
+    metrics:{type:Object,required:true},
+    nodeId:{type:Number,required:false},
     nodeMetrics:{type:Boolean,required:true},
     createdBy: {type: String, required: true},
-    createdDate: {type: Date, required: false},
+    createdDate: {type: String, required: true},
     modifiedBy: {type: String, required: false},
     modifiedDate:{type: Date, required: false},
 },
 {
-    versionKey: false
+    versionKey: false,
+    colelction:'custAppMetrics2'
   
 });
 
-const custAppMetricsModel = mongoose.model('custAppMetrics1', custAppMetricsSchema,'custAppMetrics1');
+const custAppMetricsModel = mongoose.model('custAppMetrics2', custAppMetricsSchema,'custAppMetrics2');
 module.exports = custAppMetricsModel;

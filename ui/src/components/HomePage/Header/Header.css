@@ -1,5 +1,5 @@
 .header {
-  background-color: rgb(223, 215, 215);
+  background-color: rgb(49, 47, 47);
   margin: 0px auto;
   width: auto;
   /* border-bottom: 1px solid #48be9d; */
@@ -23,7 +23,7 @@
   box-shadow: 0 0 18px -2px black;
 }
 .headerName{
-  color:rgb(8, 83, 245);
+  color:white;
   font-size: 25px;
    margin-top:15px;
    font-weight:bold;

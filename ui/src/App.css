@@ -42,8 +42,8 @@
   }
 }
 .padded-section{
-     padding:7% 15%;
-     background-color:  #fff;
+     padding:4% 10%;
+     background-color:  rgb(187, 183, 183);
 }
 
 #sidebar {
@@ -91,12 +91,12 @@
 }
 .select_{
     display: block;
-    padding: 15px 12px;
+    padding: 5px 6px;
     font-size: 1em;
     margin-right: 100px;
     margin-left:100px;
     height:30%;
-    width: 80%;
+    width: 40%;
     border-radius: 10px;
     border: 3px solid #ccc;
     

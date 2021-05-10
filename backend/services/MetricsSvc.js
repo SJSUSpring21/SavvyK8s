@@ -19,7 +19,9 @@ module.exports = {
            {
                console.log("metric:",metric)
            
-             const metricTime=moment(metric.createdDate).format("hh:mm")
+
+               console.log('metric time',metric.createdDate);
+             const metricTime=moment(metric.createdDate,'YYYY-MM-DD hh:mm:ss').format("hh:mm:ss")
              let metricRes={
                  name:metricTime,
                  memory:metric.metrics.memory,
@@ -36,7 +38,7 @@ module.exports = {
 
         return new Promise((resolve, reject) => {
             if (!nodeMetrics) {
-                metrics.find({  appId: appId,podId:podId, nodeMetrics: false }).exec((err, res) => {
+                metrics.find({  appId: appId,podId:podId, nodeMetrics: false }).limit(6).exec((err, res) => {
                     if (err) {
 
                     }
@@ -46,7 +48,7 @@ module.exports = {
                 })
             }
             else {
-                metrics.find({  nodeMetrics: true,nodeId:nodeId }, (err, res) => {
+                metrics.find({  nodeMetrics: true,nodeId:nodeId }).exec((err, res) => {
                     if (err) {
 
                     }
