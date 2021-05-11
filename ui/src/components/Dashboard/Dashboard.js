@@ -4,14 +4,14 @@ import axios from "axios";
 import { FileSaver } from 'file-saver';
 import "./Dashboard.css"
 import config from '../../config.json';
-import memory from "../../assets/images/memory.webp"
-import cpu from "../../assets/images/cpu.webp";
+import memory from "../../assets/images/memory-white.png"
+import cpu from "../../assets/images/cpu-white.png";
 import domtoimage from 'dom-to-image';
 import fileDownload from "js-file-download";
 import GetAppIcon from '@material-ui/icons/GetApp';
 
 import { LineChart,AreaChart, Line, Area,XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import NestedGrid from './Grid.js';
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -331,49 +331,35 @@ if(graph==='graph3'){
                 {metricList}
               </div>
           </section>
-        <br/>
-        <section className="graphs">
-          <span >{graph}{graph1}</span>
-       {graphDesc}{graph1Desc}
-   
-         
-          {/* <div className="graph1">{graph1}</div> */}
-        </section>
-        <section className="padded-section" >
-        <span style={{marginLeft:'850px'}}> <h1>Current Metrics</h1></span>
+          <br/>
+          <section className="graphs">
+            <span >{graph}{graph1}</span>
+            {graphDesc}{graph1Desc}
+          </section>
+          <section className="padded-section" >
+            <span style={{marginLeft:'850px'}}> <h1>Current Metrics</h1></span>
        
-<div className="grid-container-metric">
-          <div className="memory">
-         
-<center><b>Memory</b></center>
-<img height="50px" width="40px" src={memory}/>
-<span className="memoryData">{this.state.memory}</span>
-
-</div>
-<div className="cpu">
-
-<center><b>CPU</b></center>
-<img height="60px" width="40px" src={cpu} style={{marginBottom:'20px'}}/>
-<span className="cpuData">{this.state.cpu}</span>
-</div>
-<div className="thresholdMemory">
-<center><b>Memory</b></center>
-<span className="thresholdMemoryData">{this.state.memory}</span>
-
-</div>
-<div className="thresholdCPU">
-<center><b>CPU</b></center>
-<span className="thresholdCPUData">{this.state.cpu}</span>
-</div>
-</div>
-
-
-          
-
-
-         
-          {/* <NestedGrid/> */}
-        </section>
+            <div className="grid-container-metric">
+              <div className="memory common">
+                <img style={{float:'left'}} className="mt-4" height="50px" width="50px" src={memory}/>
+                <center><b className="ml-3">Memory</b></center>
+                <span className="memoryData">{this.state.memory? this.state.memory:0}</span>
+              </div>
+              <div className="cpu common">
+                <img style={{float:'left'}} className="mt-3" height="60px" width="50px" src={cpu}/>
+                <center><b className="ml-3">CPU</b></center>
+                <span className="cpuData">{this.state.cpu?this.state.cpu:0}</span>
+              </div>
+              <div className="thresholdMemory common">
+                <center><b >Memory</b></center>
+                <span className="thresholdMemoryData">{this.state.memory}</span>
+              </div>
+              <div className="thresholdCPU common">
+                <center><b>CPU</b></center>
+                <span className="thresholdCPUData">{this.state.cpu}</span>
+              </div>
+            </div>
+          </section>
       </>
       
     );

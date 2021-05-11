@@ -328,54 +328,44 @@ custPasswdEdit=(<div className="changePasswd"> <span>Your current password</span
 
 return(
     <div className="padded-section">
-{/* <form> */}
-<div className="profileGridContainer">
-   <div className="profileGridContainer">
-   {/* <h1>Your Account Profile Details</h1> */}
-   <div className="imageSection">
+      <div className="profileGridContainer">
+        <div className="profileGridContainer">
+          <div className="imageSection">
             <h1>Your account</h1>
-           
              <img width="200" height="200" src={this.state.updatedCustdetails.image ? this.state.updatedCustdetails.image : User} alt="Profile"/>
-            <input className="mt-3" type="file"  title="Profile" onChange={event => this.uploadedImage(event)} />
-        </div>
-        <div className="personalDetailsSection">
-               <div className="editName">
-            <span style={{fontWeight:'bold',fontSize:'18px'}}>Your name</span>
-        
+             <input className="mt-3" type="file"  title="Profile" onChange={event => this.uploadedImage(event)} />
           </div>
-             {custNameEdit}
-           <div className="editEmail">
-            <span style={{fontWeight:'bold',fontSize:'18px'}}>Your email address</span>
-
+          <div className="personalDetailsSection">
+            <div className="editName">
+              <span style={{fontWeight:'bold',fontSize:'18px'}}>Your name</span>
             </div>
-           {custEmailEdit}            
-        
-           <div className="editCountryCode">
-            <span style={{fontWeight:'bold',fontSize:'18px'}}>Your Country Code</span><br/>
-             <select value={this.state.updatedCustdetails.countryCode} onChange={this.countryCodeChanged}>
-             <option value="0">Select Country Code </option>
-            <option value="1">United States(+1)</option>
-            <option value="2">India(+91)</option>
-             </select>
-            </div>
-        <div className="editPhn">
-            <span style={{fontWeight:'bold',fontSize:'18px'}}>Your Phone number</span>
-             
-            </div>
-
+            {custNameEdit}
+             <div className="editEmail">
+              <span style={{fontWeight:'bold',fontSize:'18px'}}>Your email address</span>
+              </div>
+             {custEmailEdit}            
+             <div className="editCountryCode">
+              <span style={{fontWeight:'bold',fontSize:'18px'}}>Your Country Code</span><br/>
+               <select value={this.state.updatedCustdetails.countryCode} onChange={this.countryCodeChanged}>
+                <option value="0">Select Country Code </option>
+                <option value="1">United States(+1)</option>
+                <option value="2">India(+91)</option>
+               </select>
+             </div>
+             <div className="editPhn">
+              <span style={{fontWeight:'bold',fontSize:'18px'}}>Your Phone number</span> 
+             </div>
              {custPhnEdit}
              <br/>
-        {/* <div className="changePasswd">
-            
+          {/* <div className="changePasswd"> 
+              </div>
+              {custPasswdEdit} */}
+            <button className="btn saveBtn" onClick={this.updateCustdetails}>Save</button> 
               
-            </div>
-            {custPasswdEdit} */}
-              <button className="saveBtn" onClick={this.updateCustdetails}>Save</button> 
-            
-        </div>
+          </div>
         </div>
         {/* </form> */}
-        </div>
+      </div>
     </div>);
 }
 }
