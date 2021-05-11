@@ -286,8 +286,6 @@ class Metrics extends Component {
       graph=(<h4>No Node Metrics to Show</h4>)
         return(
 <div>
-       {/* <div className="card-header mt-3 mb-3 text-white bg-primary pt-2 pb-2 "><h3>Node Metrics</h3>
-       </div> */}
   <section style={{ marginTop:'3rem', marginBottom:'1rem'}}>
     <div style={{display:'flex', textAlign: 'center'}}>
       <div> 
@@ -318,12 +316,11 @@ class Metrics extends Component {
   </section>
   <section className="padded-section">
     <div className="grid-container-metric">
-      <div className="memory">
+      <div className="memory common">
         <center><b>Memory</b></center>
         <span className="memoryData">{this.state.memory}</span>
-
       </div>
-      <div className="cpu">
+      <div className="cpu common">
         <center><b>CPU</b></center>
         <span className="cpuData">{this.state.cpu}</span>
       </div>

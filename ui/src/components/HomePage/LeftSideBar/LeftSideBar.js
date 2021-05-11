@@ -41,26 +41,26 @@ class LeftSideBar extends Component {
                     <li>
                       <NavLink to="/" activeClassName="active">
                       <DashboardIcon fontSize="large"/>
-                        <label className="ml-2" > Dashboard</label>
+                        <label className="ml-4" > Dashboard</label>
                       </NavLink>
                     </li>
                     <li>
                       <NavLink to="/metrics" activeClassName="active">
                         <span><i className="fa fa-bar-chart" style={{fontSize:'20px'}}></i></span>
-                        <label className="ml-2" > Node Metrics</label>
+                        <label className="ml-4" > Node Metrics</label>
                       
                       </NavLink>
                     </li>
                     <li>
                       <NavLink to="/myapplications" activeClassName="active">
                         <span><i className="fa fa-tasks" style={{fontSize:'20px'}}></i> </span>
-                        <label className="ml-2"> My Applications</label>
+                        <label className="ml-4" > My Applications</label>
                       </NavLink>
                     </li>
                     <li>
                         <NavLink to="/myprofile" activeClassName="active">
-                          <span><i style={{'font-size': '30px'}} className="fa fa-user"></i></span>
-                           <label className="ml-2" > My Profile</label>
+                          <span><i style={{'font-size': '25px'}} className="fa fa-user"></i></span>
+                           <label className="ml-4" > My Profile</label>
                         </NavLink>
                     </li>
                 </ul>

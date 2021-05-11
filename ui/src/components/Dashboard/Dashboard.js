@@ -4,8 +4,8 @@ import axios from "axios";
 import { FileSaver } from 'file-saver';
 import "./Dashboard.css"
 import config from '../../config.json';
-import memory from "../../assets/images/memory.webp"
-import cpu from "../../assets/images/cpu.webp";
+import memory from "../../assets/images/memory-white.png"
+import cpu from "../../assets/images/cpu-white.png";
 import domtoimage from 'dom-to-image';
 import fileDownload from "js-file-download";
 import GetAppIcon from '@material-ui/icons/GetApp';
@@ -341,14 +341,14 @@ if(graph==='graph3'){
        
             <div className="grid-container-metric">
               <div className="memory common">
-                <img style={{float:'left'}} className="mt-4" height="40px" width="40px" src={memory}/>
-                <span><b className="ml-3">Memory</b></span>
-                <span className="memoryData">{this.state.memory}</span>
+                <img style={{float:'left'}} className="mt-4" height="50px" width="50px" src={memory}/>
+                <center><b className="ml-3">Memory</b></center>
+                <span className="memoryData">{this.state.memory? this.state.memory:0}</span>
               </div>
               <div className="cpu common">
-                <img style={{float:'left'}} className="mt-3" height="40px" width="40px" src={cpu}/>
-                <span><b className="ml-5">CPU</b></span>
-                <span className="cpuData">{this.state.cpu}</span>
+                <img style={{float:'left'}} className="mt-3" height="60px" width="50px" src={cpu}/>
+                <center><b className="ml-3">CPU</b></center>
+                <span className="cpuData">{this.state.cpu?this.state.cpu:0}</span>
               </div>
               <div className="thresholdMemory common">
                 <center><b >Memory</b></center>
