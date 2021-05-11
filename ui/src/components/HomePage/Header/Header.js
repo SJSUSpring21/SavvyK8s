@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import splitwisewhite from "../../../assets/images/splitwisewhite.svg";
 import "./Header.css";
-import kube from "../../../assets/images/kube.jpeg";
+import kube from "../../../assets/images/kube.PNG";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";

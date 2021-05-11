@@ -316,7 +316,7 @@ class Metrics extends Component {
         {/* <button onClick={this.handleDownload}>Download</button> */}
       </span>
   </section>
-  <section className="padded-section" style={{backgroundColor:'rgb(187, 183, 183)'}}>
+  <section className="padded-section">
     <div className="grid-container-metric">
       <div className="memory">
         <center><b>Memory</b></center>

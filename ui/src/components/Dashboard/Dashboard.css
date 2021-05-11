@@ -16,11 +16,15 @@
     "owe owed"
     "owe owed" ;
 }
+.common{
+  box-shadow: 0 0 18px -2px black;
+  border-radius: 10px;
+}
  .memory{
   height: 130px;
   width: 180px;
   background-color: lightblue;
-  font-size: 30px;
+  font-size: 25px;
 }
  .memoryData{
   font-size:40px;
@@ -31,7 +35,7 @@
   height: 130px;
   width: 180px;
   background-color: lightgreen;
-  font-size: 30px;
+  font-size: 25px;
   margin-left: 30px;
 }
  .cpuData{
