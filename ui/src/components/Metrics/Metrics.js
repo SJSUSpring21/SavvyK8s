@@ -78,6 +78,9 @@ class Metrics extends Component {
      this.fetchMetrics(1)}, 1500000);
 
   }
+  componentWillUnmount() {
+    this.timer = null; 
+  }
   handleDownload=(graph)=>{
     console.log('graph',graph)
     if(graph==='graph1'){
