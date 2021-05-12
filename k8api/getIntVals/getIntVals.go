@@ -8,12 +8,18 @@ import (
 func GetIntVals(PodResponseObject model.PodMetrics,NodeResponseObject model.NodeMetrics)(model.PodMetrics, model.NodeMetrics){
 
 	for  i:=0;i<len(PodResponseObject.Pods);i++{
-		j:=0
-		for ;j<len(PodResponseObject.Pods[i].Containers);j++{
-			k:=0
-			for ;k<len(PodResponseObject.Pods[i].Containers[j].ContainerUsages);j++{
+		for j:=0;j<len(PodResponseObject.Pods[i].Containers);j++{
+			var TotalPodCpu int64
+			var TotalPodMem int64
+			for k:=0;k<len(PodResponseObject.Pods[i].Containers[j].ContainerUsages);j++{
 				PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].CpuInt,PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].MemoryInt = convertInt(PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].Cpu, PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].Memory)
+
+				TotalPodCpu =TotalPodCpu + PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].CpuInt
+				TotalPodMem =TotalPodMem + PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].MemoryInt
 			}
+			PodResponseObject.Pods[j].Cpu=TotalPodCpu
+			PodResponseObject.Pods[j].Memory=TotalPodMem
+
 		}
 
 	}
@@ -45,9 +51,9 @@ func convertInt(cpuMetrics string, memoryMetrics string) (int64,int64){
 		}
 	}
 
-		cpuMetricsInt, _ := strconv.ParseInt(cpuMetrics,10,64)
+	cpuMetricsInt, _ := strconv.ParseInt(cpuMetrics,10,64)
 	memoryMetricsInt,_ := strconv.ParseInt(memoryMetrics,10,64)
 
-	return cpuMetricsInt,memoryMetricsInt
+	return cpuMetricsInt/1000000,(memoryMetricsInt/1024)
 
 }

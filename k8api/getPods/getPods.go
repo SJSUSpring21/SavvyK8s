@@ -9,7 +9,7 @@ import (
 
 func GetPods() model.PodMetrics{
 
-	url := "localhost:8080/apis/metrics.k8s.io/v1beta1/pods"
+	url := "http://127.0.0.1:8080/apis/metrics.k8s.io/v1beta1/namespaces/default/pods"
 	responseData := getdata.Getdata(url)
 
 

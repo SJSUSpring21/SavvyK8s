@@ -1,12 +1,15 @@
 package main
 
 import (
+	"SavvyK8s/k8api/checkThreshold"
 	"SavvyK8s/k8api/getIntVals"
 	"SavvyK8s/k8api/getNodes"
 	"SavvyK8s/k8api/getPods"
 	"SavvyK8s/k8api/k8Proxy"
 	"SavvyK8s/k8api/model"
+	"SavvyK8s/k8api/mongostore"
 	"fmt"
+	"time"
 )
 
 func main(){
@@ -14,26 +17,23 @@ func main(){
 	fmt.Println("savvy K8s running")
 	k8Proxy.K8sProxy()
 
-	//Add loop to run after specific time
 
-	var PodResponseObject model.PodMetrics
-	var NodeResponseObject model.NodeMetrics
+	for i:=0;i<100;i++{
 
-
-	PodResponseObject = getPods.GetPods()
-	NodeResponseObject = getNodes.GetNodes()
-	PodResponseObject, NodeResponseObject = getIntVals.GetIntVals(PodResponseObject,NodeResponseObject)
-
-	fmt.Println("-------------------------------------------------")
-	fmt.Println(PodResponseObject)
-	fmt.Println("")
-	fmt.Println("")
-	fmt.Println(NodeResponseObject)
-	fmt.Println("-------------------------------------------------")
-
-	//checkThreshold.CheckThresholdPod(PodResponseObject)
-	//checkThreshold.CheckThresholdNode(NodeResponseObject)
+		var PodResponseObject model.PodMetrics
+		var NodeResponseObject model.NodeMetrics
 
 
-	//mongostore.MongoStore(PodResponseObject, NodeResponseObject)
+		PodResponseObject = getPods.GetPods()
+		NodeResponseObject = getNodes.GetNodes()
+		PodResponseObject, NodeResponseObject = getIntVals.GetIntVals(PodResponseObject,NodeResponseObject)
+
+
+		checkThreshold.CheckThresholdPod(PodResponseObject)
+		checkThreshold.CheckThresholdNode(NodeResponseObject)
+
+		mongostore.MongoStore(PodResponseObject, NodeResponseObject)
+		time.Sleep(10 * time.Second)
+
+	}
 }
