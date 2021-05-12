@@ -1,11 +1,12 @@
 package model
 
+
 type NodeMetrics struct{
 
-	Kind string `json:":"kind"`
-	ApiVersion string `json:":"apiVersion"`
-	Metadata string `json:":"metadata"`
-	Nodes []Node `json:":"items"`
+	Kind string `json:"kind"`
+	ApiVersion string `json: "apiVersion"`
+	Metadata string `json:"metadata"`
+	Nodes []Node `json:"items"`
 }
 
 type Node struct {
@@ -26,4 +27,3 @@ type  MetadataNode struct {
 	SelfLink string `json:"selfLink"`
 	CreationTimeStamp string `json:"creationTimestamp"`
 }
-

@@ -10,24 +10,15 @@ func CheckThresholdPod(PodResponseObject model.PodMetrics){
 
 	for i:=0;i<len(PodResponseObject.Pods);i++{
 
-		for j:=0;j<len(PodResponseObject.Pods[i].Containers);j++{
+		if PodResponseObject.Pods[i].Cpu > 1000000000{
 
-			for k:=0;k<len(PodResponseObject.Pods[i].Containers[j].ContainerUsages);k++{
+			mailAlert.MailAlert("Pod",PodResponseObject.Pods[i].MetadataPods.Name,"cpu",PodResponseObject.Pods[i].Cpu)
 
-				if PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].CpuInt > 1000{
+		} else if PodResponseObject.Pods[i].Memory> 1000000000 {
 
-					mailAlert.MailAlert("Pod",PodResponseObject.Pods[i].MetadataPods.Name,"cpu",PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].CpuInt )
+			mailAlert.MailAlert("Pod",PodResponseObject.Pods[i].MetadataPods.Name,"cpu",PodResponseObject.Pods[i].Memory)
 
-				} else if PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].MemoryInt > 1000 {
-
-					mailAlert.MailAlert("Pod",PodResponseObject.Pods[i].MetadataPods.Name,"cpu",PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].MemoryInt )
-
-				}
-
-
-			}
 		}
-
 	}
 
 
