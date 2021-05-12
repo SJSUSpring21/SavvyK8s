@@ -15,7 +15,7 @@ func MongoInsert(client *mongo.Client,ctx context.Context,PodResponseObject mode
 
 	col := client.Database("kubernetes-metrics").Collection("custAppMetrics2")
 
-	colPod := client.Database("kubernetes-metrics").Collection("PodsCollectionName")
+	colPod := client.Database("kubernetes-metrics").Collection("custAppMetrics2")
 
 
 	currentTime := time.Now()
@@ -82,9 +82,10 @@ func MongoInsert(client *mongo.Client,ctx context.Context,PodResponseObject mode
 		if PodResponseObject.Pods[i].MetadataPods.Name == "demo-app1"{
 
 			_, insertErr := colPod.InsertOne(ctx,bson.D{
-				{Key: "appId", Value:bson.D{{Key: "cpu", Value: PodResponseObject.Pods[i].Containers[i].ContainerUsages},{Key: "memory", Value: NodeResponseObject.Nodes[0].NodeUsages.MemoryInt}}},
-				{Key: "nodeMetrics", Value: true},
-				{Key: "nodeId", Value: 1},
+				{Key: "metrics", Value:bson.D{{Key: "cpu", Value: PodResponseObject.Pods[i].Cpu},{Key: "memory", Value: PodResponseObject.Pods[i].Memory }}},
+				{Key: "appId", Value: 1},
+				{Key: "podId", Value: 1},
+				{Key: "nodeMetrics", Value:false},
 				{Key: "createdBy", Value: "System"},
 				{Key: "createdDate", Value: currentTime.String()},
 
@@ -99,7 +100,21 @@ func MongoInsert(client *mongo.Client,ctx context.Context,PodResponseObject mode
 		}
 		if PodResponseObject.Pods[i].MetadataPods.Name=="demo-app2"{
 
+			_, insertErr := colPod.InsertOne(ctx,bson.D{
+				{Key: "metrics", Value:bson.D{{Key: "cpu", Value: PodResponseObject.Pods[i].Cpu},{Key: "memory", Value: PodResponseObject.Pods[i].Memory }}},
+				{Key: "appId", Value: 2},
+				{Key: "podId", Value: 2},
+				{Key: "nodeMetrics", Value:false},
+				{Key: "createdBy", Value: "System"},
+				{Key: "createdDate", Value: currentTime.String()},
 
+			})
+			if insertErr != nil {
+				fmt.Println("InsertOne ERROR:", insertErr)
+				os.Exit(1) // safely exit script on error
+			} else {
+				fmt.Println("Added Node data to mongo")
+			}
 
 
 		}

@@ -23,7 +23,7 @@ type Pod struct {
 
 type Container struct{
 	Name string `json:"name"`
-	ContainerUsages []ContainerUsage `json:"usage"`
+	ContainerUsages ContainerUsage `json:"usage"`
 }
 
 
