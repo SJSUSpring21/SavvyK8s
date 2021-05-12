@@ -337,7 +337,8 @@ if(graph==='graph3'){
             {graphDesc}{graph1Desc}
           </section>
           <section className="padded-section" >
-            <span style={{marginLeft:'850px'}}> <h1>Current Metrics</h1></span>
+            <span className="currMetrics">Current Metrics</span>
+            <span className="thresholdMetrics"> Threshold Metrics</span>
        
             <div className="grid-container-metric">
               <div className="memory common">
@@ -351,11 +352,13 @@ if(graph==='graph3'){
                 <span className="cpuData">{this.state.cpu?this.state.cpu:0}</span>
               </div>
               <div className="thresholdMemory common">
-                <center><b >Memory</b></center>
+              <img style={{float:'left'}} className="mt-4" height="50px" width="50px" src={memory}/>
+              <center><b className="ml-3">Memory</b></center>
                 <span className="thresholdMemoryData">{this.state.memory}</span>
               </div>
               <div className="thresholdCPU common">
-                <center><b>CPU</b></center>
+              <img style={{float:'left'}} className="mt-3" height="60px" width="50px" src={cpu}/>
+              <center><b className="ml-3">CPU</b></center>
                 <span className="thresholdCPUData">{this.state.cpu}</span>
               </div>
             </div>

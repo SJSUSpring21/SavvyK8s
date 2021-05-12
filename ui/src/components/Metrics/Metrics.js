@@ -3,7 +3,8 @@ import React, { Component } from "react";
 import { LineChart, AreaChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import axios from "axios";
 import config from '../../config.json';
-
+import memory from "../../assets/images/memory-white.png"
+import cpu from "../../assets/images/cpu-white.png";
 import GetAppIcon from '@material-ui/icons/GetApp';
 
 import domtoimage from 'dom-to-image';
@@ -320,13 +321,25 @@ class Metrics extends Component {
   <section className="padded-section">
     <div className="grid-container-metric">
       <div className="memory common">
+      <img style={{float:'left'}} className="mt-4" height="50px" width="50px" src={memory}/>
         <center><b>Memory</b></center>
         <span className="memoryData">{this.state.memory}</span>
       </div>
       <div className="cpu common">
+      <img style={{float:'left'}} className="mt-3" height="60px" width="50px" src={cpu}/>
         <center><b>CPU</b></center>
         <span className="cpuData">{this.state.cpu}</span>
       </div>
+      <div className="thresholdMemory common">
+              <img style={{float:'left'}} className="mt-4" height="50px" width="50px" src={memory}/>
+              <center><b className="ml-3">Memory</b></center>
+                <span className="thresholdMemoryData">{this.state.memory}</span>
+              </div>
+              <div className="thresholdCPU common">
+              <img style={{float:'left'}} className="mt-3" height="60px" width="50px" src={cpu}/>
+              <center><b className="ml-3">CPU</b></center>
+                <span className="thresholdCPUData">{this.state.cpu}</span>
+              </div>
     </div>
    
   </section>
