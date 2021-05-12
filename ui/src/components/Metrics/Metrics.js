@@ -3,7 +3,8 @@ import React, { Component } from "react";
 import { LineChart, AreaChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import axios from "axios";
 import config from '../../config.json';
-
+import memory from "../../assets/images/memory-white.png"
+import cpu from "../../assets/images/cpu-white.png";
 import GetAppIcon from '@material-ui/icons/GetApp';
 
 import domtoimage from 'dom-to-image';
@@ -75,8 +76,11 @@ class Metrics extends Component {
     this.fetchMetrics(1);
    // const podId=console.log('default pod:',this.state.selectedPodId)
    this.timer =setInterval(()=>{
-     this.fetchMetrics(1)}, 1500000);
+     this.fetchMetrics(1)}, 15000000);
 
+  }
+  componentWillUnmount() {
+    this.timer = null; 
   }
   handleDownload=(graph)=>{
     console.log('graph',graph)
@@ -86,10 +90,14 @@ class Metrics extends Component {
        fileDownload(blob, 'cpugraph.png');
     });
   }
-  if(graph==='graph2'){
+   if(graph==='graph2'){
+    console.log(graph)
+  //  document.getElementById('memorygraph').style.marginTop='0px';
     domtoimage.toBlob(document.getElementById('memorygraph'))
     .then(function (blob) {
+      console.log(blob)
        fileDownload(blob, 'memorygraph.png');
+    //   document.getElementById('memorygraph').style.marginTop='-400px';
     });
   }
   if(graph==='graph3'){
@@ -229,8 +237,9 @@ class Metrics extends Component {
       )
     }
     else if (this.state.metricDataFlag && this.state.metricData.length > 0 && this.state.selectedGraphId === 2) {
-      graph1Desc = (<span style={{ fontSize: "20px", marginLeft: "450px" }}>Memory<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph1')}/></span>)
-      graphDesc = (<span style={{ fontSize: "20px", marginLeft: "175px" }}>CPU<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph2')}/></span>)
+    
+      graphDesc = (<span style={{ fontSize: "20px", marginLeft: "175px" }}>CPU<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph1')}/></span>)
+      graph1Desc = (<span style={{ fontSize: "20px", marginLeft: "450px" }}>Memory<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph2')}/></span>)
       console.log('inside')
       graph = (<div id="cpugraph"><AreaChart
         width={400}
@@ -252,17 +261,18 @@ class Metrics extends Component {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
-        <YAxis />
+        <YAxis domain={[0, 500]}/>
         <Tooltip />
         <Area type="monotone" dataKey="cpu" stroke="#8884d8" fill="red" />
       </AreaChart></div>
+      
 
       )
-      graph1 = (<div id="memorygraph"><AreaChart
+      graph1 = (<div id="memorygraph" style={{marginTop: "-400px"}}><AreaChart
         width={400}
         height={400}
         style={{
-          marginLeft: "500px", marginTop: "-400px" /*borderRadius: "150px",
+          marginLeft: "500px"  /*borderRadius: "150px",
           outline: "1px solid grey"*/,
           width: "400px",
           height: "400px",  backgroundColor:'white'}}
@@ -276,7 +286,7 @@ class Metrics extends Component {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
-          <YAxis />
+          <YAxis domain={[0, 1500]}/>
           <Tooltip />
           <Area type="monotone" dataKey="memory" stroke="#8884d8" fill="#8884d8" />
         </AreaChart></div>)
@@ -315,15 +325,29 @@ class Metrics extends Component {
       </span>
   </section>
   <section className="padded-section">
+  <span className="currMetrics">Current Metrics</span>
+            <span className="thresholdMetrics"> Threshold Metrics</span>
     <div className="grid-container-metric">
       <div className="memory common">
+      <img style={{float:'left'}} className="mt-4" height="50px" width="50px" src={memory}/>
         <center><b>Memory</b></center>
         <span className="memoryData">{this.state.memory}</span>
       </div>
       <div className="cpu common">
+      <img style={{float:'left'}} className="mt-3" height="60px" width="50px" src={cpu}/>
         <center><b>CPU</b></center>
         <span className="cpuData">{this.state.cpu}</span>
       </div>
+      <div className="thresholdMemory common">
+              <img style={{float:'left'}} className="mt-4" height="50px" width="50px" src={memory}/>
+              <center><b >Memory</b></center>
+                <span className="thresholdMemoryData">{this.state.memory}</span>
+              </div>
+              <div className="thresholdCPU common">
+              <img style={{float:'left'}} className="mt-3" height="60px" width="50px" src={cpu}/>
+              <center><b >CPU</b></center>
+                <span className="thresholdCPUData">{this.state.cpu}</span>
+              </div>
     </div>
    
   </section>

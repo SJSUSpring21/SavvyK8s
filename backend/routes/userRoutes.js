@@ -5,7 +5,6 @@ const multer = require('multer');
 var upload = multer();
 
 const { checkAuth } = require("../passport/passport");
-const { kafka } = require('../kafka');
 const loginSignup = require('../services/LoginSignupSvc');
 const appReg = require('../services/AppRgstrnSvc');
 const custDtls = require("../services/CustDtlsSvc");
@@ -40,16 +39,28 @@ const metrics=require("../services/MetricsSvc");
 
 
 router.post("/signup", async (req, res) => {
+  try{
   console.log('inside signup');
   const response = await signup('createCustomer', req.body);
 
   res.status(201).send(response);
+  }
+  catch(error){
+    res.status(500).send(error);
+  }
 });
 
 router.post("/login", async (req, res) => {
+  try{
   const response = await checkLogin('checkLogin', req.body);
 
   res.status(200).send(response);
+}
+  catch(error)
+  {
+    res.status(500).send(error);
+    }
+
 });
 
 router.get("/appRegistration", async (req, res) => {

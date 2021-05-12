@@ -20,6 +20,16 @@ class Header extends Component {
     console.log("inside logout");
     this.props.logOut(!this.state.loggedIn);
   };
+  componentDidUpdate(prevProps)
+  {
+    if(prevProps.custDetails!==this.props.custDetails)
+    {
+      const custDetails=this.props.custDetails;
+      this.setState({
+        custDetails:custDetails
+      })
+    }
+  }
   render() {
 
     return (

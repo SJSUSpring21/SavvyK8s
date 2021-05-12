@@ -77,9 +77,10 @@ class Login extends Component {
       })
       .catch(error => {
         console.log(error.response);
+        alert(error.response.data.desc)
         this.setState({
           loginSuccessful: false,
-          errorMsg: error.response.data.errorDesc
+          errorMsg: error.response.data.desc
         });
       });
   };

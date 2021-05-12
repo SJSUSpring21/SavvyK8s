@@ -17,7 +17,7 @@ class LandingPage extends Component {
           <h1> and </h1>
           <h1>Handling Tool</h1>
 
-          <h2> Less stress when knowing metrics about your applications</h2>
+        
         </div>
 
         <div className="landingContent">

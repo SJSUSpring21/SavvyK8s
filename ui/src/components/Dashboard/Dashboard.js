@@ -33,13 +33,7 @@ class Dashboard extends Component {
      
     };
   }
-setChart=(e)=>{
 
-  this.setState({
-    chart:e.target.value
-  })
- 
-}
 handleDownload=(graph)=>{
   console.log('graph',graph)
   if(graph==='graph1'){
@@ -67,7 +61,7 @@ if(graph==='graph3'){
     this.fetchMetrics(this.state.selectedPodId);
      const podId=console.log('default pod:',this.state.selectedPodId)
     this.timer =setInterval(()=>{
-      this.fetchMetrics(this.state.selectedPodId)}, 1500000);
+      this.fetchMetrics(this.state.selectedPodId)}, 15000000);
   }
   componentWillUnmount() {
     this.timer = null; 
@@ -220,10 +214,10 @@ if(graph==='graph3'){
    }
    else if(this.state.metricDataFlag&&this.state.metricData.length>0&&this.state.selectedGraphId===2/*&&this.state.selectedMetricId>0*/)
    {
-    graph1Desc = (<span style={{ fontSize: "20px", marginLeft: "450px" }}>Memory<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph1')}/></span>)
-    graphDesc = (<span style={{ fontSize: "20px", marginLeft: "175px" }}>CPU<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph2')}/></span>)
+    graph1Desc = (<span style={{ fontSize: "20px", marginLeft: "450px" }}>Memory<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph2')}/></span>)
+    graphDesc = (<span style={{ fontSize: "20px", marginLeft: "175px" }}>CPU<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph1')}/></span>)
  
-    graph=( <AreaChart
+    graph=( <div id="cpugraph"><AreaChart
       width={400}
       height={400}
       data={this.state.metricData}
@@ -243,13 +237,12 @@ if(graph==='graph3'){
       <YAxis />
       <Tooltip />
       <Area type="monotone" dataKey="cpu" stroke="#8884d8" fill="red" />
-    </AreaChart>
+    </AreaChart></div>
     
     )
-    graph1=( <AreaChart
+    graph1=(<div id="memorygraph"> <AreaChart
       width={400}
       height={400}
-      ref={(ref) => this.setChart(ref)}
       style={{marginLeft:"500px",marginTop:"-400px",/*,borderRadius: "150px",
       outline: "1px solid white",*/
       width: "400px",
@@ -268,6 +261,7 @@ if(graph==='graph3'){
       <Tooltip />
       <Area type="monotone" dataKey="memory" stroke="#8884d8" fill="red" />
     </AreaChart>
+    </div>
     )
    }
    else{
@@ -302,7 +296,7 @@ if(graph==='graph3'){
     }
     return (
     <>
-        <section style={{ marginTop:'3rem', marginBottom:'5rem'}}>
+        <section style={{ marginTop:'3rem', marginBottom:'1rem'}}>
           <div style={{display: 'flex', textAlign: 'center'}}>
               <div className="appList">
                 <h4>Select Application</h4>
@@ -337,7 +331,8 @@ if(graph==='graph3'){
             {graphDesc}{graph1Desc}
           </section>
           <section className="padded-section" >
-            <span style={{marginLeft:'850px'}}> <h1>Current Metrics</h1></span>
+            <span className="currMetrics">Current Metrics</span>
+            <span className="thresholdMetrics"> Threshold Metrics</span>
        
             <div className="grid-container-metric">
               <div className="memory common">
@@ -351,11 +346,13 @@ if(graph==='graph3'){
                 <span className="cpuData">{this.state.cpu?this.state.cpu:0}</span>
               </div>
               <div className="thresholdMemory common">
-                <center><b >Memory</b></center>
+              <img style={{float:'left'}} className="mt-4" height="50px" width="50px" src={memory}/>
+              <center><b >Memory</b></center>
                 <span className="thresholdMemoryData">{this.state.memory}</span>
               </div>
               <div className="thresholdCPU common">
-                <center><b>CPU</b></center>
+              <img style={{float:'left'}} className="mt-3" height="60px" width="50px" src={cpu}/>
+              <center><b >CPU</b></center>
                 <span className="thresholdCPUData">{this.state.cpu}</span>
               </div>
             </div>

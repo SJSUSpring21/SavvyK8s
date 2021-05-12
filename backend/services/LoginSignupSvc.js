@@ -38,7 +38,7 @@ module.exports = {
             "code": "E01",
             "desc": "Email already exists"
           }
-          return resolve(errorRes);
+          return reject(errorRes);
           //return errorRes;
         }
         else {
@@ -78,13 +78,16 @@ module.exports = {
             "code": "E01",
             "desc": "Something went wrong.Please try again"
           }
-          return resolve(errorRes);
+          return reject(errorRes);
         }
         else {
+          if(existingCust!==null)
+          {
           console.log('existingcust',existingCust);
           bcrypt.compare(loginDetails.loginPassword, existingCust.custPasswd)
             .then(response => {
 
+              if(response){
               const payload = { _id: existingCust._id, custEmail: existingCust.custEmail };
               console.log('payload', payload)
               const token = jwt.sign(payload, secret, {
@@ -95,13 +98,30 @@ module.exports = {
 
               console.log('existing cust', existingCust)
               return resolve(existingCust);
+            }
+            else
+            {
+              const errorRes = {
+                "code": "E01",
+                "desc": "Password is incorrect"
+              }
+              return reject(errorRes);
+            }
             }).catch(error => {
               const errorRes = {
                 "code": "E01",
                 "desc": "Something went wrong.Please try again"
               }
-              return resolve(errorRes);
+              return reject(errorRes);
             })
+          }
+          else {
+            const errorRes = {
+                "code": "E01",
+                "desc": "User Not found"
+            }
+            return reject(errorRes);
+        }
         }
       })
     })
