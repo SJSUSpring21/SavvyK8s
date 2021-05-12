@@ -15,5 +15,5 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-EXPOSE 3020
+EXPOSE 3005
 CMD [ "node", "serverExpress.js" ]

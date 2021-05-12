@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import splitwisewhite from "../../../assets/images/splitwisewhite.svg";
+import landing from "../../../assets/images/landing-2.png";
 import kube from "../../../assets/images/kube.PNG";
 import { Link } from "react-router-dom";
 import "./LoginHeader.css";
@@ -16,14 +17,14 @@ class LoginHeader extends Component {
         <div className="headerContainer">
           <div className="left-side-header">
             <img
-              height="60px"
-              width="60px"
+             height="60px"
+             width="230px"
               className="login-img"
-              alt="kube"
-              src={kube}
+              alt="landing"
+              src={landing}
             />
-            <span className="headerName" ><b>&nbsp;&nbsp;Savvy K8s</b>
-            </span>
+            {/* <span className="headerName" ><b>&nbsp;&nbsp;Savvy K8s</b>
+            </span> */}
           </div>
           <div className="login-header">
             <Link to="/">

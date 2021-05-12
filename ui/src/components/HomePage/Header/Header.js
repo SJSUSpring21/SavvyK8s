@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import splitwisewhite from "../../../assets/images/splitwisewhite.svg";
 import "./Header.css";
 import kube from "../../../assets/images/kube.PNG";
+import landing from "../../../assets/images/landing-2.png";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -38,13 +39,13 @@ class Header extends Component {
           <div className="left-side-header">
             <img
               height="60px"
-              width="60px"
+              width="230px"
               className="login-img"
               alt="kube"
-              src={kube}
+              src={landing}
             />
-            <span className="headerName" ><b>&nbsp;&nbsp;Savvy K8s</b>
-           </span>
+            {/* <span className="headerName" ><b>&nbsp;&nbsp;Savvy K8s</b>
+           </span> */}
           </div>
           <div className="center-area-header">
             <section style={{float:'right'}}>
