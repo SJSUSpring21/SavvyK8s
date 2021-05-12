@@ -61,7 +61,7 @@ if(graph==='graph3'){
     this.fetchMetrics(this.state.selectedPodId);
      const podId=console.log('default pod:',this.state.selectedPodId)
     this.timer =setInterval(()=>{
-      this.fetchMetrics(this.state.selectedPodId)}, 15000000);
+      this.fetchMetrics(this.state.selectedPodId)}, 15000);
   }
   componentWillUnmount() {
     this.timer = null; 
@@ -195,7 +195,7 @@ if(graph==='graph3'){
       style={{borderRadius: "150px",
       outline: "1px solid white",
       width: "500px",
-      height: "300px",marginRight:"400px"}}
+      height: "300px",marginRight:"400px",backgroundColor:'white'}}
       margin={{
         top: 5,
         right: 30,
@@ -214,8 +214,8 @@ if(graph==='graph3'){
    }
    else if(this.state.metricDataFlag&&this.state.metricData.length>0&&this.state.selectedGraphId===2/*&&this.state.selectedMetricId>0*/)
    {
-    graph1Desc = (<span style={{ fontSize: "20px", marginLeft: "450px" }}>Memory<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph2')}/></span>)
-    graphDesc = (<span style={{ fontSize: "20px", marginLeft: "175px" }}>CPU<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph1')}/></span>)
+    graph1Desc = (<span style={{ fontSize: "20px", marginLeft: "450px" }}>Memory(Mb)<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph2')}/></span>)
+    graphDesc = (<span style={{ fontSize: "20px", marginLeft: "175px" }}>CPU(cores)<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph1')}/></span>)
  
     graph=( <div id="cpugraph"><AreaChart
       width={400}

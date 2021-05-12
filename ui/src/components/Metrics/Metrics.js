@@ -76,7 +76,7 @@ class Metrics extends Component {
     this.fetchMetrics(1);
    // const podId=console.log('default pod:',this.state.selectedPodId)
    this.timer =setInterval(()=>{
-     this.fetchMetrics(1)}, 15000000);
+     this.fetchMetrics(1)}, 15000);
 
   }
   componentWillUnmount() {
