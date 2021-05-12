@@ -18,6 +18,21 @@
   height: 24px;
   padding: 12px 10px;
 }
+.headerContainer{
+  display: grid;
+  grid-template-columns: 230px 1200px;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "left-side-header center-area-header "
+    "left-side-header center-area-header "
+    "left-side-header center-area-header "
+}
+.left-side-header{
+  /* border-right: 1px solid black; */
+  box-shadow: 0 0 3px rgb(0 0 0 / 50%);
+  height:100%;
+  box-shadow: 0 0 18px -2px black;
+}
 
 .login-header .loginLinks {
   right: 10px;

@@ -341,13 +341,13 @@ if(graph==='graph3'){
        
             <div className="grid-container-metric">
               <div className="memory common">
-                <img style={{float:'left'}} className="mt-4" height="50px" width="50px" src={memory}/>
-                <center><b className="ml-3">Memory</b></center>
+                <img className="mt-2" style={{float:'left'}} height="50px" width="50px" src={memory}/>
+                <center><b>Memory</b></center>
                 <span className="memoryData">{this.state.memory? this.state.memory:0}</span>
               </div>
               <div className="cpu common">
-                <img style={{float:'left'}} className="mt-3" height="60px" width="50px" src={cpu}/>
-                <center><b className="ml-3">CPU</b></center>
+                <img className="mt-2" style={{float:'left'}} height="60px" width="40px" src={cpu}/>
+                <center><b>CPU</b></center>
                 <span className="cpuData">{this.state.cpu?this.state.cpu:0}</span>
               </div>
               <div className="thresholdMemory common">

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./LandingPage.css";
 import LoginHeader from "../Login/Header/LoginHeader";
-import kubernetes from "../../assets/images/k8s.png";
+import kubernetes from "../../assets/images/metrices.png";
 class LandingPage extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +24,7 @@ class LandingPage extends Component {
 
           <img
             height="250"
-            width="750"
+            width="250"
             className="landingImage"
             alt="splitwise"
             src={kubernetes}
