@@ -1,94 +1,104 @@
 package mailAlert
 
 import (
+	"crypto/tls"
 	"fmt"
-	"net/smtp"
 	"strconv"
+	gomail "gopkg.in/mail.v2"
 )
 
-func (s *smtpServer) Address() string {
-	return s.host + ":" + s.port
-}
 
 func MailAlert(item string,item_name string, metric_type string, metric_val int64){
 
 
-	from := "cmpe272team18@gmail.com"
-	password := "Kubernetes@cmpe"
 
 
 
-	// Receiver email address to be set
-
-	to := []string{
-		"sarvesh.upadhye@gmail.com",
-	}
-
-	smtpServer := smtpServer{host: "smtp.gmail.com", port: "587"}
+	m := gomail.NewMessage()
 
 
+	m.SetHeader("From", "cmpe272team18@gmail.com")
+	m.SetHeader("To", "sarvesh.upadhye@gmail.com")
 
-	var message []byte
-	if item=="node"{
+
+	if item=="Node"{
 		if metric_type=="memory"{
 			m1:="The memory usage of Node: "
 			m2:=item_name
 			m3:=" is above threshold. Memory Usage:"
 			m4:=metric_val
 			m5:="Mi"
-			message=[]byte(m1+m2+m3+strconv.FormatInt(m4, 10)+m5)
+			subject:=item_name+"Node Memory usage Alert"
+			m.SetHeader("Subject", subject)
+			message:=m1+m2+m3+strconv.FormatInt(m4, 10)+m5
+			m.SetBody("text/plain", message)
 
-			auth := smtp.PlainAuth("", from, password, smtpServer.host)
-			err := smtp.SendMail(smtpServer.Address(), auth, from, to, message)
-			if err != nil {
+			d := gomail.NewDialer("smtp.gmail.com", 587, "cmpe272team18@gmail.com", "Kubernetes@cmpe")
+			d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
+			if err := d.DialAndSend(m); err != nil {
 				fmt.Println(err)
+				panic(err)
 			}
-		} else {
-			m1:="The CPU usage of Node:"
+
+
+		} else if metric_type=="cpu" {
+			m1:="The CPU usage of Node: "
 			m2:=item_name
 			m3:=" is above threshold. CPU Usage:"
 			m4:=metric_val
 			m5:="mCores"
-			message=[]byte(m1+m2+m3+strconv.FormatInt(m4, 10)+m5)
+			subject:=item_name+"Node CPU usage Alert"
+			m.SetHeader("Subject", subject)
+			message:=m1+m2+m3+strconv.FormatInt(m4, 10)+m5
+			m.SetBody("text/plain", message)
 
-			auth := smtp.PlainAuth("", from, password, smtpServer.host)
-			err := smtp.SendMail(smtpServer.Address(), auth, from, to, message)
-			if err != nil {
+			d := gomail.NewDialer("smtp.gmail.com", 587, "cmpe272team18@gmail.com", "Kubernetes@cmpe")
+			d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
+			if err := d.DialAndSend(m); err != nil {
 				fmt.Println(err)
+				panic(err)
 			}
 
 		}
 
 
-	} else {
+	}else if item=="Pod" {
 		if metric_type=="memory"{
-			m1:="The memory usage of Pod:"
+			m1:="The Memory usage of Pod: "
 			m2:=item_name
 			m3:=" is above threshold. Memory Usage:"
-			m4:=metric_val/1024
+			m4:=metric_val
 			m5:="Mi"
-			message=[]byte(m1+m2+m3+strconv.FormatInt(m4, 10)+m5)
+			subject:=item_name+" Pod memory usage Alert"
+			m.SetHeader("Subject", subject)
+			message:=m1+m2+m3+strconv.FormatInt(m4, 10)+m5
+			m.SetBody("text/plain", message)
 
-			auth := smtp.PlainAuth("", from, password, smtpServer.host)
-			err := smtp.SendMail(smtpServer.Address(), auth, from, to, message)
-			if err != nil {
+			d := gomail.NewDialer("smtp.gmail.com", 587, "cmpe272team18@gmail.com", "Kubernetes@cmpe")
+			d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
+			if err := d.DialAndSend(m); err != nil {
 				fmt.Println(err)
+				panic(err)
 			}
 
-		} else {
-			m1:="The CPU usage of Pod:"
+		} else if metric_type== "cpu" {
+			m1:="The CPU usage of Pod: "
 			m2:=item_name
-			m3:=" is above threshold. CPU Usage:"
+			m3:=" is above threshold. /n CPU Usage:"
 			m4:=metric_val
 			m5:="mCores"
-			message=[]byte(m1+m2+m3+strconv.FormatInt(m4, 10)+m5)
-			message=[]byte(m1+m2+m3+strconv.FormatInt(m4, 10))
+			subject:=item_name+" Pod CPU usage Alert"
+			m.SetHeader("Subject", subject)
+			message:=m1+m2+m3+strconv.FormatInt(m4, 10)+m5
+			m.SetBody("text/plain", message)
 
-			auth := smtp.PlainAuth("", from, password, smtpServer.host)
-			err := smtp.SendMail(smtpServer.Address(), auth, from, to, message)
-			if err != nil {
+			d := gomail.NewDialer("smtp.gmail.com", 587, "cmpe272team18@gmail.com", "Kubernetes@cmpe")
+			d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
+			if err := d.DialAndSend(m); err != nil {
 				fmt.Println(err)
+				panic(err)
 			}
+
 
 		}
 	}
