@@ -2,29 +2,33 @@ package getIntVals
 
 import (
 	"SavvyK8s/k8api/model"
+	"fmt"
 	"strconv"
 )
 
 func GetIntVals(PodResponseObject model.PodMetrics,NodeResponseObject model.NodeMetrics)(model.PodMetrics, model.NodeMetrics){
 
-	for  i:=0;i<len(PodResponseObject.Pods);i++{
-		for j:=0;j<len(PodResponseObject.Pods[i].Containers);j++{
-			var TotalPodCpu int64
-			var TotalPodMem int64
-			for k:=0;k<len(PodResponseObject.Pods[i].Containers[j].ContainerUsages);j++{
-				PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].CpuInt,PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].MemoryInt = convertInt(PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].Cpu, PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].Memory)
+	fmt.Println("In get Int func")
+	var TotalPodCpu int64
+	var TotalPodMem int64
 
-				TotalPodCpu =TotalPodCpu + PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].CpuInt
-				TotalPodMem =TotalPodMem + PodResponseObject.Pods[i].Containers[j].ContainerUsages[k].MemoryInt
-			}
-			PodResponseObject.Pods[j].Cpu=TotalPodCpu
-			PodResponseObject.Pods[j].Memory=TotalPodMem
+
+	for i:=0;i<len(PodResponseObject.Pods);i++{
+		TotalPodMem = 0
+		TotalPodCpu = 0
+		for j:=0;j<len(PodResponseObject.Pods[i].Containers);j++{
+
+			PodResponseObject.Pods[i].Containers[j].ContainerUsages.CpuInt, PodResponseObject.Pods[i].Containers[j].ContainerUsages.MemoryInt = convertInt(PodResponseObject.Pods[i].Containers[j].ContainerUsages.Cpu, PodResponseObject.Pods[i].Containers[j].ContainerUsages.Memory)
+			TotalPodCpu = TotalPodCpu + PodResponseObject.Pods[i].Containers[j].ContainerUsages.CpuInt
+			TotalPodMem = TotalPodMem + PodResponseObject.Pods[i].Containers[j].ContainerUsages.MemoryInt
 
 		}
 
+		PodResponseObject.Pods[i].Cpu=TotalPodCpu
+		PodResponseObject.Pods[i].Memory=TotalPodMem
+
+
 	}
-
-
 	for i:=0;i<len(NodeResponseObject.Nodes);i++{
 		NodeResponseObject.Nodes[i].NodeUsages.CpuInt,NodeResponseObject.Nodes[i].NodeUsages.MemoryInt=convertInt(NodeResponseObject.Nodes[i].NodeUsages.Cpu,NodeResponseObject.Nodes[i].NodeUsages.Memory)
 	}
