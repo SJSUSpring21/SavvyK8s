@@ -1,12 +1,40 @@
 .header {
-  background-color: #5bc5a7;
+  background-color: rgb(49, 47, 47);
   margin: 0px auto;
-
   width: auto;
-
-  border-bottom: 1px solid #48be9d;
+  /* border-bottom: 1px solid #48be9d; */
   box-shadow: 0 0 3px rgb(0 0 0 / 50%);
+ 
+  
 }
+.headerContainer{
+  display: grid;
+  grid-template-columns: 230px 1200px;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "left-side-header center-area-header "
+    "left-side-header center-area-header "
+    "left-side-header center-area-header "
+}
+.left-side-header{
+  /* border-right: 1px solid black; */
+  box-shadow: 0 0 3px rgb(0 0 0 / 50%);
+  height:100%;
+  box-shadow: 0 0 18px -2px black;
+}
+.headerName{
+  color:white;
+  font-size: 25px;
+   margin-top:15px;
+   font-weight:bold;
+  
+   
+
+}
+ /* .borderHeader{
+  border-right: 1px solid #eee;
+  height: 50px;
+} */
 .login-header {
   width: 940px;
   height: 48px;
@@ -28,7 +56,7 @@
   margin-right: 4px;
   margin-left: 5px;
   text-shadow: 0 -1px 0 #318970;
-  background: #5bc5a7;
+  background: #6a0ee2;
   color: #ffffff;
   border: 1px solid #cccccc;
   font-size: 14px;

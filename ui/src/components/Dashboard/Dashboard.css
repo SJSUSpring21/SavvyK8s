@@ -4,8 +4,8 @@
   padding-top: 33px;
   background: #fff;
   min-height: auto;
-  width: 40%;
-  width:700px;
+  width: auto;
+  background-color: grey;
 }
 .grid-container-owe {
   display: grid;
@@ -15,4 +15,87 @@
     "owe owed"
     "owe owed"
     "owe owed" ;
+}
+.common{
+  box-shadow: 0 0 18px -2px black;
+  border-radius: 10px;
+  color:white;
+}
+ .memory{
+  height: 130px;
+  width: 180px;
+  background-image:linear-gradient(red, purple);
+  font-size: 25px;
+}
+ .memoryData{
+  font-size:25px;
+  margin-top:130px;
+  margin-left:5rem;
+}
+ .cpu{
+  height: 130px;
+  width: 180px;
+  background-image:linear-gradient(#2EEC10, #1085EC);
+  font-size: 25px;
+  margin-left: 45px;
+}
+ .cpuData{
+  font-size:25px;
+  margin-top:100px;
+  margin-left:50px
+}
+
+.grid-container-metric {
+  display: grid;
+  grid-template-columns: 175px 175px 300px 175px;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "memory cpu thresholdMemory thresholdCPU"
+    "memory cpu thresholdMemory thresholdCPU"
+    "memory cpu thresholdMemory thresholdCPU" ;
+}
+/* .grid-container-metric2 {
+  display: grid;
+  grid-template-columns: 175px 175px;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "thresholdMemory thresholdCPU"
+    "thresholdMemory thresholdCPU"
+    "thresholdMemory thresholdCPU";
+} */
+.thresholdMemory{
+  height: 130px;
+  width: 150px;
+  background-image:linear-gradient(red, purple);
+  font-size: 30px;
+  margin-left: 140px;
+}
+.thresholdCPU{
+  height: 130px;
+  width: 150px;
+  background-image:linear-gradient(#2EEC10, #1085EC);
+  font-size: 30px;
+  margin-left: 15px;
+}
+.thresholdMemoryData{
+  font-size:40px;
+  margin-top:130px;
+  margin-left:30px
+}
+.thresholdCPUData{
+  font-size:40px;
+  margin-top:130px;
+  margin-left:30px
+
+}
+.graph{
+  /* border-radius: 150px;
+  outline: 1px solid grey;
+  width: 400px;
+  height: 400px;
+  margin-right: 100px; */
+}
+
+.graphs{
+  margin-left: 100px;
 }

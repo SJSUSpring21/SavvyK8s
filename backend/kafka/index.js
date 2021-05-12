@@ -8,7 +8,12 @@ const allTopics = {
     SIGNUP_RES: 'signup-res-272',
     LOGIN_API:'login-check-272',
     LOGIN_RES:'login-res-272',
-    
+    APP_REG_API:'app-reg',
+    APP_REG_RES:'app-reg-res',
+    APP_CUST_API:'app-cust-reg',
+    APP_CUST_RES:'app-cust-reg-res',
+    CUST_REG_APP_API:'cust-reg-app',
+    CUST_REG_APP_RES:'cust-reg-app-res'    
 };
 
 
@@ -77,7 +82,26 @@ async function kafka() {
             delete awaitCallbacks[token];
         }
     });
+    subscribe(allTopics.APP_REG_RES, ({token, resp, success}) => {
+     if (awaitCallbacks.hasOwnProperty(token)) {
+            awaitCallbacks[token][success ? 0 : 1](resp);
+            delete awaitCallbacks[token];
+        }
+    });
+    subscribe(allTopics.APP_CUST_RES, ({token, resp, success}) => {
+        if (awaitCallbacks.hasOwnProperty(token)) {
+               awaitCallbacks[token][success ? 0 : 1](resp);
+               delete awaitCallbacks[token];
+           }
+       });
+       subscribe(allTopics.CUST_REG_APP_RES, ({token, resp, success}) => {
+        if (awaitCallbacks.hasOwnProperty(token)) {
+               awaitCallbacks[token][success ? 0 : 1](resp);
+               delete awaitCallbacks[token];
+           }
+       });
     
+       
     return {
         send,
         subscribe,
@@ -94,8 +118,26 @@ async function kafka() {
             awaitCallbacks[token] = [resolve, reject];
             send(allTopics.LOGIN_API, {fn, params, token});
         }),
-
-    
+        appRegistration: (fn, ...params) => new Promise((resolve, reject) => {
+            const token = crypto.randomBytes(64).toString('hex');
+            console.log('token::,fn,params',token,fn,params)
+            awaitCallbacks[token] = [resolve, reject];
+            send(allTopics.APP_REG_API, {fn, params, token});
+        }),
+        saveAppCustDtls: (fn, ...params) => new Promise((resolve, reject) => {
+            const token = crypto.randomBytes(64).toString('hex');
+            console.log('token::,fn,params',token,fn,params)
+            awaitCallbacks[token] = [resolve, reject];
+            send(allTopics.APP_CUST_API, {fn, params, token});
+        }),
+        fetchCustAppPodDtls: (fn, ...params) => new Promise((resolve, reject) => {
+            const token = crypto.randomBytes(64).toString('hex');
+            console.log('token::,fn,params',token,fn,params)
+            awaitCallbacks[token] = [resolve, reject];
+            send(allTopics.CUST_REG_APP_API, {fn, params, token});
+        }),
+        
+        
     };
 }
 

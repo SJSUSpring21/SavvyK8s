@@ -16,18 +16,21 @@
   border-radius: 5px;
   box-shadow: 0 2px 0 0 rgb(55 59 63 / 50%);
 }
+
 .login {
   cursor: pointer;
-  color: #1cc29f;
+  color: #200cd8;
   padding: 0px 16px;
   text-decoration: inherit;
   border: 0px;
 }
+
 .toolbar {
   background-color: #ffffff;
   border: 0px;
   padding: 20px 32px;
 }
+
 .dummy {
   flex-grow: 1;
   display: block;

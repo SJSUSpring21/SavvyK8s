@@ -6,8 +6,7 @@ import splitwisewithoutname from "../../assets/images/kubernetes.svg";
 import "./Login.css";
 import splitwisewhite from "../../assets/images/splitwisewhite.svg";
 import LoginHeader from "./Header/LoginHeader";
-import { connect } from "react-redux";
-import { login } from "../../redux/actions/index";
+
 import config from '../../config.json';
 class Login extends Component {
   constructor(props) {
@@ -21,7 +20,8 @@ class Login extends Component {
       custPhoneNumber: "",
       countryCode: "",
       imageId: 0,
-      token: ""
+      token: "",
+      image:""
     };
   }
   loginIdChanged = e => {
@@ -62,7 +62,8 @@ class Login extends Component {
             custName: response.data.custName,
             custPhoneNumber: response.data.custPhoneNumber,
 
-            countryCode: "",
+            countryCode: response.data.countryCodeId,
+            image:response.data.image,
 
             token: response.data.token
           });
@@ -94,68 +95,64 @@ class Login extends Component {
         custId: this.state.custId,
         custName: this.state.custName,
         custPhoneNumber: phoneNumber,
+        countryCode: this.state.countryCode,
+        image:this.state.image
       };
-      this.props.login({ custDetails });
+
       sessionStorage.setItem("custDetails", JSON.stringify(custDetails));
       this.props.history.push({
         pathname: "/home",
         custDetails: {
           loginUserId: this.state.loginUserId,
           custId: this.state.custId,
-          custName: this.state.custName
+          custName: this.state.custName,
+          countryCode: this.state.countryCode,
+          image:this.state.image
+
         }
       });
     }
     //console.log(this.state.loginSuccessful);
     return (
+    
       <div className="main-container">
         <LoginHeader />
         <form onSubmit={this.checkAuthentication}>
-          <div className="login-container">
-            <img
-              height="200"
-              width="200"
-              className="login-img"
-              alt="splitwise"
-              src={splitwisewithoutname}
-            />
-            <div className="login-content">
-              <h2>WELCOME TO KUBERNETES DASHBAORD LOGIN</h2>
-              <div className="login-email-label">Email address</div>
-              <input
-                type="email"
-                name="email"
-                data-testid="email-test"
-                placeholder="Email"
-                onChange={this.loginIdChanged}
-                required
+            <div className="login-container">
+              <img
+                height="200"
+                width="200"
+                className="login-img"
+                alt="splitwise"
+                src={splitwisewithoutname}
               />
-              <div className="login-email-label">Password</div>
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                onChange={this.passwordChanged}
-                required
-              />
+              <div className="login-content">
+                <h2>WELCOME TO KUBERNETES DASHBOARD</h2>
+                <div className="login-email-label">Email address</div>
+                <input
+                  type="email"
+                  name="email"
+                  data-testid="email-test"
+                  placeholder="Email"
+                  onChange={this.loginIdChanged}
+                  required
+                />
+                <div className="login-email-label">Password</div>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={this.passwordChanged}
+                  required
+                />
 
-              <button type="submit">Log in</button>
+                <button type="submit">Log in</button>
+              </div>
             </div>
-          </div>
         </form>
       </div>
     );
   }
 }
-function mapDispatchToProps(dispatch) {
-  return {
-    login: loginDetails => dispatch(login(loginDetails))
-  };
-}
-const logind = connect(
-  null,
-  mapDispatchToProps
-)(Login);
-export default logind;
-//export default Login;
+export default Login;
 

@@ -1,6 +1,7 @@
 const config = {
-    mongoDB: 'mongodb+srv://admin:admin@cluster0.mibjx.mongodb.net/KubernetesMetrics?retryWrites=true&w=majority',
+    mongoDB: 'mongodb+srv://admin:admin123@cluster0.lnxpp.mongodb.net/kubernetes-metrics?retryWrites=true&w=majority',
     secret:'Kubernetes-metrics'
+
 };
 
 module.exports = config;

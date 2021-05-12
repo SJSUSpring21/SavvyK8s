@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 var appMetricsSchema = new Schema({
     _id: {type: Number, required: true},
     custId: {type: Number,  ref: 'customers',required: true},
-    appId:{type: Number,  ref: 'userApplications',required: true},
+    appId:{type: Number,  ref: 'custApplications',required: true},
     podId:{type:Number,ref:'podsConfig',required:true},
     metricsTypeId:{type: Number, ref: 'metricsType',required: true},
     metricsData:{type:Number,required:false},

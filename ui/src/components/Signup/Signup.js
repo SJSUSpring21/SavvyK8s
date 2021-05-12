@@ -3,8 +3,7 @@ import React, { Component } from "react";
 import splitwisewithoutname from "../../assets/images/kubernetes.svg";
 import "./Signup.css";
 import axios from "axios";
-import { connect } from "react-redux";
-import { signup } from "../../redux/actions/index";
+import LoginHeader from "../Login/Header/LoginHeader";
 import config from '../../config.json';
 
 class Signup extends Component {
@@ -18,7 +17,8 @@ class Signup extends Component {
       custPhoneNumber:"",
       countryCode:0,
       signUpDone: false,
-      token:""
+      token:"",
+      image:""
     };
   }
   custNameChanged = e => {
@@ -74,12 +74,12 @@ countryCodeChanged  =e=>{
             custEmail:response.data.custEmail,
             loginUserId:response.data.custEmail,
             custPhoneNumber:response.data.custPhoneNumber,
-            countryCode:response.data.countryCode,
+            countryCode:response.data.countryCodeId,
+            image:"",
           
            
            token:response.data.token
           }
-          this.props.signup({custDetails});
           sessionStorage.setItem("custDetails", JSON.stringify(custDetails));
           this.setState({
             signUpDone: true,
@@ -104,10 +104,17 @@ countryCodeChanged  =e=>{
   render() {
    if (this.state.token.length>0) {
       sessionStorage.setItem("token",this.state.token);
-      this.props.history.push("/home", {
-        loginUserId: this.state.custEmail,
+      const custDetails = {
         custId: this.state.custId,
-        custName: this.state.custName
+        custName: this.state.custName,
+        custEmail:this.state.custEmail,
+        loginUserId:this.state.custEmail,
+        custPhoneNumber:this.state.custPhoneNumber,
+        countryCode:this.state.countryCode,
+        image:this.state.image
+      };
+      this.props.history.push("/appRegistration", {
+        custDetails:  custDetails
       });
     }
     let emailAndPasswd = null;
@@ -152,44 +159,35 @@ countryCodeChanged  =e=>{
       );
     }
     return (
-      <div className="main-container">
-        <form onSubmit={this.signUp}>
-          <div className="signup-header"></div>
-          <div className="signup-container">
-            <img
-              height="200"
-              width="200"
-              className="signup-img"
-              alt="splitwise"
-              src={splitwisewithoutname}
-            />
-            <div className="signup-content">
-              <h2>Introduce Yourself</h2>
-              <div className="signup-name-label">Hi there! My name is</div>
+        
+          <div className="main-container">
+            <LoginHeader />
+            <form onSubmit={this.signUp}>
+              <div className="signup-container">
+                <img
+                  height="200"
+                  width="200"
+                  className="signup-img"
+                  alt="splitwise"
+                  src={splitwisewithoutname}
+                />
+                <div className="signup-content">
+                  <h2>Introduce Yourself</h2>
+                  <div className="signup-name-label">Hi there! My name is</div>
 
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                onChange={this.custNameChanged}
-              />
-              {emailAndPasswd}
-            </div>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    onChange={this.custNameChanged}
+                  />
+                  {emailAndPasswd}
+                </div>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
     );
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    signup: signupDetails => dispatch(signup(signupDetails))
-  };
-}
-const signupd = connect(
-  null,
-  mapDispatchToProps
-)(Signup);
-export default signupd;
-//export default Signup;
+export default Signup;
