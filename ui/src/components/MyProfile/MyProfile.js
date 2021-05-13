@@ -281,9 +281,11 @@ uploadedImage=(event)=>{
 //  console.log(typeof event.target.result)
  
 
-
+const custDetails=this.state.updatedCustdetails;
+custDetails.image=event.target.result;
        this.setState({
         imageData:event.target.result,
+        updatedCustdetails:custDetails,
         imageUploaded:true
       })
      };
@@ -303,10 +305,7 @@ this.props.history.push("/home")
      let custEmailEdit=null;
      let custPhnEdit=null;
      let custPasswdEdit=null;
-     let currencyDtls=null;
-     let timezoneDtls=null;
-     let langDtls=null;
-    // let countryCodes=null;
+ 
      const phnNumber=this.state.custDetails.custPhoneNumber?this.state.custDetails.custPhoneNumber:'None';
 if(!this.state.enableNameText)
 custNameEdit=( <span className="editDetails" onClick={this.enableNameEdit} ><span style={{color:'black'}}>{this.state.custDetails.custName}</span><CreateIcon/>edit</span>);

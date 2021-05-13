@@ -192,8 +192,7 @@ if(graph==='graph3'){
       width={500}
       height={300}
       data={this.state.metricData}
-      style={{borderRadius: "150px",
-      outline: "1px solid white",
+      style={{
       width: "500px",
       height: "300px",marginRight:"400px",backgroundColor:'white'}}
       margin={{
@@ -214,8 +213,8 @@ if(graph==='graph3'){
    }
    else if(this.state.metricDataFlag&&this.state.metricData.length>0&&this.state.selectedGraphId===2/*&&this.state.selectedMetricId>0*/)
    {
-    graph1Desc = (<span style={{ fontSize: "20px", marginLeft: "450px" }}>Memory(Mb)<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph2')}/></span>)
-    graphDesc = (<span style={{ fontSize: "20px", marginLeft: "175px" }}>CPU(cores)<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph1')}/></span>)
+    graph1Desc = (<span style={{ fontSize: "20px", marginLeft: "375px" }}>Memory(Mi)<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph2')}/></span>)
+    graphDesc = (<span style={{ fontSize: "20px", marginLeft: "150px" }}>CPU(cores)<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph1')}/></span>)
  
     graph=( <div id="cpugraph"><AreaChart
       width={400}
@@ -234,7 +233,7 @@ if(graph==='graph3'){
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
-      <YAxis />
+      <YAxis domain={[0, 500]}/>
       <Tooltip />
       <Area type="monotone" dataKey="cpu" stroke="#8884d8" fill="red" />
     </AreaChart></div>
@@ -257,7 +256,7 @@ if(graph==='graph3'){
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
-      <YAxis />
+      <YAxis domain={[0, 1500]}/>
       <Tooltip />
       <Area type="monotone" dataKey="memory" stroke="#8884d8" fill="red" />
     </AreaChart>
@@ -339,21 +338,27 @@ if(graph==='graph3'){
                 <img className="mt-2" style={{float:'left'}} height="50px" width="50px" src={memory}/>
                 <center><b>Memory</b></center>
                 <span className="memoryData">{this.state.memory? this.state.memory:0}</span>
+                <br/>
+                <span style={{marginLeft:'75px'}}>Mi</span>
               </div>
               <div className="cpu common">
-                <img className="mt-2" style={{float:'left'}} height="60px" width="40px" src={cpu}/>
+                <img className="mt-2" style={{float:'left'}} height="60px" width="50px" src={cpu}/>
                 <center><b>CPU</b></center>
-                <span className="cpuData">{this.state.cpu?this.state.cpu:0}</span>
+                <span className="cpuData">{this.state.cpu?this.state.cpu:0}</span><br/>
+                <span style={{marginLeft:'75px'}}>cores</span>
               </div>
               <div className="thresholdMemory common">
               <img style={{float:'left'}} className="mt-4" height="50px" width="50px" src={memory}/>
               <center><b >Memory</b></center>
                 <span className="thresholdMemoryData">{this.state.memory}</span>
+                <br/>
+                <span style={{marginLeft:'75px'}}>Mi</span>
               </div>
               <div className="thresholdCPU common">
               <img style={{float:'left'}} className="mt-3" height="60px" width="50px" src={cpu}/>
               <center><b >CPU</b></center>
-                <span className="thresholdCPUData">{this.state.cpu}</span>
+                <span className="thresholdCPUData">{this.state.cpu}</span><br/>
+               <span style={{marginLeft:'75px'}}>cores</span>
               </div>
             </div>
           </section>

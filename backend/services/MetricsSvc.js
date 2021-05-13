@@ -17,17 +17,17 @@ module.exports = {
        {
            for(const metric of metricsData)
            {
-               console.log("metric:",metric)
+           //    console.log("metric:",metric)
            
 
-               console.log('metric time',metric.createdDate);
+           //    console.log('metric time',metric.createdDate);
              const metricTime=moment(metric.createdDate,'YYYY-MM-DD hh:mm:ss').format("hh:mm:ss")
              let metricRes={
                  name:metricTime,
                  memory:metric.metrics.memory,
                  cpu:metric.metrics.cpu
              }
-             console.log(metricRes)
+            // console.log(metricRes)
              metricsDataList.push(metricRes);
            }
 
@@ -73,7 +73,7 @@ module.exports = {
     
                 }
                 else{
-                    console.log(nodeData);
+                 //   console.log(nodeData);
                     return resolve(nodeData);
                 }
             })

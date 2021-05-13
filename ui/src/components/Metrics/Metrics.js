@@ -238,8 +238,8 @@ class Metrics extends Component {
     }
     else if (this.state.metricDataFlag && this.state.metricData.length > 0 && this.state.selectedGraphId === 2) {
     
-      graphDesc = (<span style={{ fontSize: "20px", marginLeft: "175px" }}>CPU<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph1')}/></span>)
-      graph1Desc = (<span style={{ fontSize: "20px", marginLeft: "450px" }}>Memory<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph2')}/></span>)
+      graphDesc = (<span style={{ fontSize: "20px", marginLeft: "150px" }}>CPU(cores)<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph1')}/></span>)
+      graph1Desc = (<span style={{ fontSize: "20px", marginLeft: "375px" }}>Memory(Mi)<GetAppIcon fontSize='large' onClick={()=>this.handleDownload('graph2')}/></span>)
       console.log('inside')
       graph = (<div id="cpugraph"><AreaChart
         width={400}
@@ -332,21 +332,28 @@ class Metrics extends Component {
       <img style={{float:'left'}} className="mt-4" height="50px" width="50px" src={memory}/>
         <center><b>Memory</b></center>
         <span className="memoryData">{this.state.memory}</span>
+        <br/>
+                <span style={{marginLeft:'75px'}}>Mi</span>
       </div>
       <div className="cpu common">
       <img style={{float:'left'}} className="mt-3" height="60px" width="50px" src={cpu}/>
         <center><b>CPU</b></center>
         <span className="cpuData">{this.state.cpu}</span>
+        <br/>
+                <span style={{marginLeft:'75px'}}>cores</span>
       </div>
       <div className="thresholdMemory common">
               <img style={{float:'left'}} className="mt-4" height="50px" width="50px" src={memory}/>
               <center><b >Memory</b></center>
                 <span className="thresholdMemoryData">{this.state.memory}</span>
+                <br/>
+                <span style={{marginLeft:'75px'}}>Mi</span>
               </div>
               <div className="thresholdCPU common">
               <img style={{float:'left'}} className="mt-3" height="60px" width="50px" src={cpu}/>
               <center><b >CPU</b></center>
-                <span className="thresholdCPUData">{this.state.cpu}</span>
+                <span className="thresholdCPUData">{this.state.cpu}</span><br/>
+                <span style={{marginLeft:'75px'}}>cores</span>
               </div>
     </div>
    
