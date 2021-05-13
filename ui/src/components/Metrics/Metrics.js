@@ -261,7 +261,7 @@ class Metrics extends Component {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
-        <YAxis domain={[0, 500]}/>
+        <YAxis domain={[0, 1000]}/>
         <Tooltip />
         <Area type="monotone" dataKey="cpu" stroke="#8884d8" fill="red" />
       </AreaChart></div>
@@ -286,7 +286,7 @@ class Metrics extends Component {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
-          <YAxis domain={[0, 1500]}/>
+          <YAxis domain={[0, 3000]}/>
           <Tooltip />
           <Area type="monotone" dataKey="memory" stroke="#8884d8" fill="#8884d8" />
         </AreaChart></div>)
@@ -345,14 +345,14 @@ class Metrics extends Component {
       <div className="thresholdMemory common">
               <img style={{float:'left'}} className="mt-4" height="50px" width="50px" src={memory}/>
               <center><b >Memory</b></center>
-                <span className="thresholdMemoryData">{this.state.memory}</span>
+                <span className="thresholdMemoryData">2700</span>
                 <br/>
                 <span style={{marginLeft:'75px'}}>Mi</span>
               </div>
               <div className="thresholdCPU common">
               <img style={{float:'left'}} className="mt-3" height="60px" width="50px" src={cpu}/>
               <center><b >CPU</b></center>
-                <span className="thresholdCPUData">{this.state.cpu}</span><br/>
+                <span className="thresholdCPUData">1000</span><br/>
                 <span style={{marginLeft:'75px'}}>cores</span>
               </div>
     </div>

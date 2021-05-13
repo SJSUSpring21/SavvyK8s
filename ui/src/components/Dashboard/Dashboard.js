@@ -233,7 +233,7 @@ if(graph==='graph3'){
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
-      <YAxis domain={[0, 500]}/>
+      <YAxis domain={[0, 200]}/>
       <Tooltip />
       <Area type="monotone" dataKey="cpu" stroke="#8884d8" fill="red" />
     </AreaChart></div>
@@ -256,7 +256,7 @@ if(graph==='graph3'){
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
-      <YAxis domain={[0, 1500]}/>
+      <YAxis domain={[0, 200]}/>
       <Tooltip />
       <Area type="monotone" dataKey="memory" stroke="#8884d8" fill="red" />
     </AreaChart>
@@ -350,14 +350,14 @@ if(graph==='graph3'){
               <div className="thresholdMemory common">
               <img style={{float:'left'}} className="mt-4" height="50px" width="50px" src={memory}/>
               <center><b >Memory</b></center>
-                <span className="thresholdMemoryData">{this.state.memory}</span>
+                <span className="thresholdMemoryData">200</span>
                 <br/>
                 <span style={{marginLeft:'75px'}}>Mi</span>
               </div>
               <div className="thresholdCPU common">
               <img style={{float:'left'}} className="mt-3" height="60px" width="50px" src={cpu}/>
               <center><b >CPU</b></center>
-                <span className="thresholdCPUData">{this.state.cpu}</span><br/>
+                <span className="thresholdCPUData">200</span><br/>
                <span style={{marginLeft:'75px'}}>cores</span>
               </div>
             </div>
