@@ -18,7 +18,7 @@ func main(){
 	k8Proxy.K8sProxy()
 
 
-	for i:=0;i<100;i++{
+	for i:=0;i<200;i++{
 
 		var PodResponseObject model.PodMetrics
 		var NodeResponseObject model.NodeMetrics
