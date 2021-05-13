@@ -28,3 +28,5 @@ Graphical representation of metrics, aggregated data and email or browser notifi
 The target audience will be software engineers, devops engineers, project managers etc.
 
 
+## Architecture:
+![SavvyK8s](https://user-images.githubusercontent.com/37712842/118068320-0443a200-b357-11eb-8385-10a70a37373c.jpeg)
